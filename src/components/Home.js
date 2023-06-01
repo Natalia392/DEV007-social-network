@@ -8,11 +8,11 @@ export const Home = (onNavigate) => {
   buttonRegister.textContent = 'Regístrate';
   buttonLogin.textContent = 'Inicia Sesión';
 
-  buttonRegister.addEventListener('click', () => {
+  buttonLogin.addEventListener('click', () => {
     onNavigate('/login');
   });
 
-  buttonLogin.addEventListener('click', () => {
+  buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
 

@@ -25,15 +25,7 @@ export const onNavigate = (pathname) => {
   rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
 };
 
-window.onpopstate = () => {
-  while (rootDiv.firstChild) {
-    rootDiv.removeChild(rootDiv.firstChild);
-  }
-  rootDiv.appendChild(routes[window.location.pathname](onNavigate));
-};
-rootDiv.appendChild(routes[window.location.pathname](onNavigate));
-
-/* const handlePopstate = () => {
+const handlePopstate = () => {
   while (rootDiv.firstChild) {
     rootDiv.removeChild(rootDiv.firstChild);
   }
@@ -46,4 +38,4 @@ window.onpopstate = handlePopstate;
 
 const currentPath = window.location.pathname;
 const component = routes[currentPath];
-rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente */
+rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
