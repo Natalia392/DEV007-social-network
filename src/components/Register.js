@@ -1,4 +1,4 @@
-export const Register = () => {
+export const Register = (onNavigate) => {
   const RegisterDiv = document.createElement('div');
   const nameRegister = document.createElement('p');
   const inputNameRegister = document.createElement('input');
