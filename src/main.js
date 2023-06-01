@@ -6,13 +6,7 @@ import { Login } from './components/Login.js';
 
 const rootDiv = document.getElementById('root');
 
-const routes = {
-  '/': Home,
-  '/login': Login,
-  '/register': Register,
-};
-
-export const onNavigate = (pathname) => {
+const onNavigate = (pathname) => {
   window.history.pushState(
     {},
     pathname,
@@ -26,6 +20,19 @@ export const onNavigate = (pathname) => {
   rootDiv.appendChild(routes[pathname]());
 };
 
-const component = routes[window.location.pathname];
+const routes = {
+  '/': Home(onNavigate),
+  '/login': Login(onNavigate),
+  '/register': Register(onNavigate),
+};
+
+const component = () => routes[window.location.pathname];
+
+window.onpopstate = () => {
+  while (rootDiv.firstChild) {
+    rootDiv.removeChild(rootDiv.firstChild);
+  }
+  rootDiv.appendChild(routes[window.location.pathname]);
+};
 
 rootDiv.appendChild(component());
