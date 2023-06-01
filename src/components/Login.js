@@ -7,5 +7,10 @@ export const Login = (onNavigate) => {
 
   HomeDiv.appendChild(buttonHome);
 
+  buttonHome.addEventListener("click", () => {
+    onNavigate("/");
+  });
+  
+
   return HomeDiv;
 };

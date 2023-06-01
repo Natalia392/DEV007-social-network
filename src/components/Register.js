@@ -19,4 +19,10 @@ export const Register = (onNavigate) => {
   RegisterDiv.appendChild(inputEmailRegister);
   RegisterDiv.appendChild(inputCreatePassword);
   RegisterDiv.appendChild(buttonCreateAcount);
+
+  buttonLogin.addEventListener("click", () => {
+    onNavigate("/");
+  });
+
+  return RegisterDiv;
 };

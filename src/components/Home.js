@@ -9,11 +9,11 @@ export const Home = (onNavigate) => {
   buttonLogin.textContent = "Inicia Sesión";
 
   buttonRegister.addEventListener("click", () => {
-    onNavigate("/login");
+    onNavigate("/Register");
   });
 
   buttonLogin.addEventListener("click", () => {
-    onNavigate("/login");
+    onNavigate("/Login");
   });
 
   HomeDiv.appendChild(buttonRegister);
