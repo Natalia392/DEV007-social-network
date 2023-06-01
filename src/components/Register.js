@@ -6,7 +6,7 @@ export const Register = (onNavigate) => {
   const inputEmailRegister = document.createElement('input');
   const passwordRegister = document.createElement('p');
   const inputCreatePassword = document.createElement('input');
-  const buttonCreateAcount = document.createElement("button");
+  const buttonCreateAcount = document.createElement('button');
 
   nameRegister.textContent = 'Nombre';
   emailRegister.textContent = 'Correo';
@@ -19,4 +19,6 @@ export const Register = (onNavigate) => {
   RegisterDiv.appendChild(inputEmailRegister);
   RegisterDiv.appendChild(inputCreatePassword);
   RegisterDiv.appendChild(buttonCreateAcount);
+  
+  return RegisterDiv;
 };
