@@ -1,12 +1,16 @@
-// Este es el punto de entrada de tu aplicacion
-
 import { Home } from './components/Home.js';
 import { Register } from './components/Register.js';
 import { Login } from './components/Login.js';
 
 const rootDiv = document.getElementById('root');
 
-const onNavigate = (pathname) => {
+const routes = {
+  '/': Home,
+  '/login': Login,
+  '/register': Register,
+};
+
+export const onNavigate = (pathname) => {
   window.history.pushState(
     {},
     pathname,
@@ -17,22 +21,29 @@ const onNavigate = (pathname) => {
     rootDiv.removeChild(rootDiv.firstChild);
   }
 
-  rootDiv.appendChild(routes[pathname]());
+  const component = routes[pathname];
+  rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
 };
-
-const routes = {
-  '/': Home(onNavigate),
-  '/login': Login(onNavigate),
-  '/register': Register(onNavigate),
-};
-
-const component = () => routes[window.location.pathname];
 
 window.onpopstate = () => {
   while (rootDiv.firstChild) {
     rootDiv.removeChild(rootDiv.firstChild);
   }
-  rootDiv.appendChild(routes[window.location.pathname]);
+  rootDiv.appendChild(routes[window.location.pathname](onNavigate));
+};
+rootDiv.appendChild(routes[window.location.pathname](onNavigate));
+
+/* const handlePopstate = () => {
+  while (rootDiv.firstChild) {
+    rootDiv.removeChild(rootDiv.firstChild);
+  }
+
+  const component = routes[window.location.pathname];
+  rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
 };
 
-rootDiv.appendChild(component());
+window.onpopstate = handlePopstate;
+
+const currentPath = window.location.pathname;
+const component = routes[currentPath];
+rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente */
