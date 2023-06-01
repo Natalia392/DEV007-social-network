@@ -1,4 +1,4 @@
-export const Register = () => {
+export const Register = (onNavigate) => {
   const RegisterDiv = document.createElement('div');
   const nameRegister = document.createElement('p');
   const inputNameRegister = document.createElement('input');
@@ -6,7 +6,7 @@ export const Register = () => {
   const inputEmailRegister = document.createElement('input');
   const passwordRegister = document.createElement('p');
   const inputCreatePassword = document.createElement('input');
-  const buttonCreateAcount = document.createElement('button');
+  const buttonCreateAcount = document.createElement("button");
 
   nameRegister.textContent = 'Nombre';
   emailRegister.textContent = 'Correo';
