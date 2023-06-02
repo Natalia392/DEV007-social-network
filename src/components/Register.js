@@ -10,15 +10,15 @@ export const Register = (onNavigate) => {
 
   nameRegister.textContent = 'Nombre';
   emailRegister.textContent = 'Correo';
-  passwordRegister.textContent = 'Constraseña';
+  passwordRegister.textContent = 'Contraseña';
   buttonCreateAcount.textContent = 'Crear cuenta';
 
   RegisterDiv.appendChild(nameRegister);
   RegisterDiv.appendChild(inputNameRegister);
   RegisterDiv.appendChild(emailRegister);
   RegisterDiv.appendChild(inputEmailRegister);
+  RegisterDiv.appendChild(passwordRegister);
   RegisterDiv.appendChild(inputCreatePassword);
   RegisterDiv.appendChild(buttonCreateAcount);
-
   return RegisterDiv;
 };
