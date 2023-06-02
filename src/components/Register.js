@@ -19,6 +19,6 @@ export const Register = (onNavigate) => {
   RegisterDiv.appendChild(inputEmailRegister);
   RegisterDiv.appendChild(inputCreatePassword);
   RegisterDiv.appendChild(buttonCreateAcount);
-  
+
   return RegisterDiv;
 };
