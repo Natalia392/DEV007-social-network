@@ -1,13 +1,13 @@
-import { Home } from "./components/Home.js";
-import { Register } from "./components/Register.js";
-import { Login } from "./components/Login.js";
+import { Home } from './components/Home.js';
+import { Register } from './components/Register.js';
+import { Login } from './components/Login.js';
 
-const rootDiv = document.getElementById("root");
+const rootDiv = document.getElementById('root');
 
 const routes = {
-  "/": Home,
-  "/login": Login,
-  "/register": Register,
+  '/': Home,
+  '/login': Login,
+  '/register': Register,
 };
 
 export const onNavigate = (pathname) => {
@@ -18,9 +18,7 @@ export const onNavigate = (pathname) => {
   }
 
   const component = routes[pathname];
-  if (component) {
-    rootDiv.appendChild(component(onNavigate));
-  }
+  rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
 };
 
 const handlePopstate = () => {
@@ -29,15 +27,11 @@ const handlePopstate = () => {
   }
 
   const component = routes[window.location.pathname];
-  if (component) {
-    rootDiv.appendChild(component(onNavigate));
-  }
+  rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
 };
 
 window.onpopstate = handlePopstate;
 
 const currentPath = window.location.pathname;
 const component = routes[currentPath];
-if (component) {
-  rootDiv.appendChild(component(onNavigate));
-}
+rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
