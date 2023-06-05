@@ -1,24 +1,41 @@
 export const Register = (onNavigate) => {
-  const RegisterDiv = document.createElement('div');
-  const nameRegister = document.createElement('p');
+  const titleRegister = document.createElement('h1');
+  const RegisterForm = document.createElement('form');
   const inputNameRegister = document.createElement('input');
-  const emailRegister = document.createElement('p');
   const inputEmailRegister = document.createElement('input');
-  const passwordRegister = document.createElement('p');
   const inputCreatePassword = document.createElement('input');
   const buttonCreateAcount = document.createElement('button');
+  const bottomMessage = document.createElement('p');
+  const bottomMessageGoLogin = document.createElement('a');
 
-  nameRegister.textContent = 'Nombre';
-  emailRegister.textContent = 'Correo';
-  passwordRegister.textContent = 'Constraseña';
-  buttonCreateAcount.textContent = 'Crear cuenta';
+  titleRegister.textContent = 'Regístrate';
+  buttonCreateAcount.textContent = 'Registrarme';
+  bottomMessage.textContent = '¿Ya tienes una cuenta?';
+  bottomMessageGoLogin.textContent = 'Inicia sesión';
 
-  RegisterDiv.appendChild(nameRegister);
-  RegisterDiv.appendChild(inputNameRegister);
-  RegisterDiv.appendChild(emailRegister);
-  RegisterDiv.appendChild(inputEmailRegister);
-  RegisterDiv.appendChild(inputCreatePassword);
-  RegisterDiv.appendChild(buttonCreateAcount);
-  
-  return RegisterDiv;
+  inputNameRegister.setAttribute('type', 'text');
+  inputNameRegister.setAttribute('id', 'user-name');
+  inputNameRegister.setAttribute('placeholder', 'Nombre');
+
+  inputEmailRegister.setAttribute('type', 'text');
+  inputEmailRegister.setAttribute('id', 'user-email');
+  inputEmailRegister.setAttribute('placeholder', 'Email');
+
+  inputCreatePassword.setAttribute('type', 'password');
+  inputCreatePassword.setAttribute('id', 'user-password');
+  inputCreatePassword.setAttribute('placeholder', 'Contraseña');
+
+  RegisterForm.appendChild(titleRegister);
+  RegisterForm.appendChild(inputNameRegister);
+  RegisterForm.appendChild(inputEmailRegister);
+  RegisterForm.appendChild(inputCreatePassword);
+  RegisterForm.appendChild(buttonCreateAcount);
+  RegisterForm.appendChild(bottomMessage);
+  RegisterForm.appendChild(bottomMessageGoLogin);
+
+  bottomMessageGoLogin.addEventListener('click', () => {
+    onNavigate('/login');
+  });
+
+  return RegisterForm;
 };

@@ -1,16 +1,35 @@
 export const Login = (onNavigate) => {
-  const HomeDiv = document.createElement('div');
-  HomeDiv.textContent = 'Bienvenida al Login';
-  const buttonHome = document.createElement('button');
+  const titleLogin = document.createElement('h1');
+  const loginForm = document.createElement('form');
+  const inputEmailLogin = document.createElement('input');
+  const inputPasswordLogin = document.createElement('input');
+  const buttonLogin = document.createElement('button');
+  const bottomMessage = document.createElement('p');
+  const bottomMessageGoRegister = document.createElement('a');
 
-  buttonHome.textContent = 'Regresar al Home';
+  titleLogin.textContent = 'Inicia Sesión';
+  buttonLogin.textContent = 'Ingresar';
+  bottomMessage.textContent = '¿Aún no tienes una cuenta?';
+  bottomMessageGoRegister.textContent = 'Regístrate';
 
-  HomeDiv.appendChild(buttonHome);
+  inputEmailLogin.setAttribute('type', 'text');
+  inputEmailLogin.setAttribute('id', 'user-email');
+  inputEmailLogin.setAttribute('placeholder', 'Email');
 
-  buttonHome.addEventListener("click", () => {
-    onNavigate("/");
+  inputPasswordLogin.setAttribute('type', 'password');
+  inputPasswordLogin.setAttribute('id', 'user-password');
+  inputPasswordLogin.setAttribute('placeholder', 'Contraseña');
+
+  loginForm.appendChild(titleLogin);
+  loginForm.appendChild(inputEmailLogin);
+  loginForm.appendChild(inputPasswordLogin);
+  loginForm.appendChild(buttonLogin);
+  loginForm.appendChild(bottomMessage);
+  loginForm.appendChild(bottomMessageGoRegister);
+
+  bottomMessageGoRegister.addEventListener('click', () => {
+    onNavigate('/register');
   });
-  
 
-  return HomeDiv;
+  return loginForm;
 };
