@@ -1,3 +1,6 @@
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../app/firebase';
+
 export const Register = (onNavigate) => {
   const titleRegister = document.createElement('h1');
   const RegisterForm = document.createElement('form');
@@ -7,12 +10,15 @@ export const Register = (onNavigate) => {
   const buttonCreateAcount = document.createElement('button');
   const bottomMessage = document.createElement('p');
   const bottomMessageGoLogin = document.createElement('a');
+  const successMessage = document.createElement('p');
+
 
   titleRegister.textContent = 'Regístrate';
   buttonCreateAcount.textContent = 'Registrarme';
   bottomMessage.textContent = '¿Ya tienes una cuenta?';
   bottomMessageGoLogin.textContent = 'Inicia sesión';
 
+  buttonCreateAcount.setAttribute('type', 'button');
   inputNameRegister.setAttribute('type', 'text');
   inputNameRegister.setAttribute('id', 'user-name');
   inputNameRegister.setAttribute('placeholder', 'Nombre');
@@ -35,6 +41,23 @@ export const Register = (onNavigate) => {
 
   bottomMessageGoLogin.addEventListener('click', () => {
     onNavigate('/login');
+  });
+  buttonCreateAcount.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const email = inputEmailRegister.value;
+    const password = inputCreatePassword.value;
+
+    // console.log(email, password);
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
+      RegisterForm.appendChild(successMessage);
+
+      console.log(userCredentials);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   return RegisterForm;
