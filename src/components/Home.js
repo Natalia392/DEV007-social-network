@@ -21,3 +21,12 @@ export const Home = (onNavigate) => {
 
   return HomeDiv;
 };
+
+//-------------------FUNCIÓN PARA DAR CLASES A ELEMENTOS
+/*const elements = [nameRegister, inputNameRegister, emailRegister, inputEmailRegister, passwordRegister, inputCreatePassword, buttonCreateAccount];
+
+  const classToAdd = 'mi-clase';
+
+  elements.forEach((element) => {
+    element.classList.add(classToAdd);
+  });*/
