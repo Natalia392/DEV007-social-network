@@ -5,7 +5,7 @@ import { auth } from '../app/firebase';
 export const Register = (onNavigate) => {
   // Elementos que se crean para el formulario
   const titleRegister = document.createElement('h1');
-  const RegisterForm = document.createElement('form');
+  const registerForm = document.createElement('form');
   const inputNameRegister = document.createElement('input');
   const inputEmailRegister = document.createElement('input');
   const inputCreatePassword = document.createElement('input');
@@ -32,18 +32,19 @@ export const Register = (onNavigate) => {
   inputCreatePassword.setAttribute('id', 'user-password');
   inputCreatePassword.setAttribute('placeholder', 'Contraseña');
 
-  RegisterForm.appendChild(titleRegister);
-  RegisterForm.appendChild(inputNameRegister);
-  RegisterForm.appendChild(inputEmailRegister);
-  RegisterForm.appendChild(inputCreatePassword);
-  RegisterForm.appendChild(buttonCreateAcount);
-  RegisterForm.appendChild(bottomMessage);
-  RegisterForm.appendChild(bottomMessageGoLogin);
+  registerForm.appendChild(titleRegister);
+  registerForm.appendChild(inputNameRegister);
+  registerForm.appendChild(inputEmailRegister);
+  registerForm.appendChild(inputCreatePassword);
+  registerForm.appendChild(buttonCreateAcount);
+  registerForm.appendChild(bottomMessage);
+  registerForm.appendChild(bottomMessageGoLogin);
 
   // Elementos que se crean para la ventana modal
   const divModal = document.createElement('div');
   const divTextInModal = document.createElement('div');
   const spanModal = document.createElement('span');
+  // eslint-disable-next-line no-unused-vars
   const modalMessage = document.createElement('p');
 
   divModal.setAttribute('id', 'div-modal');
@@ -54,18 +55,20 @@ export const Register = (onNavigate) => {
   spanModal.setAttribute('class', 'close');
   spanModal.textContent = '&times;';
 
-  const showModalUsedEmail = () => {
-    modalMessage.innerHTML = '';
-    buttonCreateAcount.onclick = function () {
-      divModal.style.display = 'block';
-      console.log('¡Haz hecho clic en el botón!');
-      divTextInModal.textContent = 'Este correo ya está registrado';
+  // eslint-disable-next-line spaced-comment
+  /* const showModalUsedEmail = () => {
+    divModal.style.display = 'block';
 
-      divModal.appendChild(divModal);
-      divTextInModal.appendChild(spanModal);
-      divTextInModal.appendChild(modalMessage);
-    };
-  };
+    divTextInModal.innerHTML = '';
+    modalMessage.innerHTML = '';
+
+    divTextInModal.textContent = 'Error';
+    modalMessage.textContent = 'Este correo ya está registrado';
+
+    divModal.appendChild(divTextInModal);
+    divTextInModal.appendChild(spanModal);
+    divTextInModal.appendChild(modalMessage);
+  };*/
 
   bottomMessageGoLogin.addEventListener('click', () => {
     onNavigate('/login');
@@ -80,13 +83,14 @@ export const Register = (onNavigate) => {
     try {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
       successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
-      RegisterForm.appendChild(successMessage);
+      registerForm.appendChild(successMessage);
 
       console.log(userCredentials);
     } catch (error) {
       console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
-        showModalUsedEmail();
+        // showModalUsedEmail();
+        alert('Este correo ya está registrado');
       } else if (error.code === 'auth/invalid-email') {
         alert('Este no es un correo válido');
       } else if (error.code === 'auth/weak-password') {
@@ -99,5 +103,5 @@ export const Register = (onNavigate) => {
     }
   });
 
-  return RegisterForm;
+  return registerForm;
 };
