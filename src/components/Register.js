@@ -57,6 +57,12 @@ export const Register = (onNavigate) => {
       console.log(userCredentials);
     } catch (error) {
       console.log(error);
+      if (error.code === 'auth/email-already-in-use'){
+        alert('Este correo ya está registrado');
+      } else if (error.code === 'auth/invalid-email'){
+        alert('Este no es un correo válido');
+      } else if ()
+
     }
   });
 
