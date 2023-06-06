@@ -1,7 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../app/firebase';
 
 export const Register = (onNavigate) => {
+  // Elementos que se crean para el formulario
   const titleRegister = document.createElement('h1');
   const RegisterForm = document.createElement('form');
   const inputNameRegister = document.createElement('input');
@@ -11,7 +13,6 @@ export const Register = (onNavigate) => {
   const bottomMessage = document.createElement('p');
   const bottomMessageGoLogin = document.createElement('a');
   const successMessage = document.createElement('p');
-
 
   titleRegister.textContent = 'Regístrate';
   buttonCreateAcount.textContent = 'Registrarme';
@@ -39,6 +40,33 @@ export const Register = (onNavigate) => {
   RegisterForm.appendChild(bottomMessage);
   RegisterForm.appendChild(bottomMessageGoLogin);
 
+  // Elementos que se crean para la ventana modal
+  const divModal = document.createElement('div');
+  const divTextInModal = document.createElement('div');
+  const spanModal = document.createElement('span');
+  const modalMessage = document.createElement('p');
+
+  divModal.setAttribute('id', 'div-modal');
+  divModal.setAttribute('class', 'modal');
+
+  divTextInModal.setAttribute('class', 'modal-content');
+
+  spanModal.setAttribute('class', 'close');
+  spanModal.textContent = '&times;';
+
+  const showModalUsedEmail = () => {
+    modalMessage.innerHTML = '';
+    buttonCreateAcount.onclick = function () {
+      divModal.style.display = 'block';
+      console.log('¡Haz hecho clic en el botón!');
+      divTextInModal.textContent = 'Este correo ya está registrado';
+
+      divModal.appendChild(divModal);
+      divTextInModal.appendChild(spanModal);
+      divTextInModal.appendChild(modalMessage);
+    };
+  };
+
   bottomMessageGoLogin.addEventListener('click', () => {
     onNavigate('/login');
   });
@@ -56,7 +84,18 @@ export const Register = (onNavigate) => {
 
       console.log(userCredentials);
     } catch (error) {
-      console.log(error);
+      console.log(error.code);
+      if (error.code === 'auth/email-already-in-use') {
+        showModalUsedEmail();
+      } else if (error.code === 'auth/invalid-email') {
+        alert('Este no es un correo válido');
+      } else if (error.code === 'auth/weak-password') {
+        alert('Tu contraseña es demasiado débil');
+      } else if (error.code === 'auth/missing-password') {
+        alert('Recuerda escribir una contraseña');
+      } else if (error.code === 'error.code') {
+        alert('Algo salió mal');
+      }
     }
   });
 
