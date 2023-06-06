@@ -19,6 +19,7 @@ export const Register = (onNavigate) => {
   bottomMessage.textContent = '¿Ya tienes una cuenta?';
   bottomMessageGoLogin.textContent = 'Inicia sesión';
 
+  buttonCreateAcount.setAttribute('class', 'button-register');
   buttonCreateAcount.setAttribute('type', 'button');
   inputNameRegister.setAttribute('type', 'text');
   inputNameRegister.setAttribute('id', 'user-name');
@@ -61,7 +62,7 @@ export const Register = (onNavigate) => {
       console.log('¡Haz hecho clic en el botón!');
       divTextInModal.textContent = 'Este correo ya está registrado';
 
-      divModal.appendChild(divModal);
+      divTextInModal.appendChild(divModal);
       divTextInModal.appendChild(spanModal);
       divTextInModal.appendChild(modalMessage);
     };
