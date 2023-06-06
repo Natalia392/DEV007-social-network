@@ -12,6 +12,7 @@ export const Login = (onNavigate) => {
   bottomMessage.textContent = '¿Aún no tienes una cuenta?';
   bottomMessageGoRegister.textContent = 'Regístrate';
 
+  buttonLogin.setAttribute('class', 'button-login');
   inputEmailLogin.setAttribute('type', 'text');
   inputEmailLogin.setAttribute('id', 'user-email');
   inputEmailLogin.setAttribute('placeholder', 'Email');

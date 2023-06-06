@@ -8,6 +8,9 @@ export const Home = (onNavigate) => {
   buttonRegister.textContent = 'Regístrate';
   buttonLogin.textContent = 'Inicia Sesión';
 
+  buttonRegister.setAttribute('class', 'button-register');
+  buttonLogin.setAttribute('class', 'button-login');
+
   buttonLogin.addEventListener('click', () => {
     onNavigate('/login');
   });
