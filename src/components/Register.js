@@ -19,6 +19,7 @@ export const Register = (onNavigate) => {
   bottomMessage.textContent = '¿Ya tienes una cuenta?';
   bottomMessageGoLogin.textContent = 'Inicia sesión';
 
+  buttonCreateAcount.setAttribute('class', 'button-register');
   buttonCreateAcount.setAttribute('type', 'button');
   inputNameRegister.setAttribute('type', 'text');
   inputNameRegister.setAttribute('id', 'user-name');
