@@ -21,6 +21,8 @@ export const Login = (onNavigate) => {
   inputEmailLogin.setAttribute('type', 'text');
   inputEmailLogin.setAttribute('id', 'user-email');
   inputEmailLogin.setAttribute('placeholder', 'Email');
+  loginForm.setAttribute('class', 'sub-div');
+
 
   inputPasswordLogin.setAttribute('type', 'password');
   inputPasswordLogin.setAttribute('id', 'user-password');
