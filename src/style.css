@@ -1,50 +1,79 @@
-body{
+* {
+    font-family: 'League Spartan';
+}
+
+body {
     background-color: #FFFAF0;
     font-family: 'League Spartan';
-font-style: normal;
-padding-top: 30%;
+    font-style: normal;
+    padding-top: 30%;
+}
+.all-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-div, form {
-    margin: auto;
-width: 307px;
-height: 416px;
-display: flex;
-flex-direction: column;
-justify-content: space-evenly;
-align-items: center;
-
-background: #FFFAF0;
-box-shadow: 1px 1px 25px 1px #E29578;
-border-radius: 5px; 
+.sub-div {
+    padding: 20px;
+    margin: 70px 0 70px 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    background: #FFFAF0;
+    box-shadow: 1px 1px 25px 1px #E29578;
+    border-radius: 5px;
+    gap: 15px;
+    
 }
 
-.button-login{
+p,
+a,
+input {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.button-login {
     width: 236px;
-height: 52px;
-left: 92px;
-top: 635px;
+    height: 52px;
+    left: 92px;
+    top: 635px;
 
-background: #006D77;
-border-radius: 5px;
+    background: #006D77;
+    border-radius: 5px;
 
-font-weight: 500;
-font-size: 30px;
-line-height: 28px;
-cursor: pointer;
-color: #FFF6E3;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 28px;
+    cursor: pointer;
+    color: #FFF6E3;
 }
 
-.button-register{
+.button-register {
     width: 236px;
-height: 56px;
-left: 92px;
-top: 706px;
-font-weight: 500;
-font-size: 30px;
-line-height: 28px;
+    height: 56px;
+    left: 92px;
+    top: 706px;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 28px;
 
-color: #FFFAF0;
-background: #E29578;
-border-radius: 5px;
+    color: #FFFAF0;
+    background: #E29578;
+    border-radius: 5px;
+}
+
+.google-button{
+    width: 236px;
+    height: 56px;
+    left: 92px;
+    top: 706px;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 28px;
 }

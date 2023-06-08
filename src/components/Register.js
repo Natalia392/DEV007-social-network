@@ -26,6 +26,7 @@ export const Register = (onNavigate) => {
   inputNameRegister.setAttribute('type', 'text');
   inputNameRegister.setAttribute('id', 'user-name');
   inputNameRegister.setAttribute('placeholder', 'Nombre');
+  registerForm.setAttribute('class', 'sub-div');
 
   inputEmailRegister.setAttribute('type', 'text');
   inputEmailRegister.setAttribute('id', 'user-email');
@@ -35,6 +36,7 @@ export const Register = (onNavigate) => {
   inputCreatePassword.setAttribute('id', 'user-password');
   inputCreatePassword.setAttribute('placeholder', 'Contraseña');
 
+  googleButton.setAttribute('class', 'google-button');
   registerForm.appendChild(titleRegister);
   registerForm.appendChild(inputNameRegister);
   registerForm.appendChild(inputEmailRegister);
@@ -78,12 +80,6 @@ export const Register = (onNavigate) => {
     onNavigate('/login');
   });
 
-  /*inputCreatePassword.addEventListener('keyup', function() {
-  inputCreatePassword.value = inputCreatePassword.value.replace(/\s/g, '');
-  if(inputCreatePassword.includes())
-  alert('sin espacios');
-  });*/
-
   inputCreatePassword.addEventListener('input', (event) => {
     const currentInput = event.target.value;
     const regex = /\s/g;
@@ -106,6 +102,7 @@ export const Register = (onNavigate) => {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
       successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
+      onNavigate('/wall');
 
       console.log(userCredentials);
     } catch (error) {
