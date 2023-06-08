@@ -77,6 +77,24 @@ export const Register = (onNavigate) => {
   bottomMessageGoLogin.addEventListener('click', () => {
     onNavigate('/login');
   });
+
+  /*inputCreatePassword.addEventListener('keyup', function() {
+  inputCreatePassword.value = inputCreatePassword.value.replace(/\s/g, '');
+  if(inputCreatePassword.includes())
+  alert('sin espacios');
+  });*/
+
+  inputCreatePassword.addEventListener('input', (event) => {
+    const currentInput = event.target.value;
+    const regex = /\s/g;
+    inputCreatePassword.value = currentInput.replace(/\s/g, '');
+    if (regex.test(inputCreatePassword.value) === true) {
+      bottomMessageGoLogin.innerHTML = '';
+    } else {
+      bottomMessageGoLogin.innerHTML = 'No puedes ingresar espacios';
+    }
+  });
+
   buttonCreateAcount.addEventListener('click', async (e) => {
     e.preventDefault();
 
