@@ -12,6 +12,8 @@ export const Register = (onNavigate) => {
   const buttonCreateAcount = document.createElement('button');
   const googleButton = document.createElement('button');
   const bottomMessage = document.createElement('p');
+  // eslint-disable-next-line no-unused-vars
+  const warnNoSpacesAllowed = document.createElement('p');
   const bottomMessageGoLogin = document.createElement('a');
   const successMessage = document.createElement('p');
 
@@ -82,12 +84,11 @@ export const Register = (onNavigate) => {
 
   inputCreatePassword.addEventListener('input', (event) => {
     const currentInput = event.target.value;
-    const regex = /\s/g;
-    inputCreatePassword.value = currentInput.replace(/\s/g, '');
-    if (regex.test(inputCreatePassword.value) === true) {
-      bottomMessageGoLogin.innerHTML = '';
-    } else {
-      bottomMessageGoLogin.innerHTML = 'No puedes ingresar espacios';
+    const regex = /\s/;
+    if (regex.test(currentInput)) {
+      inputCreatePassword.value = currentInput.replace(/\s/g, '');
+      alert('No puedes ingresar espacios');
+      // warnNoSpacesAllowed.innerHTML = 'No puedes ingresar espacios';
     }
   });
 

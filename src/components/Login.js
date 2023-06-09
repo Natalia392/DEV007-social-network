@@ -47,6 +47,7 @@ export const Login = (onNavigate) => {
     try {
       const userCredentials = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredentials);
+      onNavigate('/wall');
     } catch (error) {
       console.log(error);
       if (error.code === 'auth/invalid-email') {
