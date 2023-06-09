@@ -1,34 +1,63 @@
+/* Estilos generales */
 * {
     font-family: 'League Spartan';
-}
-
-body {
+  }
+  
+  body {
     background-color: #FFFAF0;
-    font-family: 'League Spartan';
     font-style: normal;
-}
-.all-div{
+  }
+  
+  /* Estilos para pantallas grandes (versión de escritorio) */
+  @media (min-width: 769px) {
+    .all-div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      min-width: calc(306px - 5px);
+      gap: 10%;
+      height: 100vh;
+    }
+    
+    .sub-div {
+      margin: 15px 0;
+      width: 360px; /* Ancho ampliado para la versión de escritorio */
+      height: 360px; /* Altura ampliada para la versión de escritorio */
+    }
+  }
+  
+  /* Estilos para pantallas pequeñas (versión móvil) */
+  @media (max-width: 768px) {
+    .all-div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: calc(306px + 5px);
+      gap: 10%;
+    }
+    
+    .sub-div {
+      margin: 15px 10px;
+    }
+  }
+  
+  /* Estilos comunes */
+  .container-image {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-}
-
-.container-image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.image-logo {
+  }
+  
+  .image-logo {
     width: 230px;
     height: 230px;
     display: flex;
     align-items: center;
-}
-
-.sub-div {
+  }
+  
+  .sub-div, form {
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -40,22 +69,20 @@ body {
     border-radius: 5px;
     gap: 15px;
     width: 306px;
-    height: 306px;
+    height: fit-content;
     margin: 15px 0 15px 0;
-}
-
-p,
-a,
-input {
+  }
+  
+  p,
+  a,
+  input {
     font-size: 25px;
     font-weight: bold;
-}
-
-.button-login {
+  }
+  
+  .button-login {
     width: 236px;
     height: 52px;
-    left: 92px;
-    top: 635px;
     border: 0;
     background: #006D77;
     border-radius: 5px;
@@ -64,9 +91,9 @@ input {
     line-height: 28px;
     cursor: pointer;
     color: #FFF6E3;
-}
-
-.button-register {
+  }
+  
+  .button-register {
     width: 236px;
     height: 56px;
     font-weight: 500;
@@ -76,25 +103,22 @@ input {
     background: #E29578;
     border-radius: 5px;
     border: 0;
-}
-
-.google-button{
+  }
+  
+  .google-button {
     width: 236px;
     height: 56px;
     font-weight: 500;
     font-size: 25px;
     line-height: 28px;
     border: 0;
-}
-
-.page-title {
-   color: #006D77;
-   font-weight: 900px;
-   font-size: 34px;
-}
-
-.texto-secundario {
-  color: #C77E63;
-  font-size: 29px;
-  font-weight: 200;
-}
+  }
+  
+  .page-title {
+    color: #006D77;
+    font-weight: 900;
+    font-size: 34px;
+  }
+  
+  .texto-secundario {
+    color: #C77E
