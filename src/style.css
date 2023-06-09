@@ -4,7 +4,6 @@
 
 body {
     background-color: #FFFAF0;
-    font-family: 'League Spartan';
     font-style: normal;
     padding-top: 30%;
 }
@@ -17,7 +16,8 @@ body {
 
 .sub-div {
     padding: 20px;
-    margin: 70px 0 70px 0;
+    min-width: 50%;
+    margin: 70px 10% 70px 10%;
     height: fit-content;
     display: flex;
     flex-direction: column;

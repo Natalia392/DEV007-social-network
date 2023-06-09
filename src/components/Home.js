@@ -11,7 +11,21 @@ export const Home = (onNavigate) => {
   allDiv.setAttribute('class', 'all-div');
   logo.setAttribute('alt', 'logo');
   logo.setAttribute('class', 'logo');
+  const post = document.createElement('input');
+  const buttonListening = document.createElement('button');
+  post.setAttribute('type', 'text');
+  post.setAttribute('id', 'text-box');
+  buttonListening.setAttribute('id', 'btn');
+
+
+
+
   // -----------------INPUT Y BOTONES
+  buttonListening.addEventListener('click', () => {
+    const text = new SpeechSynthesisUtterance(post.value);
+    speechSynthesis.speak(text);
+  });
+
   const titleHome = document.createElement('h1');
   const HomeDiv = document.createElement('div');
   const buttonLogin = document.createElement('button');
@@ -22,8 +36,11 @@ export const Home = (onNavigate) => {
   titleHome.textContent = 'Elige una opción para continuar';
   buttonRegister.textContent = 'Regístrate';
   buttonLogin.textContent = 'Inicia Sesión';
+  buttonListening.textContent = 'Escuchar';
+
 
   // ----------------------Ejecutando botones
+
   buttonRegister.setAttribute('class', 'button-register');
   buttonLogin.setAttribute('class', 'button-login');
 
@@ -35,9 +52,12 @@ export const Home = (onNavigate) => {
     onNavigate('/register');
   });
   allDiv.appendChild(logoDiv);
+  allDiv.appendChild(post);
+  allDiv.appendChild(buttonListening);
   allDiv.appendChild(HomeDiv);
   logoDiv.appendChild(pageTitle);
   logoDiv.appendChild(logo);
+
   HomeDiv.appendChild(titleHome);
   HomeDiv.appendChild(buttonRegister);
   HomeDiv.appendChild(buttonLogin);
