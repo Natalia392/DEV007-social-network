@@ -6,7 +6,6 @@ body {
     background-color: #FFFAF0;
     font-family: 'League Spartan';
     font-style: normal;
-    padding-top: 30%;
 }
 .all-div{
     display: flex;
@@ -15,10 +14,22 @@ body {
     align-items: center;
 }
 
+.container-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.image-logo {
+    width: 230px;
+    height: 230px;
+    display: flex;
+    align-items: center;
+}
+
 .sub-div {
     padding: 20px;
-    margin: 70px 0 70px 0;
-    height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -28,7 +39,9 @@ body {
     box-shadow: 1px 1px 25px 1px #E29578;
     border-radius: 5px;
     gap: 15px;
-    
+    width: 306px;
+    height: 306px;
+    margin: 15px 0 15px 0;
 }
 
 p,
@@ -43,10 +56,9 @@ input {
     height: 52px;
     left: 92px;
     top: 635px;
-
+    border: 0;
     background: #006D77;
     border-radius: 5px;
-
     font-weight: 500;
     font-size: 30px;
     line-height: 28px;
@@ -57,23 +69,32 @@ input {
 .button-register {
     width: 236px;
     height: 56px;
-    left: 92px;
-    top: 706px;
     font-weight: 500;
     font-size: 30px;
     line-height: 28px;
-
     color: #FFFAF0;
     background: #E29578;
     border-radius: 5px;
+    border: 0;
 }
 
 .google-button{
     width: 236px;
     height: 56px;
-    left: 92px;
-    top: 706px;
     font-weight: 500;
     font-size: 25px;
     line-height: 28px;
+    border: 0;
+}
+
+.page-title {
+   color: #006D77;
+   font-weight: 900px;
+   font-size: 34px;
+}
+
+.texto-secundario {
+  color: #C77E63;
+  font-size: 29px;
+  font-weight: 200;
 }

@@ -23,7 +23,6 @@ export const Login = (onNavigate) => {
   inputEmailLogin.setAttribute('placeholder', 'Email');
   loginForm.setAttribute('class', 'sub-div');
 
-
   inputPasswordLogin.setAttribute('type', 'password');
   inputPasswordLogin.setAttribute('id', 'user-password');
   inputPasswordLogin.setAttribute('placeholder', 'Contraseña');
