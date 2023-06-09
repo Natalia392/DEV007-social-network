@@ -17,7 +17,7 @@ body {
 
 .sub-div {
     padding: 20px;
-    margin: 70px 0 70px 0;
+    margin: 70px 100% 70px 100;
     height: fit-content;
     display: flex;
     flex-direction: column;
