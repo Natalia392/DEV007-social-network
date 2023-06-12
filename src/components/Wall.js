@@ -1,18 +1,29 @@
 export const Wall = (onNavigate) => {
-  const titleHome = document.createElement('h1');
-  const wallDiv = document.createElement('div');
-  const buttonToHome = document.createElement('button');
+  const wallDiv = document.createElement('main');
+  wallDiv.className = 'wall-main';
+  const section = document.createElement('section');
+  section.innerHTML = `
+    <div class="new-post-container" id="new-post-container">
+      <textarea class="new-post-text"></textarea><br>
+      <button id="post-button" class="post-button">Publicar</button>
+    </div>
+    <div class="posts">
+      <div class="all-posts">
+      </div>
+      <button id="go-home" class="go-home">Home</button>
+    </div>
+  `;
 
-  buttonToHome.textContent = 'Go home';
+  section.querySelector('#post-button').addEventListener('click', () => {
+    alert('Click button');
+  });
 
-  titleHome.textContent = 'Proximamente podrás postear';
-
-  buttonToHome.addEventListener('click', () => {
+  const buttonHome = section.querySelector('#go-home');
+  buttonHome.addEventListener('click', () => {
     onNavigate('/');
   });
 
-  wallDiv.appendChild(buttonToHome);
-  wallDiv.appendChild(titleHome);
+  wallDiv.appendChild(section);
 
   return wallDiv;
 };
