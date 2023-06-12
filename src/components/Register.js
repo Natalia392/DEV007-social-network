@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
 
 export const Register = (onNavigate) => {
@@ -126,11 +124,8 @@ export const Register = (onNavigate) => {
   googleButton.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const provider = new GoogleAuthProvider();
-
     try {
-      const credentials = await signInWithGoogle(provider);
-      onNavigate('/wall');
+      const credentials = await signInWithGoogle();
       console.log(credentials);
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {

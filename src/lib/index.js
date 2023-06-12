@@ -6,6 +6,13 @@ export const ourCreateUserWithEmailAndPassword = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInWithGoogle = (provider) => {
+export const handleLogin = (user, onNavigate) => {
+  if (user) {
+    onNavigate('/wall');
+  }
+};
+
+export const signInWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider);
 };
