@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../app/firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
 
 export const Register = (onNavigate) => {
   // Elementos que se crean para el formulario
@@ -100,7 +100,7 @@ export const Register = (onNavigate) => {
 
     // console.log(email, password);
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
       successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
       onNavigate('/wall');
@@ -129,7 +129,8 @@ export const Register = (onNavigate) => {
     const provider = new GoogleAuthProvider();
 
     try {
-      const credentials = await signInWithPopup(auth, provider);
+      const credentials = await signInWithGoogle(provider);
+      onNavigate('/wall');
       console.log(credentials);
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
