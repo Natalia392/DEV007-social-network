@@ -1,16 +1,21 @@
-// eslint-disable-next-line no-unused-vars
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../app/firebase';
+import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
 
 export const Register = (onNavigate) => {
   // Elementos que se crean para el formulario
+  // Título y formulario
   const titleRegister = document.createElement('h1');
   const registerForm = document.createElement('form');
+
+  // inputs
   const inputNameRegister = document.createElement('input');
   const inputEmailRegister = document.createElement('input');
   const inputCreatePassword = document.createElement('input');
+
+  // botones
   const buttonCreateAcount = document.createElement('button');
   const googleButton = document.createElement('button');
+
+  // mensajes
   const bottomMessage = document.createElement('p');
   // eslint-disable-next-line no-unused-vars
   const warnNoSpacesAllowed = document.createElement('p');
@@ -100,7 +105,7 @@ export const Register = (onNavigate) => {
 
     // console.log(email, password);
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
       successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
       onNavigate('/wall');
@@ -126,11 +131,10 @@ export const Register = (onNavigate) => {
   googleButton.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const provider = new GoogleAuthProvider();
-
     try {
-      const credentials = await signInWithPopup(auth, provider);
+      const credentials = await signInWithGoogle();
       console.log(credentials);
+      onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
         // showModalUsedEmail();

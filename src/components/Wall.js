@@ -1,3 +1,5 @@
+import { createPost } from '../lib';
+
 export const Wall = (onNavigate) => {
   const wallDiv = document.createElement('main');
   wallDiv.className = 'wall-main';
@@ -15,7 +17,10 @@ export const Wall = (onNavigate) => {
   `;
 
   section.querySelector('#post-button').addEventListener('click', () => {
-    alert('Click button');
+    const textAreaContent = section.querySelector('.new-post-text').value;
+    createPost(textAreaContent);
+    console.log(textAreaContent);
+    alert(textAreaContent);
   });
 
   const buttonHome = section.querySelector('#go-home');
