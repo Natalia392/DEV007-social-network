@@ -1,38 +1,95 @@
 * {
     font-family: 'League Spartan';
-}
+    text-align: center;
+    margin: 0%;
 
-body {
+  }
+  
+  body {
     background-color: #FFFAF0;
-    font-family: 'League Spartan';
     font-style: normal;
-}
-.all-div{
+  }
+  
+  button {
+    transition: all 0.4s;
+  }
+  
+  button:hover {
+    box-shadow: 1px 1px 15px 2px hsl(16, 40%, 57%);
+    background-color: #72aca7;
+    cursor: pointer;
+    transition: 0.3s;
+    zoom: 102%;
+    text-shadow: 5px 5px 5px #006D77;
+
+  }
+  
+  .all-div{
+    padding: 0 20px 0 20px;
+  }
+  /* Estilos para pantallas grandes (versión de escritorio) */
+    @media (min-width: 769px) {
+        .all-div {
+          padding: 0 20px; /* Mantener el padding en los lados derecho e izquierdo */
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          justify-items: center;
+          align-items: center;
+          gap: 10%;
+          height: 100vh;
+          margin: 0 50px;
+        }
+  
+    .sub-div {
+      margin: 15px 0;
+      width: 50%; /* Ancho ampliado para la versión de escritorio */
+      height: 50%; /* Altura ampliada para la versión de escritorio */
+    }
+  }
+  
+  /* Estilos para pantallas pequeñas (versión móvil) */
+  @media (max-width: 768px) {
+    .all-div {
+      padding: 0; /* Eliminar el padding en la versión móvil */
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: center;
+      gap: 10%;
+      margin: 30% 0;
+      min-width: 200px;
+    }
+    
+  
+    .sub-div {
+      margin: 15px 10px;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+    }
+  }
+  
+  /* Estilos comunes */
+  .container-image {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-}
-
-.container-image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.image-logo {
+  }
+  
+  .image-logo {
     width: 230px;
     height: 230px;
     display: flex;
     align-items: center;
-}
-
-.sub-div {
+  }
+  
+  .sub-div,
+  form {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
     background: #FFFAF0;
@@ -40,22 +97,21 @@ body {
     border-radius: 5px;
     gap: 15px;
     width: 306px;
-    height: 306px;
+    height: fit-content;
     margin: 15px 0 15px 0;
-}
-
-p,
-a,
-input {
+  }
+  
+  p,
+  a,
+  input {
     font-size: 25px;
     font-weight: bold;
-}
 
-.button-login {
+  }
+  
+  .button-login {
     width: 236px;
     height: 52px;
-    left: 92px;
-    top: 635px;
     border: 0;
     background: #006D77;
     border-radius: 5px;
@@ -64,9 +120,13 @@ input {
     line-height: 28px;
     cursor: pointer;
     color: #FFF6E3;
-}
-
-.button-register {
+  }
+  
+  .button-login:hover {
+    filter: saturate(120%);
+  }
+  
+  .button-register {
     width: 236px;
     height: 56px;
     font-weight: 500;
@@ -76,25 +136,26 @@ input {
     background: #E29578;
     border-radius: 5px;
     border: 0;
-}
-
-.google-button{
+  }
+  
+  .button-register:hover {
+    filter: saturate(120%);
+    color: #FFF6E3;
+  }
+  
+  .google-button {
     width: 236px;
     height: 56px;
     font-weight: 500;
     font-size: 25px;
     line-height: 28px;
     border: 0;
+  }
+  
+  .page-title {
+    color: #006D77;
+    width: fit-content;
 }
-
-.page-title {
-   color: #006D77;
-   font-weight: 900px;
-   font-size: 34px;
-}
-
-.texto-secundario {
-  color: #C77E63;
-  font-size: 29px;
-  font-weight: 200;
+  .texto-secundario{
+    color: #bd7d65;
 }
