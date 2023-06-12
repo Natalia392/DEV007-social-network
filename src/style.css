@@ -1,6 +1,8 @@
-/* Estilos generales */
 * {
     font-family: 'League Spartan';
+    text-align: center;
+    margin: 0%;
+
   }
   
   body {
@@ -8,38 +10,63 @@
     font-style: normal;
   }
   
+  button {
+    transition: all 0.4s;
+  }
+  
+  button:hover {
+    box-shadow: 1px 1px 15px 2px hsl(16, 40%, 57%);
+    background-color: #72aca7;
+    cursor: pointer;
+    transition: 0.3s;
+    zoom: 102%;
+    text-shadow: 5px 5px 5px #006D77;
+
+  }
+  
+  .all-div{
+    padding: 0 20px 0 20px;
+  }
   /* Estilos para pantallas grandes (versión de escritorio) */
-  @media (min-width: 769px) {
-    .all-div {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      min-width: calc(306px - 5px);
-      gap: 10%;
-      height: 100vh;
-    }
-    
+    @media (min-width: 769px) {
+        .all-div {
+          padding: 0 20px; /* Mantener el padding en los lados derecho e izquierdo */
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          justify-items: center;
+          align-items: center;
+          gap: 10%;
+          height: 100vh;
+          margin: 0 50px;
+        }
+  
     .sub-div {
       margin: 15px 0;
-      width: 360px; /* Ancho ampliado para la versión de escritorio */
-      height: 360px; /* Altura ampliada para la versión de escritorio */
+      width: 50%; /* Ancho ampliado para la versión de escritorio */
+      height: 50%; /* Altura ampliada para la versión de escritorio */
     }
   }
   
   /* Estilos para pantallas pequeñas (versión móvil) */
   @media (max-width: 768px) {
     .all-div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding: 0; /* Eliminar el padding en la versión móvil */
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
       align-items: center;
-      min-width: calc(306px + 5px);
       gap: 10%;
+      margin: 30% 0;
+      min-width: 200px;
     }
     
+  
     .sub-div {
       margin: 15px 10px;
+    }
+    body{
+        margin: 0;
+        padding: 0;
     }
   }
   
@@ -57,11 +84,12 @@
     align-items: center;
   }
   
-  .sub-div, form {
+  .sub-div,
+  form {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
     background: #FFFAF0;
@@ -78,6 +106,7 @@
   input {
     font-size: 25px;
     font-weight: bold;
+
   }
   
   .button-login {
@@ -93,6 +122,10 @@
     color: #FFF6E3;
   }
   
+  .button-login:hover {
+    filter: saturate(120%);
+  }
+  
   .button-register {
     width: 236px;
     height: 56px;
@@ -103,6 +136,11 @@
     background: #E29578;
     border-radius: 5px;
     border: 0;
+  }
+  
+  .button-register:hover {
+    filter: saturate(120%);
+    color: #FFF6E3;
   }
   
   .google-button {
@@ -116,9 +154,8 @@
   
   .page-title {
     color: #006D77;
-    font-weight: 900;
-    font-size: 34px;
-  }
-  
-  .texto-secundario {
-    color: #C77E
+    width: fit-content;
+}
+  .texto-secundario{
+    color: #bd7d65;
+}

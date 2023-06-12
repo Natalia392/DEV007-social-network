@@ -23,7 +23,6 @@ export const Home = (onNavigate) => {
   logo.setAttribute('class', 'logo');
   image.setAttribute('class', 'image-logo');
   logoDiv.setAttribute('class', 'container-image');
-  
 
   titleHome.textContent = 'Elige una opción para continuar';
   buttonRegister.textContent = 'Regístrate';
