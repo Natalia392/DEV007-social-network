@@ -2,13 +2,20 @@ import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
 
 export const Register = (onNavigate) => {
   // Elementos que se crean para el formulario
+  // Título y formulario
   const titleRegister = document.createElement('h1');
   const registerForm = document.createElement('form');
+
+  // inputs
   const inputNameRegister = document.createElement('input');
   const inputEmailRegister = document.createElement('input');
   const inputCreatePassword = document.createElement('input');
+
+  // botones
   const buttonCreateAcount = document.createElement('button');
   const googleButton = document.createElement('button');
+
+  // mensajes
   const bottomMessage = document.createElement('p');
   // eslint-disable-next-line no-unused-vars
   const warnNoSpacesAllowed = document.createElement('p');
@@ -127,6 +134,7 @@ export const Register = (onNavigate) => {
     try {
       const credentials = await signInWithGoogle();
       console.log(credentials);
+      onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
         // showModalUsedEmail();

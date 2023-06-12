@@ -1,5 +1,4 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../app/firebase';
+import { ourSignInWithEmailAndPassword, signInWithGoogle } from '../lib';
 
 export const Login = (onNavigate) => {
   const titleLogin = document.createElement('h1');
@@ -18,6 +17,7 @@ export const Login = (onNavigate) => {
   bottomMessageGoRegister.textContent = 'Regístrate';
 
   buttonLogin.setAttribute('class', 'button-login');
+  googleButton.setAttribute('class', 'google-button');
   inputEmailLogin.setAttribute('type', 'text');
   inputEmailLogin.setAttribute('id', 'user-email');
   inputEmailLogin.setAttribute('placeholder', 'Email');
@@ -31,6 +31,7 @@ export const Login = (onNavigate) => {
   loginForm.appendChild(inputEmailLogin);
   loginForm.appendChild(inputPasswordLogin);
   loginForm.appendChild(buttonLogin);
+  loginForm.appendChild(googleButton);
   loginForm.appendChild(bottomMessage);
   loginForm.appendChild(bottomMessageGoRegister);
 
@@ -38,14 +39,14 @@ export const Login = (onNavigate) => {
     onNavigate('/register');
   });
 
-  buttonLogin.addEventListener('click', async (e) => {
+  buttonLogin.addEventListener('click', (e) => {
     e.preventDefault();
 
     const email = inputEmailLogin.value;
     const password = inputPasswordLogin.value;
 
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+      const userCredentials = ourSignInWithEmailAndPassword(email, password);
       console.log(userCredentials);
       onNavigate('/wall');
     } catch (error) {
@@ -64,5 +65,27 @@ export const Login = (onNavigate) => {
     }
   });
 
+  googleButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    try {
+      const credentials = await signInWithGoogle();
+      console.log(credentials);
+      onNavigate('/wall');
+    } catch (error) {
+      if (error.code === 'auth/popup-closed-by-user') {
+        // showModalUsedEmail();
+        alert('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
+      } else if (error.code === 'auth/popup-blocked') {
+        alert('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        alert('La solicitud de ventana emergente de inicio de sesión de Google fue cancelada antes de completarse');
+      } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
+        alert(' La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        alert('Existe una cuenta con diferentes credenciales de inicio de sesión asociadas');
+      }
+    }
+  });
   return loginForm;
 };

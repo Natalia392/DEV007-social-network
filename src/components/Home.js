@@ -33,7 +33,7 @@ export const Home = (onNavigate) => {
   buttonLogin.setAttribute('class', 'button-login');
   titleHome.setAttribute('class', 'texto-secundario');
   HomeDiv.setAttribute('class', 'sub-div');
-  
+
   // ----------------------Funciones de los botones
   buttonLogin.addEventListener('click', () => {
     onNavigate('/login');
@@ -51,15 +51,14 @@ export const Home = (onNavigate) => {
   HomeDiv.appendChild(buttonLogin);
   HomeDiv.appendChild(buttonRegister);
 
-
   return allDiv;
 };
 
-//-------------------FUNCIÓN PARA DAR CLASES A ELEMENTOS
-/*const elements = [nameRegister, inputNameRegister, emailRegister, inputEmailRegister, passwordRegister, inputCreatePassword, buttonCreateAccount];
+// -------------------FUNCIÓN PARA DAR CLASES A ELEMENTOS
+/* const elements = [nameRegister, inputNameRegister, emailRegister, inputEmailRegister, passwordRegister, inputCreatePassword, buttonCreateAccount];
 
   const classToAdd = 'mi-clase';
 
   elements.forEach((element) => {
     element.classList.add(classToAdd);
-  });*/
+  }); */
