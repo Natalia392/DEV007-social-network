@@ -19,8 +19,8 @@ export const Wall = (onNavigate) => {
   section.querySelector('#post-button').addEventListener('click', () => {
     const textAreaContent = section.querySelector('.new-post-text').value;
     createPost(textAreaContent);
-    console.log(textAreaContent);
-    alert(textAreaContent);
+    console.log(createPost);
+    alert(createPost);
   });
 
   const buttonHome = section.querySelector('#go-home');
