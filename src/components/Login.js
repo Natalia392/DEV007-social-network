@@ -1,4 +1,5 @@
 import { ourSignInWithEmailAndPassword, signInWithGoogle } from '../lib';
+import { showMessage } from './modal';
 
 export const Login = (onNavigate) => {
   const titleLogin = document.createElement('h1');
@@ -45,7 +46,7 @@ export const Login = (onNavigate) => {
     const email = inputEmailLogin.value;
     const password = inputPasswordLogin.value;
     if (email === '' || password === '') {
-      alert('Por favor, ingresa tu correo electrónico y contraseña');
+      showMessage('Por favor, ingresa tu correo electrónico y contraseña');
       return;
     }
     try {
@@ -55,15 +56,15 @@ export const Login = (onNavigate) => {
     } catch (error) {
       console.log(error);
       if (error.code === 'auth/invalid-email') {
-        alert('El correo electrónico proporcionado no es válido');
+        showMessage('El correo electrónico proporcionado no es válido');
       } else if (error.code === 'auth/wrong-password') {
-        alert('La contraseña ingresada es incorrecta');
+        showMessage('La contraseña ingresada es incorrecta');
       } else if (error.code === 'auth/missing-password') {
-        alert('No se ha proporcionado una contraseña');
+        showMessage('No se ha proporcionado una contraseña');
       } else if (error.code === 'auth/user-not-found') {
-        alert('El usuario no ha sido encontrado');
+        showMessage('El usuario no ha sido encontrado');
       } else if (error.code === 'error.code') {
-        alert('Algo salió mal');
+        showMessage('Algo salió mal');
       }
     }
   });
@@ -77,16 +78,15 @@ export const Login = (onNavigate) => {
       onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
-        // showModalUsedEmail();
-        alert('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
+        showMessage('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
       } else if (error.code === 'auth/popup-blocked') {
-        alert('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
+        showMessage('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
       } else if (error.code === 'auth/cancelled-popup-request') {
-        alert('La solicitud de ventana emergente de inicio de sesión de Google fue cancelada antes de completarse');
+        showMessage('La solicitud de ventana emergente de inicio de sesión de Google fue cancelada antes de completarse');
       } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
-        alert(' La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
+        showMessage('La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
       } else if (error.code === 'auth/account-exists-with-different-credential') {
-        alert('Existe una cuenta con diferentes credenciales de inicio de sesión asociadas');
+        showMessage('Existe una cuenta con diferentes credenciales de inicio de sesión asociadas');
       }
     }
   });

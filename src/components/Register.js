@@ -1,4 +1,5 @@
 import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
+import { showMessage } from './modal';
 
 export const Register = (onNavigate) => {
   // Elementos que se crean para el formulario
@@ -92,7 +93,7 @@ export const Register = (onNavigate) => {
     const regex = /\s/;
     if (regex.test(currentInput)) {
       inputCreatePassword.value = currentInput.replace(/\s/g, '');
-      alert('No puedes ingresar espacios');
+      showMessage('No puedes ingresar espacios');
       // warnNoSpacesAllowed.innerHTML = 'No puedes ingresar espacios';
     }
   });
@@ -105,13 +106,13 @@ export const Register = (onNavigate) => {
     const password = inputCreatePassword.value;
 
     if (email === '' || password === '' || userName === '') {
-      alert('Por favor, completa todos los campos');
+      showMessage('Por favor, completa todos los campos');
       return;
     }
     // console.log(email, password);
     try {
       const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
-      successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
+      // successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
       onNavigate('/wall');
 
@@ -120,15 +121,15 @@ export const Register = (onNavigate) => {
       console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         // showModalUsedEmail();
-        alert('Este correo ya está registrado');
+        showMessage('Este correo ya está registrado');
       } else if (error.code === 'auth/invalid-email') {
-        alert('Este no es un correo válido');
+        showMessage('Este no es un correo válido');
       } else if (error.code === 'auth/weak-password') {
-        alert('Tu contraseña es demasiado débil');
+        showMessage('Tu contraseña es demasiado débil');
       } else if (error.code === 'auth/missing-password') {
-        alert('Recuerda escribir una contraseña');
+        showMessage('Recuerda escribir una contraseña');
       } else if (error.code === 'error.code') {
-        alert('Algo salió mal');
+        showMessage('Algo salió mal');
       }
     }
   });
@@ -143,15 +144,15 @@ export const Register = (onNavigate) => {
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
         // showModalUsedEmail();
-        alert('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
+        showMessage('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
       } else if (error.code === 'auth/popup-blocked') {
-        alert('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
+        showMessage('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
       } else if (error.code === 'auth/cancelled-popup-request') {
-        alert('La solicitud de ventana emergente de inicio de sesión de Google fue cancelada antes de completarse');
+        showMessage('La solicitud de ventana emergente de inicio de sesión de Google fue cancelada antes de completarse');
       } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
-        alert(' La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
+        showMessage(' La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
       } else if (error.code === 'auth/account-exists-with-different-credential') {
-        alert('Existe una cuenta con diferentes credenciales de inicio de sesión asociadas');
+        showMessage('Existe una cuenta con diferentes credenciales de inicio de sesión asociadas');
       }
     }
   });
