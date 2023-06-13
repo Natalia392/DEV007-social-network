@@ -97,15 +97,20 @@ export const Register = (onNavigate) => {
     }
   });
 
-  buttonCreateAcount.addEventListener('click', (e) => {
+  buttonCreateAcount.addEventListener('click', async (e) => {
     e.preventDefault();
 
+    const userName = inputNameRegister.value;
     const email = inputEmailRegister.value;
     const password = inputCreatePassword.value;
 
+    if (email === '' || password === '' || userName === '') {
+      alert('Por favor, completa todos los campos');
+      return;
+    }
     // console.log(email, password);
     try {
-      const userCredentials = ourCreateUserWithEmailAndPassword(email, password);
+      const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
       successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
       onNavigate('/wall');
@@ -128,11 +133,11 @@ export const Register = (onNavigate) => {
     }
   });
 
-  googleButton.addEventListener('click', (e) => {
+  googleButton.addEventListener('click', async (e) => {
     e.preventDefault();
 
     try {
-      const credentials = signInWithGoogle();
+      const credentials = await signInWithGoogle();
       console.log(credentials);
       onNavigate('/wall');
     } catch (error) {
