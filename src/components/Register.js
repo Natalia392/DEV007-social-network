@@ -97,7 +97,7 @@ export const Register = (onNavigate) => {
     }
   });
 
-  buttonCreateAcount.addEventListener('click', async (e) => {
+  buttonCreateAcount.addEventListener('click', (e) => {
     e.preventDefault();
 
     const email = inputEmailRegister.value;
@@ -105,7 +105,7 @@ export const Register = (onNavigate) => {
 
     // console.log(email, password);
     try {
-      const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
+      const userCredentials = ourCreateUserWithEmailAndPassword(email, password);
       successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
       onNavigate('/wall');
@@ -128,11 +128,11 @@ export const Register = (onNavigate) => {
     }
   });
 
-  googleButton.addEventListener('click', async (e) => {
+  googleButton.addEventListener('click', (e) => {
     e.preventDefault();
 
     try {
-      const credentials = await signInWithGoogle();
+      const credentials = signInWithGoogle();
       console.log(credentials);
       onNavigate('/wall');
     } catch (error) {

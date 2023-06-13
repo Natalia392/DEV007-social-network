@@ -48,7 +48,9 @@ export const Login = (onNavigate) => {
     try {
       const userCredentials = ourSignInWithEmailAndPassword(email, password);
       console.log(userCredentials);
-      onNavigate('/wall');
+      if (userCredentials) {
+        onNavigate('/wall');
+      }
     } catch (error) {
       console.log(error);
       if (error.code === 'auth/invalid-email') {
@@ -65,11 +67,11 @@ export const Login = (onNavigate) => {
     }
   });
 
-  googleButton.addEventListener('click', async (e) => {
+  googleButton.addEventListener('click', (e) => {
     e.preventDefault();
 
     try {
-      const credentials = await signInWithGoogle();
+      const credentials = signInWithGoogle();
       console.log(credentials);
       onNavigate('/wall');
     } catch (error) {

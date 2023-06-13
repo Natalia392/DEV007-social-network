@@ -3,22 +3,22 @@ import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, si
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../app/firebase';
 
-export const ourCreateUserWithEmailAndPassword = (email, password) => {
-  createUserWithEmailAndPassword(auth, email, password);
+export const ourCreateUserWithEmailAndPassword = async (email, password) => {
+  await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const ourSignInWithEmailAndPassword = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
+export const signInWithGoogle = async () => {
+  const provider = await new GoogleAuthProvider();
   return signInWithPopup(auth, provider);
 };
 
 // posts
-export const createPost = (text) => {
-  addDoc(collection(db, 'publicaciones'), {
+export const createPost = async (text) => {
+  await addDoc(collection(db, 'posts'), {
     content: text,
   });
 };
