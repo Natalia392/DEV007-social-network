@@ -2,6 +2,22 @@ import { ourSignInWithEmailAndPassword, signInWithGoogle } from '../lib';
 import { showMessage } from './modal';
 
 export const Login = (onNavigate) => {
+  // ------------------IMÁGEN Y TÍTULO
+  const allDiv = document.createElement('div');
+  const logoDiv = document.createElement('div');
+  const pageTitle = document.createElement('h1');
+  const logo = document.createElement('picture');
+  const image = document.createElement('img');
+  image.src = './assets/images/Logo-Comunidad.png';
+  pageTitle.textContent = 'La comunidad del Libro';
+  pageTitle.setAttribute('class', 'page-title');
+  allDiv.setAttribute('class', 'all-div');
+  // ----------------------Atributos de los elementos de arriba
+  logo.setAttribute('alt', 'logo');
+  logo.setAttribute('class', 'logo');
+  image.setAttribute('class', 'image-logo');
+  logoDiv.setAttribute('class', 'container-image');
+
   const titleLogin = document.createElement('h1');
   const loginForm = document.createElement('form');
   const inputEmailLogin = document.createElement('input');
@@ -28,6 +44,11 @@ export const Login = (onNavigate) => {
   inputPasswordLogin.setAttribute('id', 'user-password');
   inputPasswordLogin.setAttribute('placeholder', 'Contraseña');
 
+  allDiv.appendChild(logoDiv);
+  allDiv.appendChild(loginForm);
+  logoDiv.appendChild(pageTitle);
+  logoDiv.appendChild(logo);
+  logoDiv.appendChild(image);
   loginForm.appendChild(titleLogin);
   loginForm.appendChild(inputEmailLogin);
   loginForm.appendChild(inputPasswordLogin);
@@ -35,6 +56,7 @@ export const Login = (onNavigate) => {
   loginForm.appendChild(googleButton);
   loginForm.appendChild(bottomMessage);
   loginForm.appendChild(bottomMessageGoRegister);
+
 
   bottomMessageGoRegister.addEventListener('click', () => {
     onNavigate('/register');
@@ -45,14 +67,15 @@ export const Login = (onNavigate) => {
 
     const email = inputEmailLogin.value;
     const password = inputPasswordLogin.value;
-    if (email === '' || password === '') {
-      showMessage('Por favor, ingresa tu correo electrónico y contraseña');
-      return;
-    }
+
     try {
-      const userCredentials = await ourSignInWithEmailAndPassword(email, password);
-      console.log(userCredentials);
-      onNavigate('/wall');
+      if (email === '' || password === '') {
+        showMessage('Por favor, ingresa tu correo electrónico y contraseña');
+      } else {
+        const userCredentials = await ourSignInWithEmailAndPassword(email, password);
+        console.log(userCredentials);
+        onNavigate('/wall');
+      }
     } catch (error) {
       console.log(error);
       if (error.code === 'auth/invalid-email') {
@@ -90,5 +113,6 @@ export const Login = (onNavigate) => {
       }
     }
   });
-  return loginForm;
+
+  return allDiv;
 };
