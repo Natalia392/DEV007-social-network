@@ -2,66 +2,66 @@ import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
 import { showMessage } from './modal';
 
 export const Register = (onNavigate) => {
-  // ------------------IMÁGEN Y TÍTULO
+  // ------------------IMÁGEN Y TÍTULO---------------------------------
+  // Aquí se crea el div que contiene el título y la imagen
   const allDiv = document.createElement('div');
-  const logoDiv = document.createElement('div');
-  const pageTitle = document.createElement('h1');
-  const logo = document.createElement('picture');
-  const image = document.createElement('img');
-  image.src = './assets/images/Logo-Comunidad.png';
-  pageTitle.textContent = 'La comunidad del Libro';
-  pageTitle.setAttribute('class', 'page-title');
   allDiv.setAttribute('class', 'all-div');
 
-  // ----------------------Atributos de los elementos de arriba
-  logo.setAttribute('alt', 'logo');
-  logo.setAttribute('class', 'logo');
-  image.setAttribute('class', 'image-logo');
+  const logoDiv = document.createElement('div');
   logoDiv.setAttribute('class', 'container-image');
 
-  // Elementos que se crean para el formulario
-  // Título y formulario
+  const pageTitle = document.createElement('h1');
+  pageTitle.textContent = 'La comunidad del Libro';
+  pageTitle.setAttribute('class', 'page-title');
+
+  const logo = document.createElement('picture');
+  logo.setAttribute('alt', 'logo');
+  logo.setAttribute('class', 'logo');
+
+  const image = document.createElement('img');
+  image.src = './assets/images/Logo-Comunidad.png';
+  image.setAttribute('class', 'image-logo');
+
+  // -----------------FORMULARIO-----------------------------------------
+  // Aquí se crea el formulario para registrarse y su indicación
   const titleRegister = document.createElement('h1');
+  titleRegister.textContent = 'Regístrate';
+
   const registerForm = document.createElement('form');
+  registerForm.setAttribute('class', 'sub-div');
 
   // inputs
   const inputNameRegister = document.createElement('input');
-  const inputEmailRegister = document.createElement('input');
-  const inputCreatePassword = document.createElement('input');
-
-  // botones
-  const buttonCreateAcount = document.createElement('button');
-  const googleButton = document.createElement('button');
-
-  // mensajes
-  const bottomMessage = document.createElement('p');
-  // eslint-disable-next-line no-unused-vars
-  const warnNoSpacesAllowed = document.createElement('p');
-  const bottomMessageGoLogin = document.createElement('a');
-  const successMessage = document.createElement('p');
-
-  titleRegister.textContent = 'Regístrate';
-  buttonCreateAcount.textContent = 'Registrarme';
-  googleButton.textContent = 'Regístrate con Google';
-  bottomMessage.textContent = '¿Ya tienes una cuenta?';
-  bottomMessageGoLogin.textContent = 'Inicia sesión';
-
-  buttonCreateAcount.setAttribute('class', 'button-register');
-  buttonCreateAcount.setAttribute('type', 'button');
   inputNameRegister.setAttribute('type', 'text');
   inputNameRegister.setAttribute('id', 'user-name');
   inputNameRegister.setAttribute('placeholder', 'Nombre');
-  registerForm.setAttribute('class', 'sub-div');
 
+  const inputEmailRegister = document.createElement('input');
   inputEmailRegister.setAttribute('type', 'text');
   inputEmailRegister.setAttribute('id', 'user-email');
   inputEmailRegister.setAttribute('placeholder', 'Email');
 
+  const inputCreatePassword = document.createElement('input');
   inputCreatePassword.setAttribute('type', 'password');
   inputCreatePassword.setAttribute('id', 'user-password');
   inputCreatePassword.setAttribute('placeholder', 'Contraseña');
 
+  // botones
+  const buttonCreateAcount = document.createElement('button');
+  buttonCreateAcount.textContent = 'Registrarme';
+  buttonCreateAcount.setAttribute('class', 'button-register');
+  buttonCreateAcount.setAttribute('type', 'button');
+
+  const googleButton = document.createElement('button');
+  googleButton.textContent = 'Regístrate con Google';
   googleButton.setAttribute('class', 'google-button');
+
+  // mensajes
+  const bottomMessage = document.createElement('p');
+  bottomMessage.textContent = '¿Ya tienes una cuenta?';
+
+  const bottomMessageGoLogin = document.createElement('a');
+  bottomMessageGoLogin.textContent = 'Inicia sesión';
 
   allDiv.appendChild(logoDiv);
   allDiv.appendChild(registerForm);
@@ -77,25 +77,12 @@ export const Register = (onNavigate) => {
   registerForm.appendChild(bottomMessageGoLogin);
   registerForm.appendChild(googleButton);
 
-  // Elementos que se crean para la ventana modal
-  const divModal = document.createElement('div');
-  const divTextInModal = document.createElement('div');
-  const spanModal = document.createElement('span');
-  // eslint-disable-next-line no-unused-vars
-  const modalMessage = document.createElement('p');
-
-  divModal.setAttribute('id', 'div-modal');
-  divModal.setAttribute('class', 'modal');
-
-  divTextInModal.setAttribute('class', 'modal-content');
-
-  spanModal.setAttribute('class', 'close');
-  spanModal.textContent = '&times;';
-
+  // ----------INICIALIZACIÓN DE BOTONES E INPUT
   bottomMessageGoLogin.addEventListener('click', () => {
     onNavigate('/login');
   });
 
+  // evita que se ingresen espacios en la contraseña
   inputCreatePassword.addEventListener('input', (event) => {
     const currentInput = event.target.value;
     const regex = /\s/;
@@ -105,6 +92,7 @@ export const Register = (onNavigate) => {
     }
   });
 
+  // Activa la funcionalidad para validar la cuenta creada con correo y contraseña
   buttonCreateAcount.addEventListener('click', async (e) => {
     e.preventDefault();
 
@@ -119,7 +107,6 @@ export const Register = (onNavigate) => {
 
     try {
       const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
-      registerForm.appendChild(successMessage);
       onNavigate('/wall');
       console.log(userCredentials);
     } catch (error) {
@@ -138,6 +125,7 @@ export const Register = (onNavigate) => {
     }
   });
 
+  // Activa la funcionalidad para validar la cuenta creada con cuenta de Google
   googleButton.addEventListener('click', async (e) => {
     e.preventDefault();
 

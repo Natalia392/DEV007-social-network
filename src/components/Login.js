@@ -4,45 +4,53 @@ import { showMessage } from './modal';
 export const Login = (onNavigate) => {
   // ------------------IMÁGEN Y TÍTULO
   const allDiv = document.createElement('div');
-  const logoDiv = document.createElement('div');
-  const pageTitle = document.createElement('h1');
-  const logo = document.createElement('picture');
-  const image = document.createElement('img');
-  image.src = './assets/images/Logo-Comunidad.png';
-  pageTitle.textContent = 'La comunidad del Libro';
-  pageTitle.setAttribute('class', 'page-title');
   allDiv.setAttribute('class', 'all-div');
-  // ----------------------Atributos de los elementos de arriba
-  logo.setAttribute('alt', 'logo');
-  logo.setAttribute('class', 'logo');
-  image.setAttribute('class', 'image-logo');
+
+  const logoDiv = document.createElement('div');
   logoDiv.setAttribute('class', 'container-image');
 
+  const pageTitle = document.createElement('h1');
+  pageTitle.textContent = 'La comunidad del Libro';
+  pageTitle.setAttribute('class', 'page-title');
+
+  const logo = document.createElement('picture');
+  logo.setAttribute('alt', 'logo');
+  logo.setAttribute('class', 'logo');
+
+  const image = document.createElement('img');
+  image.src = './assets/images/Logo-Comunidad.png';
+  image.setAttribute('class', 'image-logo');
+
+  // --------------FORMULARIO---------------------------------
   const titleLogin = document.createElement('h1');
-  const loginForm = document.createElement('form');
-  const inputEmailLogin = document.createElement('input');
-  const inputPasswordLogin = document.createElement('input');
-  const buttonLogin = document.createElement('button');
-  const bottomMessage = document.createElement('p');
-  const bottomMessageGoRegister = document.createElement('a');
-  const googleButton = document.createElement('button');
-
   titleLogin.textContent = 'Inicia Sesión';
-  buttonLogin.textContent = 'Ingresar';
-  googleButton.textContent = 'Ingresar con Google';
-  bottomMessage.textContent = '¿Aún no tienes una cuenta?';
-  bottomMessageGoRegister.textContent = 'Regístrate';
 
-  buttonLogin.setAttribute('class', 'button-login');
-  googleButton.setAttribute('class', 'google-button');
+  const loginForm = document.createElement('form');
+  loginForm.setAttribute('class', 'sub-div');
+
+  const inputEmailLogin = document.createElement('input');
   inputEmailLogin.setAttribute('type', 'text');
   inputEmailLogin.setAttribute('id', 'user-email');
   inputEmailLogin.setAttribute('placeholder', 'Email');
-  loginForm.setAttribute('class', 'sub-div');
 
+  const inputPasswordLogin = document.createElement('input');
   inputPasswordLogin.setAttribute('type', 'password');
   inputPasswordLogin.setAttribute('id', 'user-password');
   inputPasswordLogin.setAttribute('placeholder', 'Contraseña');
+
+  const buttonLogin = document.createElement('button');
+  buttonLogin.textContent = 'Ingresar';
+  buttonLogin.setAttribute('class', 'button-login');
+
+  const bottomMessage = document.createElement('p');
+  bottomMessage.textContent = '¿Aún no tienes una cuenta?';
+
+  const bottomMessageGoRegister = document.createElement('a');
+  bottomMessageGoRegister.textContent = 'Regístrate';
+
+  const googleButton = document.createElement('button');
+  googleButton.textContent = 'Ingresar con Google';
+  googleButton.setAttribute('class', 'google-button');
 
   allDiv.appendChild(logoDiv);
   allDiv.appendChild(loginForm);
@@ -57,7 +65,7 @@ export const Login = (onNavigate) => {
   loginForm.appendChild(bottomMessage);
   loginForm.appendChild(bottomMessageGoRegister);
 
-
+  // -------------INICIALIZACIÓN DE BOTONES------------------
   bottomMessageGoRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
