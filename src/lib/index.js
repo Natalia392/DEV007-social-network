@@ -18,7 +18,7 @@ export const signInWithGoogle = () => {
 
 // posts
 export const createPost = (text) => {
-  addDoc(collection(db, 'publicaciones'), {
+  addDoc(collection(db, 'posts'), {
     content: text,
   });
 };
