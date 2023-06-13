@@ -39,18 +39,19 @@ export const Login = (onNavigate) => {
     onNavigate('/register');
   });
 
-  buttonLogin.addEventListener('click', (e) => {
+  buttonLogin.addEventListener('click', async (e) => {
     e.preventDefault();
 
     const email = inputEmailLogin.value;
     const password = inputPasswordLogin.value;
-
+    if (email === '' || password === '') {
+      alert('Por favor, ingresa tu correo electrónico y contraseña');
+      return;
+    }
     try {
-      const userCredentials = ourSignInWithEmailAndPassword(email, password);
+      const userCredentials = await ourSignInWithEmailAndPassword(email, password);
       console.log(userCredentials);
-      if (userCredentials) {
-        onNavigate('/wall');
-      }
+      onNavigate('/wall');
     } catch (error) {
       console.log(error);
       if (error.code === 'auth/invalid-email') {
@@ -67,11 +68,11 @@ export const Login = (onNavigate) => {
     }
   });
 
-  googleButton.addEventListener('click', (e) => {
+  googleButton.addEventListener('click', async (e) => {
     e.preventDefault();
 
     try {
-      const credentials = signInWithGoogle();
+      const credentials = await signInWithGoogle();
       console.log(credentials);
       onNavigate('/wall');
     } catch (error) {
