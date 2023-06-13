@@ -2,6 +2,23 @@ import { ourCreateUserWithEmailAndPassword, signInWithGoogle } from '../lib';
 import { showMessage } from './modal';
 
 export const Register = (onNavigate) => {
+  // ------------------IMÁGEN Y TÍTULO
+  const allDiv = document.createElement('div');
+  const logoDiv = document.createElement('div');
+  const pageTitle = document.createElement('h1');
+  const logo = document.createElement('picture');
+  const image = document.createElement('img');
+  image.src = './assets/images/Logo-Comunidad.png';
+  pageTitle.textContent = 'La comunidad del Libro';
+  pageTitle.setAttribute('class', 'page-title');
+  allDiv.setAttribute('class', 'all-div');
+
+  // ----------------------Atributos de los elementos de arriba
+  logo.setAttribute('alt', 'logo');
+  logo.setAttribute('class', 'logo');
+  image.setAttribute('class', 'image-logo');
+  logoDiv.setAttribute('class', 'container-image');
+
   // Elementos que se crean para el formulario
   // Título y formulario
   const titleRegister = document.createElement('h1');
@@ -45,6 +62,12 @@ export const Register = (onNavigate) => {
   inputCreatePassword.setAttribute('placeholder', 'Contraseña');
 
   googleButton.setAttribute('class', 'google-button');
+
+  allDiv.appendChild(logoDiv);
+  allDiv.appendChild(registerForm);
+  logoDiv.appendChild(pageTitle);
+  logoDiv.appendChild(logo);
+  logoDiv.appendChild(image);
   registerForm.appendChild(titleRegister);
   registerForm.appendChild(inputNameRegister);
   registerForm.appendChild(inputEmailRegister);
@@ -69,21 +92,6 @@ export const Register = (onNavigate) => {
   spanModal.setAttribute('class', 'close');
   spanModal.textContent = '&times;';
 
-  // eslint-disable-next-line spaced-comment
-  /* const showModalUsedEmail = () => {
-    divModal.style.display = 'block';
-
-    divTextInModal.innerHTML = '';
-    modalMessage.innerHTML = '';
-
-    divTextInModal.textContent = 'Error';
-    modalMessage.textContent = 'Este correo ya está registrado';
-
-    divModal.appendChild(divTextInModal);
-    divTextInModal.appendChild(spanModal);
-    divTextInModal.appendChild(modalMessage);
-  };*/
-
   bottomMessageGoLogin.addEventListener('click', () => {
     onNavigate('/login');
   });
@@ -94,7 +102,6 @@ export const Register = (onNavigate) => {
     if (regex.test(currentInput)) {
       inputCreatePassword.value = currentInput.replace(/\s/g, '');
       showMessage('No puedes ingresar espacios');
-      // warnNoSpacesAllowed.innerHTML = 'No puedes ingresar espacios';
     }
   });
 
@@ -109,18 +116,15 @@ export const Register = (onNavigate) => {
       showMessage('Por favor, completa todos los campos');
       return;
     }
-    // console.log(email, password);
+
     try {
       const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
-      // successMessage.innerHTML = '¡Has iniciado sesión exitosamente!';
       registerForm.appendChild(successMessage);
       onNavigate('/wall');
-
       console.log(userCredentials);
     } catch (error) {
       console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
-        // showModalUsedEmail();
         showMessage('Este correo ya está registrado');
       } else if (error.code === 'auth/invalid-email') {
         showMessage('Este no es un correo válido');
@@ -143,7 +147,6 @@ export const Register = (onNavigate) => {
       onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
-        // showModalUsedEmail();
         showMessage('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
       } else if (error.code === 'auth/popup-blocked') {
         showMessage('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
@@ -157,5 +160,5 @@ export const Register = (onNavigate) => {
     }
   });
 
-  return registerForm;
+  return allDiv;
 };

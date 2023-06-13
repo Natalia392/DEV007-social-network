@@ -42,6 +42,7 @@ export const Home = (onNavigate) => {
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
+
   allDiv.appendChild(logoDiv);
   allDiv.appendChild(HomeDiv);
   logoDiv.appendChild(pageTitle);
@@ -53,12 +54,3 @@ export const Home = (onNavigate) => {
 
   return allDiv;
 };
-
-// -------------------FUNCIÓN PARA DAR CLASES A ELEMENTOS
-/* const elements = [nameRegister, inputNameRegister, emailRegister, inputEmailRegister, passwordRegister, inputCreatePassword, buttonCreateAccount];
-
-  const classToAdd = 'mi-clase';
-
-  elements.forEach((element) => {
-    element.classList.add(classToAdd);
-  }); */
