@@ -39,14 +39,20 @@ export const Login = (onNavigate) => {
     onNavigate('/register');
   });
 
-  buttonLogin.addEventListener('click', (e) => {
+  buttonLogin.addEventListener('click', async (e) => {
     e.preventDefault();
 
     const email = inputEmailLogin.value;
     const password = inputPasswordLogin.value;
 
+    // Validar si los campos están vacíos
+    if (email === '' || password === '') {
+      alert('Por favor, ingrese su correo electrónico y contraseña');
+      return; // Detener la ejecución del código si los campos están vacíos
+    }
+
     try {
-      const userCredentials = ourSignInWithEmailAndPassword(email, password);
+      const userCredentials = await ourSignInWithEmailAndPassword(email, password);
       console.log(userCredentials);
       onNavigate('/wall');
     } catch (error) {
@@ -74,18 +80,18 @@ export const Login = (onNavigate) => {
       onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
-        // showModalUsedEmail();
         alert('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
       } else if (error.code === 'auth/popup-blocked') {
         alert('El navegador del usuario bloqueó la ventana emergente de inicio de sesión de Google');
       } else if (error.code === 'auth/cancelled-popup-request') {
         alert('La solicitud de ventana emergente de inicio de sesión de Google fue cancelada antes de completarse');
       } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
-        alert(' La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
+        alert('La autenticación mediante ventanas emergentes no está soportada en el entorno actual del navegador');
       } else if (error.code === 'auth/account-exists-with-different-credential') {
         alert('Existe una cuenta con diferentes credenciales de inicio de sesión asociadas');
       }
     }
   });
+  
   return loginForm;
 };
