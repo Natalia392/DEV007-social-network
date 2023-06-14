@@ -100,15 +100,14 @@ export const Register = (onNavigate) => {
     const email = inputEmailRegister.value;
     const password = inputCreatePassword.value;
 
-    if (email === '' || password === '' || userName === '') {
-      showMessage('Por favor, completa todos los campos');
-      return;
-    }
-
     try {
-      const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
-      onNavigate('/wall');
-      console.log(userCredentials);
+      if (email === '' || password === '' || userName === '') {
+        showMessage('Por favor, completa todos los campos');
+      } else {
+        const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
+        onNavigate('/wall');
+        console.log(userCredentials);
+      }
     } catch (error) {
       console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
