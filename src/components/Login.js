@@ -22,8 +22,9 @@ export const Login = (onNavigate) => {
   image.setAttribute('class', 'image-logo');
 
   // --------------FORMULARIO---------------------------------
-  const titleLogin = document.createElement('h1');
+  const titleLogin = document.createElement('h2');
   titleLogin.textContent = 'Inicia Sesión';
+  titleLogin.setAttribute('class', 'title-login');
 
   const loginForm = document.createElement('form');
   loginForm.setAttribute('class', 'sub-div');
@@ -49,7 +50,7 @@ export const Login = (onNavigate) => {
   bottomMessageGoRegister.textContent = 'Regístrate';
 
   const googleButton = document.createElement('button');
-  googleButton.textContent = 'Ingresar con Google';
+  googleButton.textContent = 'Acceder con Google';
   googleButton.setAttribute('class', 'google-button');
 
   allDiv.appendChild(logoDiv);
