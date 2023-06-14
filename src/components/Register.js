@@ -24,7 +24,7 @@ export const Register = (onNavigate) => {
 
   // -----------------FORMULARIO-----------------------------------------
   // Aquí se crea el formulario para registrarse y su indicación
-  const titleRegister = document.createElement('h1');
+  const titleRegister = document.createElement('h2');
   titleRegister.textContent = 'Regístrate';
 
   const registerForm = document.createElement('form');
@@ -53,7 +53,7 @@ export const Register = (onNavigate) => {
   buttonCreateAcount.setAttribute('type', 'button');
 
   const googleButton = document.createElement('button');
-  googleButton.textContent = 'Regístrate con Google';
+  googleButton.textContent = 'Acceder con Google';
   googleButton.setAttribute('class', 'google-button');
 
   // mensajes
