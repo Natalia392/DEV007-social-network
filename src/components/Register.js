@@ -73,9 +73,9 @@ export const Register = (onNavigate) => {
   registerForm.appendChild(inputEmailRegister);
   registerForm.appendChild(inputCreatePassword);
   registerForm.appendChild(buttonCreateAcount);
+  registerForm.appendChild(googleButton);
   registerForm.appendChild(bottomMessage);
   registerForm.appendChild(bottomMessageGoLogin);
-  registerForm.appendChild(googleButton);
 
   // ----------INICIALIZACIÓN DE BOTONES E INPUT
   bottomMessageGoLogin.addEventListener('click', () => {
