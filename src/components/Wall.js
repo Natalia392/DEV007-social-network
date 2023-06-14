@@ -6,6 +6,7 @@ export const Wall = (onNavigate) => {
   const section = document.createElement('section');
   section.innerHTML = `
     <div class="new-post-container" id="new-post-container">
+      <h2>Pronto podrás postear aquí</h2>
       <textarea class="new-post-text"></textarea><br>
       <button id="post-button" class="post-button">Publicar</button>
     </div>
@@ -20,7 +21,7 @@ export const Wall = (onNavigate) => {
     const textAreaContent = section.querySelector('.new-post-text').value;
     createPost(textAreaContent);
     console.log(createPost);
-    alert(createPost);
+    alert(textAreaContent);
   });
 
   const buttonHome = section.querySelector('#go-home');
