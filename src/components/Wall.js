@@ -17,7 +17,6 @@ export const Wall = (onNavigate) => {
       <button id="go-home" class="go-home">Home</button>
     </div>
   `;
- 
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text').value;
     try {
