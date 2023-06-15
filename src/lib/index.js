@@ -28,10 +28,12 @@ export const createPost = async (text) => {
     throw new Error(`Error al crear el post: ${error.message}`);
   }
 };
+
 export const getPosts = async () => {
   const querySnapshot = await getDocs(collection(db, 'posts'));
   return querySnapshot;
 };
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     await addDoc(collection(db, 'posts'));
