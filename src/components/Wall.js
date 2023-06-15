@@ -17,12 +17,6 @@ export const Wall = (onNavigate) => {
       <button id="go-home" class="go-home">Home</button>
     </div>
   `;
-  window.addEventListener('DOMContentLoaded', async () => {
-    const querySnapshot = await getPosts();
-    querySnapshot.forEach(doc => {
-      console.log(doc.data());
-    });
-  });
 
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text').value;
@@ -41,18 +35,30 @@ export const Wall = (onNavigate) => {
         // Apendizar el nuevo div al contenedor de posts
         const allPostsContainer = section.querySelector('.all-posts');
         allPostsContainer.appendChild(postDiv);
+        section.querySelector('.new-post-text').value = '';
       }
     } catch (error) {
       console.error(error);
     }
   });
 
-  /*section.querySelector('#post-button').addEventListener('click', async () => {
-    const textAreaContent = section.querySelector('.new-post-text').value;
-    const createdPost = await createPost(textAreaContent);
-    console.log(createdPost);
-    alert(createdPost);
-  });*/
+  window.addEventListener('DOMContentLoaded', async () => {
+    const querySnapshot = await getPosts();
+
+    let html = '';
+
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      const post = doc.data();
+      html += `
+      <div class="post-div"> ${post.content} </div>
+      `;
+    });
+
+    const allPostsDiv = section.querySelector('.all-posts');
+
+    allPostsDiv.innerHTML = html;
+  });
 
   const buttonHome = section.querySelector('#go-home');
   buttonHome.addEventListener('click', () => {
