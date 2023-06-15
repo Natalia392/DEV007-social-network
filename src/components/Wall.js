@@ -1,4 +1,5 @@
-import { createPost } from '../lib';
+import { createPost, getPosts } from '../lib';
+import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
   const wallDiv = document.createElement('main');
@@ -16,13 +17,42 @@ export const Wall = (onNavigate) => {
       <button id="go-home" class="go-home">Home</button>
     </div>
   `;
-
-  section.querySelector('#post-button').addEventListener('click', () => {
-    const textAreaContent = section.querySelector('.new-post-text').value;
-    createPost(textAreaContent);
-    console.log(createPost);
-    alert(textAreaContent);
+  window.addEventListener('DOMContentLoaded', async () => {
+    const querySnapshot = await getPosts();
+    querySnapshot.forEach(doc => {
+      console.log(doc.data());
+    });
   });
+
+  section.querySelector('#post-button').addEventListener('click', async () => {
+    const textAreaContent = section.querySelector('.new-post-text').value;
+    try {
+      if (textAreaContent === '') {
+        showMessage('Escribe algo para publicar');
+      } else {
+        const createdPost = await createPost(textAreaContent);
+        console.log(createdPost.data);
+        console.log(createdPost.id);// Imprimir el ID del post
+        console.log(createdPost.content); // Imprimir el contenido del post
+
+        // Crear un nuevo div para el post
+        const postDiv = document.createElement('div');
+        postDiv.textContent = createdPost.content;
+        // Apendizar el nuevo div al contenedor de posts
+        const allPostsContainer = section.querySelector('.all-posts');
+        allPostsContainer.appendChild(postDiv);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  /*section.querySelector('#post-button').addEventListener('click', async () => {
+    const textAreaContent = section.querySelector('.new-post-text').value;
+    const createdPost = await createPost(textAreaContent);
+    console.log(createdPost);
+    alert(createdPost);
+  });*/
 
   const buttonHome = section.querySelector('#go-home');
   buttonHome.addEventListener('click', () => {
