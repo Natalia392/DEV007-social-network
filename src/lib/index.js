@@ -29,16 +29,8 @@ export const createPost = async (text) => {
   }
 };
 export const getPosts = async () => {
-  try {
-    const querySnapshot = await getDocs(collection(db, 'posts'));
-    const posts = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      data: doc.data(),
-    }));
-    return posts;
-  } catch (error) {
-    throw new Error(`Error al obtener los posts: ${error.message}`);
-  }
+  const querySnapshot = await getDocs(collection(db, 'posts'));
+  return querySnapshot;
 };
 onAuthStateChanged(auth, async (user) => {
   if (user) {
