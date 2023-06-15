@@ -1,4 +1,4 @@
-import { createPost } from '../lib';
+import { createPost, getPosts } from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
@@ -17,6 +17,13 @@ export const Wall = (onNavigate) => {
       <button id="go-home" class="go-home">Home</button>
     </div>
   `;
+  window.addEventListener('DOMContentLoaded', async () => {
+    const querySnapshot = await getPosts();
+    querySnapshot.forEach(doc => {
+      console.log(doc.data());
+    });
+  });
+
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text').value;
     try {
