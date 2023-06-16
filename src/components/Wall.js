@@ -71,6 +71,7 @@ export const Wall = (onNavigate) => {
   });
 
   window.addEventListener('DOMContentLoaded', async () => {
+    console.log('funciona el load');
     const querySnapshot = await getPosts();
 
     let html = '';

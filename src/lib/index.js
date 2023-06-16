@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, getDocs } from 'firebase/firestore';
 import { auth, db } from '../app/firebase';
 
 export const ourCreateUserWithEmailAndPassword = async (email, password) => {
@@ -21,9 +21,15 @@ export const createPost = async (text) => {
   try {
     const docRef = await addDoc(collection(db, 'posts'), {
       content: text,
+      postDate: firebase.firestore.Timestamp.now(),
     });
+
+    const snapshot = await getDocs(docRef);
+    const data = snapshot.data();
+    const whenItWasPosted = data.postDate;
+
     const docId = docRef.id;
-    return { id: docId, content: text };
+    console.log({ id: docId, content: text, postDate: whenItWasPosted });
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
   }
