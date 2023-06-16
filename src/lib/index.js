@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth';
 
 import {
-  Timestamp,
   addDoc,
   collection,
   getDocs,
@@ -38,23 +37,22 @@ export const createPost = async (text) => {
     const docRef = await addDoc(collection(db, 'posts'), { // Se crea la constante que crea la colección pidiendo la info de usuario, texto y fecha de publicación
       // user: firebase.auth().currentUser,
       content: text,
-      postDate: Timestamp.now(),
+      postDate: new Date(),
     });
     // Se pide una instantánea del post para poder acceder a sus datos
     const docSnapshot = await getDoc(docRef);
+
     const post = docSnapshot.data();
-    console.log(post);
     const nowUser = auth.currentUser;
-    console.log(nowUser);
     const whenItWasPosted = post.postDate;
-    console.log(whenItWasPosted);
-    /* const docId = docRef.id;
+    const docId = docRef.id;
+
     return {
       id: docId,
       user: nowUser,
       content: text,
-      postDate: whenItWasPosted,
-    }; */
+      when: whenItWasPosted,
+    };
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
   }
@@ -66,7 +64,7 @@ export const getPosts = async () => {
   return querySnapshot;
 };
 
-export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'desc')), callback);
+export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'asc')), callback);
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
