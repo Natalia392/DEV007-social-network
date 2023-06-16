@@ -1,4 +1,4 @@
-import { createPost, getPosts } from '../lib';
+import { createPost, getPosts, onGetPosts } from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
@@ -39,54 +39,52 @@ export const Wall = (onNavigate) => {
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
-      <div class="all-posts">
+    <div class="all-posts">
     </div>
     <div>
       <button id="go-home" class="go-home">Home</button>
     </div>
-`;
+    `;
+
+  const allPostsDiv = section.querySelector('.all-posts');
+  let html = '';
 
   section.querySelector('#post-button').addEventListener('click', async () => {
-    const textAreaContent = section.querySelector('.new-post-text').value;
+    const textAreaContent = section.querySelector('.new-post-text');
     try {
       if (textAreaContent === '') {
         showMessage('Escribe algo para publicar');
       } else {
-        const createdPost = await createPost(textAreaContent);
-        console.log(createdPost.data);
+        const createdPost = await createPost(textAreaContent.value);
         console.log(createdPost.id);// Imprimir el ID del post
         console.log(createdPost.content); // Imprimir el contenido del post
+        console.log(createdPost.user);
+        console.log(createdPost.postDate);
 
         // Crear un nuevo div para el post
-        const postDiv = document.createElement('div');
-        postDiv.textContent = createdPost.content;
+        // const postDiv = document.createElement('div');
+        // postDiv.textContent = createdPost.content;
         // Apendizar el nuevo div al contenedor de posts
-        const allPostsContainer = section.querySelector('.all-posts');
-        allPostsContainer.appendChild(postDiv);
-        section.querySelector('.new-post-text').value = ''; // Limpia el input después de publicado el mensaje
+        // const allPostsContainer = section.querySelector('.all-posts');
+        // allPostsContainer.appendChild(postDiv);
+        section.querySelector('.new-post-text').value = '';
       }
     } catch (error) {
       console.error(error);
     }
   });
-
-  window.addEventListener('DOMContentLoaded', async () => {
-    console.log('funciona el load');
-    const querySnapshot = await getPosts();
-
-    let html = '';
-
+  onGetPosts((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      console.log(doc.data());
       const post = doc.data();
       html += `
-      <div class="post-div"> ${post.content} </div>
-      `;
+            <div class="post-div"> ${post.content}</div>
+            `;
     });
-
-    const allPostsDiv = section.querySelector('.all-posts');
-
     allPostsDiv.innerHTML = html;
+  });
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    console.log('DOMContentLoaded event fired');
   });
 
   const buttonHome = section.querySelector('#go-home');
