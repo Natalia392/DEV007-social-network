@@ -35,19 +35,15 @@ export const signInWithGoogle = () => {
 // Función para la creación de posts
 export const createPost = async (text) => {
   try {
-    const docRef = await addDoc(collection(db, 'posts'), { // Se crea la constante que crea la colección pidiendo la info de usuario, texto y fecha de publicación
-      // user: firebase.auth().currentUser,
+    const docRef = await addDoc(collection(db, 'posts'), {
       content: text,
-      postDate: Timestamp.now(),
+      postDate: new Date(),
     });
-    // Se pide una instantánea del post para poder acceder a sus datos
+
     const docSnapshot = await getDoc(docRef);
     const post = docSnapshot.data();
-    console.log(post);
     const nowUser = auth.currentUser;
-    console.log(nowUser);
     const whenItWasPosted = post.postDate;
-    console.log(whenItWasPosted);
     const docId = docRef.id;
     return {
       id: docId,
@@ -60,10 +56,21 @@ export const createPost = async (text) => {
   }
 };
 
-// función para obtener los posts y así mostrarlos luego en pantalla
+// Función para obtener los posts y así mostrarlos luego en pantalla
 export const getPosts = async () => {
-  const querySnapshot = await getDocs(collection(db, 'posts'));
+  const querySnapshot = await getDocs(query(collection(db, 'posts'), orderBy('postDate', 'desc')));
   return querySnapshot;
+};
+
+export const checkUserAuthentication = () => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    // El usuario está autenticado
+    console.log('Usuario autenticado:', user);
+  } else {
+    // El usuario no está autenticado
+    console.log('Usuario no autenticado');
+  }
 };
 
 export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'desc')), callback);
@@ -73,6 +80,7 @@ onAuthStateChanged(auth, async (user) => {
     await addDoc(collection(db, 'posts'));
   }
 });
+
 /*
 export const handleLogin = (user, onNavigate) => {
   if (user) {
