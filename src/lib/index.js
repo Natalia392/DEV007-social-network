@@ -48,13 +48,13 @@ export const createPost = async (text) => {
     console.log(nowUser);
     const whenItWasPosted = post.postDate;
     console.log(whenItWasPosted);
-    /* const docId = docRef.id;
+    const docId = docRef.id;
     return {
       id: docId,
       user: nowUser,
       content: text,
       postDate: whenItWasPosted,
-    }; */
+    };
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
   }
