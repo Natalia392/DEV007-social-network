@@ -1,4 +1,4 @@
-import { createPost, getPosts, onGetPosts } from '../lib';
+import { createPost, onGetPosts } from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
