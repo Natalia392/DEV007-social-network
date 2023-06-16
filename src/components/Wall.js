@@ -1,4 +1,4 @@
-import { createPost, getPosts, onGetPosts } from '../lib';
+import { createPost, onGetPosts } from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
@@ -67,6 +67,18 @@ export const Wall = (onNavigate) => {
         // Apendizar el nuevo div al contenedor de posts
         // const allPostsContainer = section.querySelector('.all-posts');
         // allPostsContainer.appendChild(postDiv);
+        // Acceder a los componentes de la fecha y hora
+        const fecha = createdPost.postDate.toDate();
+        const año = fecha.getFullYear();
+        const mes = fecha.getMonth() + 1;
+        // Los meses en JavaScript comienzan desde 0, por lo que se agrega 1
+        const dia = fecha.getDate();
+        const hora = fecha.getHours();
+        const minutos = fecha.getMinutes();
+        const segundos = fecha.getSeconds();
+
+        console.log(`Fecha: ${año}-${mes}-${dia}`);
+        console.log(`Hora: ${hora}:${minutos}:${segundos}`);
         section.querySelector('.new-post-text').value = '';
       }
     } catch (error) {
@@ -77,7 +89,10 @@ export const Wall = (onNavigate) => {
     querySnapshot.forEach((doc) => {
       const post = doc.data();
       html += `
+            <div class="post-div">
+            <div class="user-like-div">Nombre de usuario</div>
             <div class="post-div"> ${post.content}</div>
+            </div>
             `;
     });
     allPostsDiv.innerHTML = html;

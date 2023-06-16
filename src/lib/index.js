@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth';
 
 import {
-  Timestamp,
   addDoc,
   collection,
   getDocs,
@@ -37,15 +36,12 @@ export const createPost = async (text) => {
   try {
     const docRef = await addDoc(collection(db, 'posts'), {
       content: text,
-      postDate: Timestamp.now(),
+      postDate: new Date(),
     });
 
     const docSnapshot = await getDoc(docRef);
+
     const post = docSnapshot.data();
-    const createdAt = post?.metadata?.createdAt?.toDate(); // Acceder a la fecha de creación del documento
-
-    console.log(createdAt); // Mostrar la fecha de creación en la consola
-
     const nowUser = auth.currentUser;
     const whenItWasPosted = post.postDate;
     const docId = docRef.id;
@@ -54,8 +50,7 @@ export const createPost = async (text) => {
       id: docId,
       user: nowUser,
       content: text,
-      postDate: whenItWasPosted,
-      createdAt: createdAt, // Agregar la fecha de creación al objeto retornado
+      when: whenItWasPosted,
     };
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
@@ -68,7 +63,7 @@ export const getPosts = async () => {
   return querySnapshot;
 };
 
-export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'desc')), callback);
+export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'asc')), callback);
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
