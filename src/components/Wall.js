@@ -52,7 +52,7 @@ export const Wall = (onNavigate) => {
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text');
     try {
-      if (textAreaContent === '') {
+      if (textAreaContent.value === '') {
         showMessage('Escribe algo para publicar');
       } else {
         const createdPost = await createPost(textAreaContent.value);
