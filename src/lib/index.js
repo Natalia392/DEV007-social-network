@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth';
 
 import {
-  Timestamp,
   addDoc,
   collection,
   getDocs,
@@ -41,15 +40,17 @@ export const createPost = async (text) => {
     });
 
     const docSnapshot = await getDoc(docRef);
+
     const post = docSnapshot.data();
     const nowUser = auth.currentUser;
     const whenItWasPosted = post.postDate;
     const docId = docRef.id;
+
     return {
       id: docId,
       user: nowUser,
       content: text,
-      postDate: whenItWasPosted,
+      when: whenItWasPosted,
     };
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
@@ -62,18 +63,7 @@ export const getPosts = async () => {
   return querySnapshot;
 };
 
-export const checkUserAuthentication = () => {
-  const user = firebase.auth().currentUser;
-  if (user) {
-    // El usuario está autenticado
-    console.log('Usuario autenticado:', user);
-  } else {
-    // El usuario no está autenticado
-    console.log('Usuario no autenticado');
-  }
-};
-
-export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'desc')), callback);
+export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'asc')), callback);
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
