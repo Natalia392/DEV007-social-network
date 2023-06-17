@@ -39,15 +39,16 @@ export const Wall = (onNavigate) => {
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
-    <div class="all-posts">
-    </div>
+    <div class="pink-container">
+      <h2 class="title-posts">Todas las publicaciones</h2>
+      <div class="all-posts">
+      </div>
     <div>
       <button id="go-home" class="go-home">Home</button>
     </div>
     `;
 
   const allPostsDiv = section.querySelector('.all-posts');
-  let html = '';
 
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text');
@@ -85,11 +86,20 @@ export const Wall = (onNavigate) => {
       console.error(error);
     }
   });
+  let html = '';
   onGetPosts((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       const post = doc.data();
       html += `
-            <div class="post-div"> ${post.content}</div>
+      <div>
+      <div class="like-div">
+        <p class="user-name">Nombre de usuario</p>
+        <img class="delete-icon" src="/assets/images/delete-icon.png">
+        <img class="edit-icon" src="/assets/images/edit-icon.png">
+        <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
+      </div>
+      <div class="post-div">${post.content}</div>
+    </div>   
             `;
     });
     allPostsDiv.innerHTML = html;
