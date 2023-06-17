@@ -14,6 +14,8 @@ import {
   getDoc,
   onSnapshot,
   query,
+  runTransaction,
+  doc,
 } from 'firebase/firestore';
 
 import { auth, db } from '../app/firebase';
@@ -37,6 +39,7 @@ export const createPost = async (text) => {
     const docRef = await addDoc(collection(db, 'posts'), {
       content: text,
       postDate: new Date(),
+      likes: 0, // contador en 0
     });
 
     const docSnapshot = await getDoc(docRef);
@@ -51,6 +54,7 @@ export const createPost = async (text) => {
       user: nowUser,
       content: text,
       when: whenItWasPosted,
+      likes: post.likes || 0, // Incluir el contador de likes en la respuesta
     };
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
@@ -70,6 +74,34 @@ onAuthStateChanged(auth, async (user) => {
     await addDoc(collection(db, 'posts'));
   }
 });
+
+// Exporta el usuario actual
+export const getCurrentUser = () => auth.currentUser;
+
+// Función para el contador de likes
+export const incrementLikeCount = async (postId) => {
+  try {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      throw new Error('No hay un usuario autenticado.');
+    }
+
+    const postRef = doc(db, 'posts', postId);
+    const postDoc = await getDoc(postRef);
+
+    if (!postDoc.exists()) {
+      throw new Error('El post no existe.');
+    }
+
+    const currentLikes = postDoc.data().likes || 0;
+
+    await runTransaction(db, async (transaction) => {
+      transaction.update(postRef, { likes: currentLikes + 1 });
+    });
+  } catch (error) {
+    throw new Error(`Error al incrementar el contador de likes: ${error.message}`);
+  }
+};
 
 /*
 export const handleLogin = (user, onNavigate) => {

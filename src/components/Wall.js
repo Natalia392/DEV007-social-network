@@ -1,4 +1,4 @@
-import { createPost, onGetPosts } from '../lib';
+import { createPost, onGetPosts, incrementLikeCount } from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
@@ -57,7 +57,7 @@ export const Wall = (onNavigate) => {
         showMessage('Escribe algo para publicar');
       } else {
         const createdPost = await createPost(textAreaContent.value);
-        console.log(createdPost.id);// Imprimir el ID del post
+        console.log(createdPost.id); // Imprimir el ID del post
         console.log(createdPost.content); // Imprimir el contenido del post
         console.log(createdPost.user);
         console.log(createdPost.postDate);
@@ -90,19 +90,49 @@ export const Wall = (onNavigate) => {
   onGetPosts((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       const post = doc.data();
+      const fecha = post.postDate.toDate();
+      const año = fecha.getFullYear();
+      const mes = fecha.getMonth() + 1;
+      const dia = fecha.getDate();
+      const likes = post.likes || 0;
       html += `
       <div>
-      <div class="like-div">
-        <p class="user-name">Nombre de usuario</p>
-        <img class="delete-icon" src="/assets/images/delete-icon.png">
-        <img class="edit-icon" src="/assets/images/edit-icon.png">
-        <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
-      </div>
-      <div class="post-div">${post.content}</div>
-    </div>   
-            `;
+        <div class="like-div">
+          <p class="user-name">Nombre de usuario</p>
+          <img class="delete-icon" src="/assets/images/delete-icon.png">
+          <img class="edit-icon" src="/assets/images/edit-icon.png">
+          <img class="like-button before-like" src="/assets/images/before-like.png" data-id="${doc.id}">
+        </div>
+        <div class="post-div">${post.content}</div>
+        <div  class="date-container">
+          <p class="p-date">Fecha: ${año}-${mes}-${dia}</p>
+          <p class="p-likes">Likes: ${likes}</p>
+        </div>
+      </div>   
+      `;
     });
     allPostsDiv.innerHTML = html;
+
+    // Agregar evento de clic a los botones de like
+    const likeButtons = section.querySelectorAll('.like-button');
+    likeButtons.forEach((likeButton) => {
+      likeButton.addEventListener('click', async () => {
+        if (likeButton.src.includes('before-like.png')) {
+          likeButton.src = '/assets/images/after-like.png';
+          likeButton.classList.add('after-like');
+          const postId = likeButton.dataset.id;
+          try {
+            await incrementLikeCount(postId);
+            console.log('Contador de likes incrementado con éxito.');
+          } catch (error) {
+            console.error(`Error al incrementar el contador de likes: ${error.message}`);
+          }
+        } else if (likeButton.src.includes('after-like.png')) {
+          likeButton.src = '/assets/images/before-like.png';
+          likeButton.classList.remove('after-like');
+        }
+      });
+    });
   });
 
   window.addEventListener('DOMContentLoaded', async () => {

@@ -366,12 +366,7 @@ input:focus {
 .post-div { /*Cada post individual*/
   background-color:#fffaf0;
   box-shadow: 1px 1px 10px 1px #e29578;
-  padding: 30px;
-  margin-bottom: 25px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px; 
+  padding: 30px; 
 }
 
 .title-posts { /*titulo de: todas las publicaciones*/
@@ -396,10 +391,15 @@ input:focus {
 }
 
 .like-button { /*imagen del like*/
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.like-button:hover {
+  transform: scale(1.1);
+  transition: all 1s;
 }
 
 .delete-icon{ /*icono de borrar*/
@@ -408,15 +408,64 @@ input:focus {
   cursor: pointer;
 }
 
+.delete-icon:hover{ 
+  transform: scale(1.1);
+  transition: all 1s;
+}
 .edit-icon{ /*icono de editar*/
   height: 20px;
   width: 20px;
   cursor: pointer;
 }
 
+.edit-icon:hover {
+  transform: scale(1.1);
+  transition: all 1s;
+}
 .user-name { /*nombre del usuario*/
 margin-left: 10px;
 color: #fffaf0;
 width: 83%;
 text-align: left;
+padding-top: 5px;
+}
+
+.date-container { /*contenedor de la fecha de la publicación*/
+  height: 35px;
+  width: 100%;
+  background-color: #006d77;
+  box-shadow: 0px 1px 5px -1px #e29578;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  background-color:#fffaf0;
+}
+
+.p-date {
+margin-left: 10px;
+color: #adadab;
+text-align: left;
+font-size: 16px;
+}
+
+.after-like {
+  transform: scale(1.1);
+  transition: all 1s;
+}
+
+.after-like:hover {
+  transform: scale(1);
+  transition: all 1s;
+}
+
+.p-likes {
+margin-right: 30px;
+color: #adadab;
+text-align: right;
+font-size: 16px;
 }
