@@ -446,14 +446,14 @@ padding-top: 5px;
   background-color:#fffaf0;
 }
 
-.p-date {
+.p-date { /*fecha de la publicación*/
 margin-left: 10px;
 color: #adadab;
 text-align: left;
 font-size: 16px;
 }
 
-.after-like {
+.after-like { /*icono después de dar like*/
   transform: scale(1.1);
   transition: all 1s;
 }
@@ -463,9 +463,11 @@ font-size: 16px;
   transition: all 1s;
 }
 
-.p-likes {
+.p-likes { /*contador de likes*/
 margin-right: 30px;
 color: #adadab;
 text-align: right;
 font-size: 16px;
 }
+
+

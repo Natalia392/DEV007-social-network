@@ -1,4 +1,13 @@
-import { createPost, onGetPosts, incrementLikeCount } from '../lib';
+import {
+  onGetPosts,
+  incrementLikes,
+  getCurrentUser,
+  checkIfUserLikedPost,
+  createPost,
+  revertLike,
+  saveLikesToPost,
+  removeLikesFromPost,
+} from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
@@ -49,7 +58,6 @@ export const Wall = (onNavigate) => {
     `;
 
   const allPostsDiv = section.querySelector('.all-posts');
-
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text');
     try {
@@ -59,7 +67,7 @@ export const Wall = (onNavigate) => {
         const createdPost = await createPost(textAreaContent.value);
         console.log(createdPost.id); // Imprimir el ID del post
         console.log(createdPost.content); // Imprimir el contenido del post
-        console.log(createdPost.user);
+        console.log(createdPost.user.displayName);
         console.log(createdPost.postDate);
 
         // Crear un nuevo div para el post
@@ -86,8 +94,24 @@ export const Wall = (onNavigate) => {
       console.error(error);
     }
   });
-  let html = '';
+
+  /* FUNCION PARA ELIMINAR LOS POST EN CASO DE NECESITARLA
+  section.querySelector('#post-button').addEventListener('click', async () => {
+    const textAreaContent = section.querySelector('.new-post-text');
+    try {
+      if (textAreaContent.value === '') {
+        await deleteAllPosts();
+        console.log('Posts eliminados.');
+      } else {
+        // Resto de tu código para crear un nuevo post
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }); */
+
   onGetPosts((querySnapshot) => {
+    let html = ''; // Variable para almacenar el HTML de las publicaciones
     querySnapshot.forEach((doc) => {
       const post = doc.data();
       const fecha = post.postDate.toDate();
@@ -95,43 +119,54 @@ export const Wall = (onNavigate) => {
       const mes = fecha.getMonth() + 1;
       const dia = fecha.getDate();
       const likes = post.likes || 0;
+      const user = getCurrentUser();
+      const username = user.displayName;
+      console.log(likes);
+
       html += `
-      <div>
-        <div class="like-div">
-          <p class="user-name">Nombre de usuario</p>
-          <img class="delete-icon" src="/assets/images/delete-icon.png">
-          <img class="edit-icon" src="/assets/images/edit-icon.png">
-          <img class="like-button before-like" src="/assets/images/before-like.png" data-id="${doc.id}">
+        <div>
+          <div class="like-div">
+            <p class="user-name">${username}</p>
+            <img class="delete-icon" src="/assets/images/delete-icon.png">
+            <img class="edit-icon" src="/assets/images/edit-icon.png">
+            <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
+          </div>
+          <div class="post-div">${post.content}</div>
+          <div class="date-container">
+            <p class="p-date">Fecha: ${año}-${mes}-${dia}</p>
+            <p class="p-likes">Likes: ${likes}</p>
+          </div>
         </div>
-        <div class="post-div">${post.content}</div>
-        <div  class="date-container">
-          <p class="p-date">Fecha: ${año}-${mes}-${dia}</p>
-          <p class="p-likes">Likes: ${likes}</p>
-        </div>
-      </div>   
       `;
     });
     allPostsDiv.innerHTML = html;
 
     // Agregar evento de clic a los botones de like
-    const likeButtons = section.querySelectorAll('.like-button');
-    likeButtons.forEach((likeButton) => {
-      likeButton.addEventListener('click', async () => {
-        if (likeButton.src.includes('before-like.png')) {
-          likeButton.src = '/assets/images/after-like.png';
-          likeButton.classList.add('after-like');
-          const postId = likeButton.dataset.id;
+    allPostsDiv.addEventListener('click', async (event) => {
+      const clickedElement = event.target;
+      if (clickedElement.matches('.like-button')) {
+        if (clickedElement.src.includes('before-like.png')) {
+          clickedElement.src = '/assets/images/after-like.png';
+          const postId = clickedElement.dataset.id;
           try {
-            await incrementLikeCount(postId);
-            console.log('Contador de likes incrementado con éxito.');
+            const user = getCurrentUser();
+            if (user) {
+              const userId = user.uid;
+              console.log(userId);
+              const hasLiked = await checkIfUserLikedPost(userId, postId);
+              if (!hasLiked) {
+                await incrementLikes(postId);
+                await saveLikesToPost(postId, userId);
+              } else {
+                await revertLike(postId);
+                await removeLikesFromPost(postId, userId);
+              }
+            }
           } catch (error) {
-            console.error(`Error al incrementar el contador de likes: ${error.message}`);
+            console.error(`Error al gestionar el like: ${error.message}`);
           }
-        } else if (likeButton.src.includes('after-like.png')) {
-          likeButton.src = '/assets/images/before-like.png';
-          likeButton.classList.remove('after-like');
         }
-      });
+      }
     });
   });
 
