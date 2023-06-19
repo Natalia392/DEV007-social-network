@@ -43,17 +43,17 @@ export const getCurrentUser = () => auth.currentUser;
 
 // Función para incrementar los likes
 export const incrementLikes = async (postId) => {
-  const postRef = firestoreDoc(db, 'posts', postId);
-  const postDoc = await getDoc(postRef);
-  if (postDoc.exists()) {
-    const currentLikes = postDoc.data().likes || 0;
-    await updateDoc(postRef, { likes: currentLikes + 1 });
+  const postRef = firestoreDoc(db, 'posts', postId); // Crea la referencia al documento post
+  const postDoc = await getDoc(postRef); // Obtiene el documento referenciado
+  if (postDoc.exists()) { // si existe el documento entonces...
+    const currentLikes = postDoc.data().likes || 0;// o hay o no hay likes
+    await updateDoc(postRef, { likes: currentLikes + 1 });// Actualiza sumandole 1 a los like
 
-    const user = getCurrentUser();
-    if (user) {
-      const userId = user.uid;
-      const likesRef = collection(postRef, 'likes');
-      await addDoc(likesRef, { userId });
+    const user = getCurrentUser();// obtiene el usuario actual
+    if (user) { // si hay usuario...
+      const userId = user.uid;// Obtiene su id
+      const likesRef = collection(postRef, 'likes');// Crea referencia a la subcolección likes
+      await addDoc(likesRef, { userId });// Añade el id del usuario likeador
     }
   } else {
     throw new Error('La publicación no existe.');
@@ -62,24 +62,26 @@ export const incrementLikes = async (postId) => {
 
 // Función para revertir un like
 export const revertLike = async (postId) => {
-  const postRef = firestoreDoc(db, 'posts', postId);
-  const postDoc = await getDoc(postRef);
-  if (postDoc.exists()) {
-    const currentLikes = postDoc.data().likes || 0;
+  const postRef = firestoreDoc(db, 'posts', postId);// Crea la referencia al documento que contiene el post
+  const postDoc = await getDoc(postRef);// Obtiene el documento
+  if (postDoc.exists()) { // Aló post, estas?
+    const currentLikes = postDoc.data().likes || 0;// si si estoy, puedo tener un like o ninguno
 
-    if (currentLikes > 0) {
-      await updateDoc(postRef, { likes: currentLikes - 1 });
+    if (currentLikes > 0) { // si hay algún like, entonces...
+      await updateDoc(postRef, { likes: currentLikes - 1 });// se espera actualización del doc, -1<3
 
-      const user = getCurrentUser();
-      if (user) {
-        const userId = user.uid;
-        const likesRef = collection(postRef, 'likes');
-        const querySnapshot = await getDocs(likesRef);
-        const likeDocs = querySnapshot.docs.filter((doc) => doc.data().userId === userId);
+      const currentUser = getCurrentUser();// se obtiene el usuario actual
+      if (currentUser) { // alo, usuario, estas?
+        const cuerrentUserId = currentUser.uid; // aquí estoy yo usuario y me llamo userId
+        const likesRef = collection(postRef, 'likes');// Crea la referencia a la subcolección del like
+        const querySnapshot = await getDocs(likesRef);// Toma una instantanea de la subcolección <3
+        // filtra el documento y comprueba cual es el usuario actual
+        const likeDocs = querySnapshot.docs.filter((doc) => doc.data().userId === cuerrentUserId);
 
-        if (likeDocs.length > 0) {
+        if (likeDocs.length > 0) { // si es que hay likes...
+          // Se crea una referencia al documento de "likes" específico del usuario actual
           const likeDocRef = firestoreDoc(db, 'posts', postId, 'likes', likeDocs[0].id);
-          await deleteDoc(likeDocRef);
+          await deleteDoc(likeDocRef); // Borra el documento referenciado
         }
       }
     }
@@ -93,19 +95,20 @@ export const getUserRef = (userId) => firestoreDoc(db, 'users', userId);
 
 // Función para guardar los likes de los usuarios en el documento del post
 export const saveLikesToPost = async (postId, userId) => {
-  const postRef = firestoreDoc(db, 'posts', postId);
-  const userRef = getUserRef(userId);
+  const postRef = firestoreDoc(db, 'posts', postId);// Crea la referencia con el id del post
+  const userRef = getUserRef(userId);// Crea referencia y obtiene el user con id del post
   await updateDoc(postRef, {
-    likes: increment(1),
-    likedBy: firestoreDoc.FieldValue.arrayUnion(userRef),
+    // actualiza el like en el post
+    likes: increment(1), // súmale 1
+    likedBy: firestoreDoc.FieldValue.arrayUnion(userRef), // <- de quién es el like?
   });
 };
 
 // Verifica si un usuario ha dado "me gusta" a un post específico.
 export const checkIfUserLikedPost = async (userId, postId) => {
-  const likesRef = collection(db, 'posts', postId, 'likes');
-  const querySnapshot = await getDocs(likesRef);
-  return querySnapshot.docs.some((doc) => doc.data().userId === userId);
+  const likesRef = collection(db, 'posts', postId, 'likes');// Crea la referencia a likes de los post
+  const querySnapshot = await getDocs(likesRef);// Instantanea del like del usuario
+  return querySnapshot.docs.some((doc) => doc.data().userId === userId);// que usuario dió like
 };
 
 /* Función para eliminar todos los posts
