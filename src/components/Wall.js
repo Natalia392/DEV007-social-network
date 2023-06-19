@@ -1,4 +1,13 @@
-import { createPost, onGetPosts } from '../lib';
+import {
+  onGetPosts,
+  incrementLikes,
+  getCurrentUser,
+  checkIfUserLikedPost,
+  createPost,
+  revertLike,
+  saveLikesToPost,
+  removeLikesFromPost,
+} from '../lib';
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
@@ -39,26 +48,26 @@ export const Wall = (onNavigate) => {
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
-    <div class="all-posts">
-    </div>
+    <div class="pink-container">
+      <h2 class="title-posts">Todas las publicaciones</h2>
+      <div class="all-posts">
+      </div>
     <div>
       <button id="go-home" class="go-home">Home</button>
     </div>
     `;
 
   const allPostsDiv = section.querySelector('.all-posts');
-  let html = '';
-
   section.querySelector('#post-button').addEventListener('click', async () => {
     const textAreaContent = section.querySelector('.new-post-text');
     try {
-      if (textAreaContent === '') {
+      if (textAreaContent.value === '') {
         showMessage('Escribe algo para publicar');
       } else {
         const createdPost = await createPost(textAreaContent.value);
-        console.log(createdPost.id);// Imprimir el ID del post
+        console.log(createdPost.id); // Imprimir el ID del post
         console.log(createdPost.content); // Imprimir el contenido del post
-        console.log(createdPost.user);
+        console.log(createdPost.user.displayName);
         console.log(createdPost.postDate);
 
         // Crear un nuevo div para el post
@@ -85,17 +94,80 @@ export const Wall = (onNavigate) => {
       console.error(error);
     }
   });
+
+  /* FUNCION PARA ELIMINAR LOS POST EN CASO DE NECESITARLA
+  section.querySelector('#post-button').addEventListener('click', async () => {
+    const textAreaContent = section.querySelector('.new-post-text');
+    try {
+      if (textAreaContent.value === '') {
+        await deleteAllPosts();
+        console.log('Posts eliminados.');
+      } else {
+        // Resto de tu código para crear un nuevo post
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }); */
+
   onGetPosts((querySnapshot) => {
+    let html = ''; // Variable para almacenar el HTML de las publicaciones
     querySnapshot.forEach((doc) => {
       const post = doc.data();
+      const fecha = post.postDate.toDate();
+      const año = fecha.getFullYear();
+      const mes = fecha.getMonth() + 1;
+      const dia = fecha.getDate();
+      const likes = post.likes || 0;
+      const user = getCurrentUser();
+      const username = user.displayName;
+      console.log(likes);
+
       html += `
-            <div class="post-div">
-            <div class="user-like-div">Nombre de usuario</div>
-            <div class="post-div"> ${post.content}</div>
-            </div>
-            `;
+        <div>
+          <div class="like-div">
+            <p class="user-name">${username}</p>
+            <img class="delete-icon" src="/assets/images/delete-icon.png">
+            <img class="edit-icon" src="/assets/images/edit-icon.png">
+            <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
+          </div>
+          <div class="post-div">${post.content}</div>
+          <div class="date-container">
+            <p class="p-date">Fecha: ${año}-${mes}-${dia}</p>
+            <p class="p-likes">Likes: ${likes}</p>
+          </div>
+        </div>
+      `;
     });
     allPostsDiv.innerHTML = html;
+
+    // Agregar evento de clic a los botones de like
+    allPostsDiv.addEventListener('click', async (event) => {
+      const clickedElement = event.target;
+      if (clickedElement.matches('.like-button')) {
+        if (clickedElement.src.includes('before-like.png')) {
+          clickedElement.src = '/assets/images/after-like.png';
+          const postId = clickedElement.dataset.id;
+          try {
+            const user = getCurrentUser();
+            if (user) {
+              const userId = user.uid;
+              console.log(userId);
+              const hasLiked = await checkIfUserLikedPost(userId, postId);
+              if (!hasLiked) {
+                await incrementLikes(postId);
+                await saveLikesToPost(postId, userId);
+              } else {
+                await revertLike(postId);
+                await removeLikesFromPost(postId, userId);
+              }
+            }
+          } catch (error) {
+            console.error(`Error al gestionar el like: ${error.message}`);
+          }
+        }
+      }
+    });
   });
 
   window.addEventListener('DOMContentLoaded', async () => {
