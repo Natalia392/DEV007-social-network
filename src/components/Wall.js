@@ -7,6 +7,7 @@ import {
   revertLike,
   saveLikesToPost,
   removeLikesFromPost,
+  deletePost,
 } from '../lib';
 import { showMessage } from './modal';
 
@@ -64,30 +65,10 @@ export const Wall = (onNavigate) => {
       if (textAreaContent.value === '') {
         showMessage('Escribe algo para publicar');
       } else {
-        const createdPost = await createPost(textAreaContent.value);
-        console.log(createdPost.id); // Imprimir el ID del post
-        console.log(createdPost.content); // Imprimir el contenido del post
-        console.log(createdPost.user.displayName);
-        console.log(createdPost.postDate);
+        await createPost(textAreaContent.value);
 
-        // Crear un nuevo div para el post
-        // const postDiv = document.createElement('div');
-        // postDiv.textContent = createdPost.content;
-        // Apendizar el nuevo div al contenedor de posts
-        // const allPostsContainer = section.querySelector('.all-posts');
-        // allPostsContainer.appendChild(postDiv);
-        // Acceder a los componentes de la fecha y hora
-        const fecha = createdPost.postDate.toDate();
-        const año = fecha.getFullYear();
-        const mes = fecha.getMonth() + 1;
-        // Los meses en JavaScript comienzan desde 0, por lo que se agrega 1
-        const dia = fecha.getDate();
-        const hora = fecha.getHours();
-        const minutos = fecha.getMinutes();
-        const segundos = fecha.getSeconds();
-
-        console.log(`Fecha: ${año}-${mes}-${dia}`);
-        console.log(`Hora: ${hora}:${minutos}:${segundos}`);
+        // console.log(`Fecha: ${año}-${mes}-${dia}`);
+        // console.log(`Hora: ${hora}:${minutos}:${segundos}`);
         section.querySelector('.new-post-text').value = '';
       }
     } catch (error) {
@@ -129,7 +110,7 @@ export const Wall = (onNavigate) => {
         <div>
           <div class="like-div">
             <p class="user-name">${post.emailOfUser}</p>
-            <img class="delete-icon" src="/assets/images/delete-icon.png">
+            <img class="delete-icon" data-id="${doc.id}" src="/assets/images/delete-icon.png">
             <img class="edit-icon" src="/assets/images/edit-icon.png">
             <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
           </div>
@@ -172,6 +153,16 @@ export const Wall = (onNavigate) => {
         }
       }
     });
+  });
+
+  // función para eliminar los posts
+  allPostsDiv.addEventListener('click', async (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.matches('.delete-icon')) {
+      await deletePost(clickedElement.dataset.id);
+      console.log(clickedElement.dataset.id);
+      console.log('delete');
+    }
   });
 
   window.addEventListener('DOMContentLoaded', async () => {

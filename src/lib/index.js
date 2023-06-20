@@ -38,6 +38,9 @@ export const signInWithGoogle = () => {
   return signInWithPopup(auth, provider);
 };
 
+// Función para crear una referencia al documento del usuario actual
+export const getUserRef = (userId) => firestoreDoc(db, 'users', userId);
+
 // Exporta el usuario actual
 export const getCurrentUser = () => auth.currentUser;
 
@@ -89,9 +92,6 @@ export const revertLike = async (postId) => {
     throw new Error('La publicación no existe.');
   }
 };
-
-// Función para crear una referencia al documento del usuario actual
-export const getUserRef = (userId) => firestoreDoc(db, 'users', userId);
 
 // Función para guardar los likes de los usuarios en el documento del post
 export const saveLikesToPost = async (postId, userId) => {
@@ -159,10 +159,10 @@ export const createPost = async (text) => {
 };
 
 // Obtiene todos los posts de la base de datos en orden descendente por fecha.
-export const getPosts = async () => {
+/* export const getPosts = async () => {
   const querySnapshot = await getDocs(query(collection(db, 'posts'), orderBy('postDate', 'desc')));
   return querySnapshot;
-};
+}; */
 
 /* Suscribe los cambios en la colección de posts y ejecuta la función de devolución de llamada */
 export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('postDate', 'asc')), callback);
@@ -195,6 +195,18 @@ export const removeLikesFromPost = async (postId) => {
   }
 };
 
+export const deletePost = async (id) => {
+  const postRef = firestoreDoc(db, 'posts', id);
+  const user = getCurrentUser();
+  const userId = user.uid;
+  console.log(user.uid);
+  const querySnapshot = await getDocs(postRef);
+  const findPostUserId = querySnapshot.docs.filter((doc) => doc.data().userId === userId);
+  console.log(findPostUserId);
+  if (findPostUserId === userId) {
+    await deleteDoc(postRef);
+  }
+};
 /*
 export const handleLogin = (user, onNavigate) => {
   if (user) {
