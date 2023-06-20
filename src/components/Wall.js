@@ -4,7 +4,7 @@ import {
   getCurrentUser,
   checkIfUserLikedPost,
   createPost,
-  revertLike,
+  // revertLike,
   saveLikesToPost,
   removeLikesFromPost,
 } from '../lib';
@@ -157,7 +157,7 @@ export const Wall = (onNavigate) => {
               await incrementLikes(postId);
               await saveLikesToPost(postId, userId);
             } else {
-              //await revertLike(postId);
+              // await revertLike(postId);
               await removeLikesFromPost(postId);
             }
             if (clickedElement.src.includes('before-like.png')) {
