@@ -4,7 +4,7 @@ import {
   getCurrentUser,
   checkIfUserLikedPost,
   createPost,
-  // revertLike,
+  revertLike,
   saveLikesToPost,
   removeLikesFromPost,
 } from '../lib';
@@ -114,19 +114,21 @@ export const Wall = (onNavigate) => {
     let postHtml = ''; // Variable para almacenar el postHTML de las publicaciones
     querySnapshot.forEach((doc) => {
       const post = doc.data();
+      console.log(post);
       const postDate = post.postDate.toDate();
       const postYear = postDate.getFullYear();
       const postMonth = postDate.getMonth() + 1;
       const postDay = postDate.getDate();
       const likes = post.likes || 0;
-      const user = getCurrentUser();
-      const username = user.displayName;
+      console.log(post.emailOfUser);
+      // const user = post.userWhoPosted;
+      // const username = user.displayName;
       console.log(likes);
 
       postHtml += `
         <div>
           <div class="like-div">
-            <p class="user-name">${username}</p>
+            <p class="user-name">${post.emailOfUser}</p>
             <img class="delete-icon" src="/assets/images/delete-icon.png">
             <img class="edit-icon" src="/assets/images/edit-icon.png">
             <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
@@ -154,16 +156,15 @@ export const Wall = (onNavigate) => {
             console.log(userId);
             const hasLiked = await checkIfUserLikedPost(userId, postId);
             if (!hasLiked) {
-              await incrementLikes(postId);
-              await saveLikesToPost(postId, userId);
+              incrementLikes(postId).then(async () => {
+                clickedElement.src = './assets/images/after-like.png';
+                await saveLikesToPost(postId, userId);
+              });
             } else {
-              // await revertLike(postId);
-              await removeLikesFromPost(postId);
-            }
-            if (clickedElement.src.includes('before-like.png')) {
-              clickedElement.src = '/assets/images/after-like.png';
-            } else {
-              clickedElement.src = '/assets/images/before-like.png';
+              revertLike(postId).then(async () => {
+                clickedElement.src = './assets/images/before-like.png';
+                await removeLikesFromPost(postId);
+              });
             }
           }
         } catch (error) {
