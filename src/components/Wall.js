@@ -111,19 +111,19 @@ export const Wall = (onNavigate) => {
   }); */
 
   onGetPosts((querySnapshot) => {
-    let html = ''; // Variable para almacenar el HTML de las publicaciones
+    let postHtml = ''; // Variable para almacenar el postHTML de las publicaciones
     querySnapshot.forEach((doc) => {
       const post = doc.data();
-      const fecha = post.postDate.toDate();
-      const año = fecha.getFullYear();
-      const mes = fecha.getMonth() + 1;
-      const dia = fecha.getDate();
+      const postDate = post.postDate.toDate();
+      const postYear = postDate.getFullYear();
+      const postMonth = postDate.getMonth() + 1;
+      const postDay = postDate.getDate();
       const likes = post.likes || 0;
       const user = getCurrentUser();
       const username = user.displayName;
       console.log(likes);
 
-      html += `
+      postHtml += `
         <div>
           <div class="like-div">
             <p class="user-name">${username}</p>
@@ -133,38 +133,41 @@ export const Wall = (onNavigate) => {
           </div>
           <div class="post-div">${post.content}</div>
           <div class="date-container">
-            <p class="p-date">Fecha: ${año}-${mes}-${dia}</p>
+            <p class="p-date">Fecha: ${postYear}-${postMonth}-${postDay}</p>
             <p class="p-likes">Likes: ${likes}</p>
           </div>
         </div>
       `;
     });
-    allPostsDiv.innerHTML = html;
+    allPostsDiv.innerHTML = postHtml;
 
     // Agregar evento de clic a los botones de like
     allPostsDiv.addEventListener('click', async (event) => {
       const clickedElement = event.target;
       if (clickedElement.matches('.like-button')) {
-        if (clickedElement.src.includes('before-like.png')) {
-          clickedElement.src = '/assets/images/after-like.png';
-          const postId = clickedElement.dataset.id;
-          try {
-            const user = getCurrentUser();
-            if (user) {
-              const userId = user.uid;
-              console.log(userId);
-              const hasLiked = await checkIfUserLikedPost(userId, postId);
-              if (!hasLiked) {
-                await incrementLikes(postId);
-                await saveLikesToPost(postId, userId);
-              } else {
-                await revertLike(postId);
-                await removeLikesFromPost(postId, userId);
-              }
+        const postId = clickedElement.dataset.id;
+        console.log(postId);
+        try {
+          const user = getCurrentUser();
+          if (user) {
+            const userId = user.uid;
+            console.log(userId);
+            const hasLiked = await checkIfUserLikedPost(userId, postId);
+            if (!hasLiked) {
+              await incrementLikes(postId);
+              await saveLikesToPost(postId, userId);
+            } else {
+              //await revertLike(postId);
+              await removeLikesFromPost(postId);
             }
-          } catch (error) {
-            console.error(`Error al gestionar el like: ${error.message}`);
+            if (clickedElement.src.includes('before-like.png')) {
+              clickedElement.src = '/assets/images/after-like.png';
+            } else {
+              clickedElement.src = '/assets/images/before-like.png';
+            }
           }
+        } catch (error) {
+          console.error(`Error al gestionar el like: ${error.message}`);
         }
       }
     });
