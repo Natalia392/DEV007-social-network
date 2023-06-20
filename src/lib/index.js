@@ -133,17 +133,20 @@ export const createPost = async (text) => {
       content: text,
       postDate: new Date(),
       likes: 0, // contador en 0
+      userWhoPosted: auth.currentUser.displayName,
+      emailOfUser: auth.currentUser.email,
     });
-
+    console.log(docRef);
     const docSnapshot = await getDoc(docRef);
     const post = docSnapshot.data();
-    const nowUser = auth.currentUser;
+    const userWhoPosted = auth.currentUser;
+    console.log(userWhoPosted);
     const whenItWasPosted = post.postDate;
     const docId = docRef.id;
 
     return {
       id: docId,
-      user: nowUser,
+      user: userWhoPosted,
       content: text,
       when: whenItWasPosted,
       likes: post.likes || 0, // Incluir el contador de likes en la respuesta
