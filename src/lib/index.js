@@ -194,7 +194,18 @@ export const removeLikesFromPost = async (postId) => {
     throw new Error('La publicación no existe.');
   }
 };
+// Función para editar el contenido del post
+export const editPost = async (postId, newContent) => {
+  try {
+    const postRef = firestoreDoc(db, 'posts', postId); // Obtén la referencia al documento del post
+    await updateDoc(postRef, { content: newContent }); // Actualiza el contenido del post
 
+    // Opcionalmente, puedes realizar otras acciones después de editar el post
+    console.log('El post ha sido editado correctamente');
+  } catch (error) {
+    throw new Error(`Error al editar el post: ${error.message}`);
+  }
+};
 /*
 export const handleLogin = (user, onNavigate) => {
   if (user) {

@@ -20,22 +20,27 @@ export const Wall = (onNavigate) => {
   headerWall.className = 'header-wall';
 
   // Crea el logo
+  const logoWallDiv = document.createElement('div');
   const logoWall = document.createElement('img');
+  logoWallDiv.className = 'logo-wall-div';
   logoWall.src = './assets/images/Logo-Comunidad.png';
   logoWall.className = 'logo-wall';
-  headerWall.appendChild(logoWall);
+  logoWallDiv.appendChild(logoWall);
 
   // Crea el titulo de la comunidad
   const name = document.createElement('p');
   name.textContent = 'La Comunidad del Libro';
   name.className = 'comunidad-libro-wall';
-  headerWall.appendChild(name);
+  logoWallDiv.appendChild(name);
+  headerWall.appendChild(logoWallDiv);
 
   // Crea el a de cerrar sesión
+  const signOutDiv = document.createElement('div');
   const logoutButton = document.createElement('a');
   logoutButton.textContent = 'Cerrar sesión';
   logoutButton.className = 'cerrar-sesion';
-  headerWall.appendChild(logoutButton);
+  signOutDiv.appendChild(logoutButton);
+  headerWall.appendChild(signOutDiv);
 
   // Apendiza el header al wallDiv
   wallDiv.appendChild(headerWall);
@@ -126,20 +131,20 @@ export const Wall = (onNavigate) => {
       console.log(likes);
 
       postHtml += `
-        <div>
-          <div class="like-div">
-            <p class="user-name">${post.emailOfUser}</p>
-            <img class="delete-icon" src="/assets/images/delete-icon.png">
-            <img class="edit-icon" src="/assets/images/edit-icon.png">
-            <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
-          </div>
-          <div class="post-div">${post.content}</div>
-          <div class="date-container">
-            <p class="p-date">Fecha: ${postYear}-${postMonth}-${postDay}</p>
-            <p class="p-likes">Likes: ${likes}</p>
-          </div>
-        </div>
-      `;
+  <div>
+    <div class="like-div">
+      <p class="user-name">${post.emailOfUser}</p>
+      <img class="delete-icon" src="/assets/images/delete-icon.png">
+      <img class="edit-icon" src="/assets/images/edit-icon.png" data-id="${doc.id}">
+      <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
+    </div>
+    <div class="post-div" data-id="${doc.id}">${post.content}</div>
+    <div class="date-container">
+      <p class="p-date">Fecha: ${postYear}-${postMonth}-${postDay}</p>
+      <p class="p-likes">Likes: ${likes}</p>
+    </div>
+  </div>
+`;
     });
     allPostsDiv.innerHTML = postHtml;
 
@@ -182,7 +187,14 @@ export const Wall = (onNavigate) => {
   buttonHome.addEventListener('click', () => {
     onNavigate('/');
   });
-
+  const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
+  editIcons.forEach((editIcon) => {
+    editIcon.addEventListener('click', () => {
+      const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
+      postDiv.contentEditable = true;
+      postDiv.focus();
+    });
+  });
   wallDiv.appendChild(section);
 
   return wallDiv;
