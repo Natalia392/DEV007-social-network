@@ -20,22 +20,27 @@ export const Wall = (onNavigate) => {
   headerWall.className = 'header-wall';
 
   // Crea el logo
+  const logoWallDiv = document.createElement('div');
   const logoWall = document.createElement('img');
+  logoWallDiv.className = 'logo-wall-div';
   logoWall.src = './assets/images/Logo-Comunidad.png';
   logoWall.className = 'logo-wall';
-  headerWall.appendChild(logoWall);
+  logoWallDiv.appendChild(logoWall);
 
   // Crea el titulo de la comunidad
   const name = document.createElement('p');
   name.textContent = 'La Comunidad del Libro';
   name.className = 'comunidad-libro-wall';
-  headerWall.appendChild(name);
+  logoWallDiv.appendChild(name);
+  headerWall.appendChild(logoWallDiv);
 
   // Crea el a de cerrar sesión
+  const signOutDiv = document.createElement('div');
   const logoutButton = document.createElement('a');
   logoutButton.textContent = 'Cerrar sesión';
   logoutButton.className = 'cerrar-sesion';
-  headerWall.appendChild(logoutButton);
+  signOutDiv.appendChild(logoutButton);
+  headerWall.appendChild(signOutDiv);
 
   // Apendiza el header al wallDiv
   wallDiv.appendChild(headerWall);

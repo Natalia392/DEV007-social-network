@@ -46,9 +46,9 @@ a {
 }
 
 /* Estilos para pantallas grandes (versión de escritorio) */
-@media (min-width: 741px) {
+/*@media (min-width: 741px) {
   .all-div {
-    padding: 0 20px; /* Mantener el padding en los lados derecho e izquierdo */
+    padding: 0 20px; Mantener el padding en los lados derecho e izquierdo 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
@@ -59,12 +59,12 @@ a {
 
   .sub-div {
     margin: 15px 0;
-    width: 50%; /* Ancho ampliado para la versión de escritorio */
-    height: 50%; /* Altura ampliada para la versión de escritorio */
+    width: 50%;  Ancho ampliado para la versión de escritorio 
+    height: 50%;  Altura ampliada para la versión de escritorio 
     gap: 10%;
   }
 }
-
+*/
 /* Estilos para pantallas pequeñas (versión móvil) */
 @media (max-width: 740px) {
   .all-div {
@@ -88,22 +88,56 @@ a {
     padding: 0;
     max-width: 360px;
   }
-
+ 
   /* Estilos para pantallas pequeñas (versión móvil) */
 @media (max-width: 740px) {
+  *{
+    margin: 0px;
+  }
+  body{
+    max-width: 360px;
+    display: grid;
+    grid-template-columns: 1;
+  }
   .wall-main{
     max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .header-wall{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    background-color: #006d77;
+    order: -1;
+    align-self: center;
+    box-shadow: #006d77 0px 22px 70px 4px;
+    z-index: 5;
+  }
+ 
+  .modal-container {
+    top: 20%;
+    left: 40%;
+    border-radius: 10px;
   }
   .posts-section {
     background: #fffaf0;
     box-shadow: #006d77 0px 22px 70px 4px;
     border-radius: 5px;
     height: fit-content;
+    display: grid;
+    flex-direction: column;
     justify-content: center;
     padding: 30px;
-    max-width: 350px;
+    max-width: 75%;;
   }
-  
+
+  .new-post-text{
+    max-width: 80%;
+  }
   .pink-container {
     background: #FFDDD2;
     box-shadow: 1px 1px 10px 1px #e29578;
@@ -111,7 +145,13 @@ a {
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 5px;
-    width: 100%; /* Agregado */
+    width: 85%; /* Agregado */
+  }
+  .posts-div{
+    width: 105%;
+  }
+  .cerrar-sesion{
+    justify-content: end;
   }
   
   .new-post-text {
@@ -154,7 +194,12 @@ a {
   }
 }
 }
-
+.logo-wall-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+}
 .container-image {
   display: flex;
   flex-direction: column;
@@ -368,6 +413,7 @@ input:focus {
   margin-right: 60%;
   font-weight: bold;
   color:#fffaf0;
+  width: fit-content;
 }
 
 .cerrar-sesion { /*cerrar sesión <a>*/
