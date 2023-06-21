@@ -354,6 +354,8 @@ input:focus {
   background-color: #006d77;
   order: -1;
   align-self: flex-start;
+  box-shadow: #006d77 0px 22px 70px 4px;
+  z-index: 5;
 }
 
 .logo-wall { /*logo*/
@@ -406,14 +408,15 @@ input:focus {
 }
 .post-button { /*publica tu post*/
   background: #006d77;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;}
+button:hover .post-button {
+  transform: scale(1.2);
 }
-
 .post-button:hover { /*publica tu post*/
   background-color: #83c5be;
-  box-shadow: 0px 0px 5px rgba(230, 147, 116, 0.555);
   cursor: pointer;
   transition: 0.3s;
-  text-shadow: 5px 3px 5px #006d77, -2px -2px 4px #006d77;
+  text-shadow: inset 5px 10px 5px #006d77, 2px 2px 4px #006d77;
   box-shadow: 0px 0px 5px 0px #006d77 inset;
 
 }
@@ -421,12 +424,15 @@ input:focus {
 .posts-section { /*contenedor donde están el input y los posts sobre el azul claro*/
   background: #fffaf0;
   box-shadow: #006d77 0px 22px 70px 4px;
-    border-radius: 5px;
+  border-radius: 5px;
   height: fit-content;
   width: fit-content;
   justify-content: center;
-  margin-left: 25%;
+  /* margin-left: 25%; */
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .pink-container { /*container rosado que contiene los posts*/
@@ -492,6 +498,22 @@ input:focus {
   height: 20px;
   width: 20px;
   cursor: pointer;
+}
+
+.go-home{
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  background-color: #006d77;
+  transition: all 2s;
+}
+
+
+.go-home:hover{
+  transition: all 2s;
+  background-color: #83c5be;
+  cursor: pointer;
+  transition: 0.3s;
+  text-shadow: 5px 3px 5px #006d77, -2px -2px 4px #006d77;
+  box-shadow: 0px 0px 5px 0px #006d77 inset;
 }
 
 .edit-icon:hover {
