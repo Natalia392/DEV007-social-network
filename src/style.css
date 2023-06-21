@@ -46,9 +46,9 @@ a {
 }
 
 /* Estilos para pantallas grandes (versión de escritorio) */
-@media (min-width: 741px) {
+/*@media (min-width: 741px) {
   .all-div {
-    padding: 0 20px; /* Mantener el padding en los lados derecho e izquierdo */
+    padding: 0 20px; Mantener el padding en los lados derecho e izquierdo 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
@@ -59,12 +59,12 @@ a {
 
   .sub-div {
     margin: 15px 0;
-    width: 50%; /* Ancho ampliado para la versión de escritorio */
-    height: 50%; /* Altura ampliada para la versión de escritorio */
+    width: 50%;  Ancho ampliado para la versión de escritorio 
+    height: 50%;  Altura ampliada para la versión de escritorio 
     gap: 10%;
   }
 }
-
+*/
 /* Estilos para pantallas pequeñas (versión móvil) */
 @media (max-width: 740px) {
   .all-div {
@@ -86,9 +86,120 @@ a {
   body {
     margin: 0;
     padding: 0;
+    max-width: 360px;
+  }
+ 
+  /* Estilos para pantallas pequeñas (versión móvil) */
+@media (max-width: 740px) {
+  *{
+    margin: 0px;
+  }
+  body{
+    max-width: 360px;
+    display: grid;
+    grid-template-columns: 1;
+  }
+  .wall-main{
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .header-wall{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    background-color: #006d77;
+    order: -1;
+    align-self: center;
+    box-shadow: #006d77 0px 22px 70px 4px;
+    z-index: 5;
+  }
+ 
+  .modal-container {
+    top: 20%;
+    left: 40%;
+    border-radius: 10px;
+  }
+  .posts-section {
+    background: #fffaf0;
+    box-shadow: #006d77 0px 22px 70px 4px;
+    border-radius: 5px;
+    height: fit-content;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    max-width: 75%;;
+  }
+
+  .new-post-text{
+    max-width: 80%;
+  }
+  .pink-container {
+    background: #FFDDD2;
+    box-shadow: 1px 1px 10px 1px #e29578;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 85%; /* Agregado */
+  }
+  .posts-div{
+    width: 105%;
+  }
+  .cerrar-sesion{
+    justify-content: end;
+  }
+  
+  .new-post-text {
+    width: 100%; /* Agregado */
+    height: 120px;
+    background-color: #FFFFFF;
+    color: #292828;
+    border: 20px solid #83C5BE;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px #83C5BE inset, 0px 0px 10px 0px #006d77;
+    margin-bottom: 20px;
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  .post-div {
+    padding: 15px;
+  }
+
+  .like-div {
+    height: 30px;
+  }
+
+  .user-name {
+    margin-left: 5px;
+  }
+
+  .date-container {
+    margin-bottom: 15px;
+  }
+
+  .p-date,
+  .p-likes {
+    font-size: 14px;
   }
 }
-
+}
+.logo-wall-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+}
 .container-image {
   display: flex;
   flex-direction: column;
@@ -288,6 +399,8 @@ input:focus {
   background-color: #006d77;
   order: -1;
   align-self: flex-start;
+  box-shadow: #006d77 0px 22px 70px 4px;
+  z-index: 5;
 }
 
 .logo-wall { /*logo*/
@@ -300,6 +413,7 @@ input:focus {
   margin-right: 60%;
   font-weight: bold;
   color:#fffaf0;
+  width: fit-content;
 }
 
 .cerrar-sesion { /*cerrar sesión <a>*/
@@ -338,20 +452,33 @@ input:focus {
   outline: none;
   box-shadow: 0px 0px 10px 0px #006d77 inset, 0px 0px 10px 0px #006d77;
 }
-
 .post-button { /*publica tu post*/
   background: #006d77;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;}
+button:hover .post-button {
+  transform: scale(1.2);
+}
+.post-button:hover { /*publica tu post*/
+  background-color: #83c5be;
+  cursor: pointer;
+  transition: 0.3s;
+  text-shadow: inset 5px 10px 5px #006d77, 2px 2px 4px #006d77;
+  box-shadow: 0px 0px 5px 0px #006d77 inset;
+
 }
 
 .posts-section { /*contenedor donde están el input y los posts sobre el azul claro*/
   background: #fffaf0;
-  box-shadow: 1px 1px 10px 1px #006d77;
+  box-shadow: #006d77 0px 22px 70px 4px;
   border-radius: 5px;
   height: fit-content;
   width: fit-content;
   justify-content: center;
-  margin-left: 25%;
+  /* margin-left: 25%; */
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .pink-container { /*container rosado que contiene los posts*/
@@ -417,6 +544,22 @@ input:focus {
   height: 20px;
   width: 20px;
   cursor: pointer;
+}
+
+.go-home{
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  background-color: #006d77;
+  transition: all 2s;
+}
+
+
+.go-home:hover{
+  transition: all 2s;
+  background-color: #83c5be;
+  cursor: pointer;
+  transition: 0.3s;
+  text-shadow: 5px 3px 5px #006d77, -2px -2px 4px #006d77;
+  box-shadow: 0px 0px 5px 0px #006d77 inset;
 }
 
 .edit-icon:hover {
