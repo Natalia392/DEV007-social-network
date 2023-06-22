@@ -1,13 +1,9 @@
 import {
   onGetPosts,
-  incrementLikes,
   getCurrentUser,
-  checkIfUserLikedPost,
   createPost,
-  revertLike,
-  saveLikesToPost,
-  removeLikesFromPost,
   deletePost,
+  likePost,
 } from '../lib';
 import { showMessage, showDeleteMessage } from './modal';
 
@@ -135,62 +131,69 @@ export const Wall = (onNavigate) => {
     allPostsDiv.innerHTML = postHtml;
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
+    const deletePostButton = document.querySelector('.delete-icon');
+    const editPostButton = document.querySelector('.edit-icon');
+    const likePostButton = document.querySelector('.like-button');
+
     // Inicialización botón delete
-    allPostsDiv.addEventListener('click', async (event) => {
-      event.stopPropagation();
-      const deleteButton = event.target;
-      console.log('manejador de eventos');
-      if (deleteButton.matches('.delete-icon')) {
-        const postId = deleteButton.dataset.id;
+    if (deletePostButton) {
+      deletePostButton.addEventListener('click', async () => {
+        const postId = deletePostButton.dataset.id;
         const deletePostCallBack = () => deletePost(postId);
         showDeleteMessage({ deletePostCallBack });
-      }
-    });
-
+      });
+    }
     // HASTA AQUÍ ENTENDIDO (21.06.23)
 
     // Inicialización botón like
-    allPostsDiv.addEventListener('click', async (event) => {
-      const likeButton = event.target;
-      if (likeButton.matches('.like-button')) {
-        const postId = likeButton.dataset.id;
-        console.log(postId);
-        try {
-          const user = getCurrentUser();
-          if (user) {
-            const userId = user.uid;
-            console.log(userId);
-            const hasLiked = await checkIfUserLikedPost(userId, postId);
-            if (!hasLiked) {
-              incrementLikes(postId).then(async () => {
-                likeButton.src = './assets/images/after-like.png';
-                await saveLikesToPost(postId, userId);
-              });
-            } else {
-              revertLike(postId).then(async () => {
-                likeButton.src = './assets/images/before-like.png';
-                await removeLikesFromPost(postId);
-              });
-            }
-          }
-        } catch (error) {
-          console.error(`Error al gestionar el like: ${error.message}`);
-        }
+    likePostButton.addEventListener('click', async () => {
+      const postId = likePostButton.dataset.id;
+      console.log(postId);
+      if(currentUser.email === post.emailOfUser) {
+        await likePost()
+        likePostButton.src = './assets/images/after-like.png';
+      } else {
+        likePostButton.src = './assets/images/before-like.png';
       }
-    });
+      
+    /* likePostButton.addEventListener('click', async () => {
+      const postId = likePostButton.dataset.id;
+      console.log(postId);
+      try {
+        const user = getCurrentUser();
+        if (user) {
+          const userId = user.uid;
+          console.log(userId);
+          const hasLiked = await checkIfUserLikedPost(userId, postId);
+          if (!hasLiked) {
+            incrementLikes(postId).then(async () => {
+              likePostButton.src = './assets/images/after-like.png';
+              await saveLikesToPost(postId, userId);
+            });
+          } else {
+            revertLike(postId).then(async () => {
+              likePostButton.src = './assets/images/before-like.png';
+              await removeLikesFromPost(postId);
+            });
+          }
+        }
+      } catch (error) {
+        console.error(`Error al gestionar el like: ${error.message}`);
+      }
+    }); */
   });
 
   logoutButton.addEventListener('click', () => {
     onNavigate('/');
   });
-  const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
-  editIcons.forEach((editIcon) => {
-    editIcon.addEventListener('click', () => {
-      const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
-      postDiv.contentEditable = true;
-      postDiv.focus();
-    });
-  });
+  // const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
+  // editIcons.forEach((editIcon) => {
+  //   editIcon.addEventListener('click', () => {
+  //     const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
+  //     postDiv.contentEditable = true;
+  //     postDiv.focus();
+  //   });
+  // });
   wallDiv.appendChild(wallMain);
 
   return wallDiv;
