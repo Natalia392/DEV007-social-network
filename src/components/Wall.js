@@ -9,7 +9,7 @@ import {
   removeLikesFromPost,
   deletePost,
 } from '../lib';
-import { showMessage } from './modal';
+import { showMessage, showDeleteMessage } from './modal';
 
 export const Wall = (onNavigate) => {
   // Creación del div que contiene tanto header como main y footer
@@ -132,16 +132,18 @@ export const Wall = (onNavigate) => {
       }
     });
     // ---POSTS PUBLICADOS-3--- finalmente se introduce el html dentro del div de posts --
-    // if user == user {se lanza este html que tiene los botones de editar y borrar}
     allPostsDiv.innerHTML = postHtml;
-    // else, se lanza sin los botones de editar y eliminar.
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
     // Inicialización botón delete
     allPostsDiv.addEventListener('click', async (event) => {
+      event.stopPropagation();
       const deleteButton = event.target;
+      console.log('manejador de eventos');
       if (deleteButton.matches('.delete-icon')) {
-        await deletePost(deleteButton.dataset.id);
+        const postId = deleteButton.dataset.id;
+        const deletePostCallBack = () => deletePost(postId);
+        showDeleteMessage({ deletePostCallBack });
       }
     });
 
