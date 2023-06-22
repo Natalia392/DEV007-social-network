@@ -2,7 +2,7 @@ import { ourSignInWithEmailAndPassword, signInWithGoogle } from '../lib';
 import { showMessage } from './modal';
 
 export const Login = (onNavigate) => {
-  // ------------------IMÁGEN Y TÍTULO
+  // ------------------IMÁGEN Y TÍTULO------------------
   const allDiv = document.createElement('div');
   allDiv.setAttribute('class', 'all-div');
 

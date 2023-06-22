@@ -195,18 +195,22 @@ export const removeLikesFromPost = async (postId) => {
   }
 };
 
-export const deletePost = async (id) => {
+export const deletePost = async (id) => deleteDoc(firestoreDoc(db, 'posts', id));
+
+/* export const deletePost = async (id) => {
+  const postCollection = collection(db, 'posts');
+  const querySnapshot = await getDocs(query(postCollection));
+  console.log(querySnapshot);
   const postRef = firestoreDoc(db, 'posts', id);
   const user = getCurrentUser();
   const userId = user.uid;
   console.log(user.uid);
-  const querySnapshot = await getDocs(postRef);
   const findPostUserId = querySnapshot.docs.filter((doc) => doc.data().userId === userId);
   console.log(findPostUserId);
   if (findPostUserId === userId) {
     await deleteDoc(postRef);
   }
-};
+}; */
 /*
 export const handleLogin = (user, onNavigate) => {
   if (user) {

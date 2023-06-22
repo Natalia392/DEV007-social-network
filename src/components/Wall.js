@@ -12,128 +12,146 @@ import {
 import { showMessage } from './modal';
 
 export const Wall = (onNavigate) => {
-  // Crea el div donde están todos los elementos del wall
-  const wallDiv = document.createElement('main');
-  wallDiv.className = 'wall-main';
+  // Creación del div que contiene tanto header como main y footer
+
+  const wallDiv = document.createElement('div');
+  wallDiv.className = 'wall-div';
+
+  // -----------Creación del header y todos sus elementos----------------
 
   // Crea el header div
-  const headerWall = document.createElement('div');
+  const headerWall = document.createElement('header');
   headerWall.className = 'header-wall';
 
   // Crea el logo
   const logoWallDiv = document.createElement('div');
-  const logoWall = document.createElement('img');
   logoWallDiv.className = 'logo-wall-div';
-  logoWall.src = './assets/images/Logo-Comunidad.png';
-  logoWall.className = 'logo-wall';
-  logoWallDiv.appendChild(logoWall);
+
+  const imgLogo = document.createElement('img');
+  imgLogo.className = 'logo-wall';
+  imgLogo.src = './assets/images/Logo-Comunidad.png';
 
   // Crea el titulo de la comunidad
-  const name = document.createElement('p');
-  name.textContent = 'La Comunidad del Libro';
-  name.className = 'comunidad-libro-wall';
-  logoWallDiv.appendChild(name);
-  headerWall.appendChild(logoWallDiv);
+  const appName = document.createElement('p');
+  appName.textContent = 'La Comunidad del Libro';
+  appName.className = 'comunidad-libro-wall';
 
   // Crea el a de cerrar sesión
-  const signOutDiv = document.createElement('div');
+  const logoutDiv = document.createElement('div');
+  logoutDiv.className = 'logout-div';
+
   const logoutButton = document.createElement('a');
   logoutButton.textContent = 'Cerrar sesión';
-  logoutButton.className = 'cerrar-sesion';
-  signOutDiv.appendChild(logoutButton);
-  headerWall.appendChild(signOutDiv);
+  logoutButton.className = 'logout-btn';
 
-  // Apendiza el header al wallDiv
+  // Se apendizan todos los elementos dentro del header y el header dentro del wall
+  logoWallDiv.appendChild(imgLogo);
+  logoWallDiv.appendChild(appName);
+  logoutDiv.appendChild(logoutButton);
+  headerWall.appendChild(logoWallDiv);
+  headerWall.appendChild(logoutDiv);
   wallDiv.appendChild(headerWall);
 
-  // Sección de los posts
-  const section = document.createElement('section');
-  section.className = 'posts-section';
-  section.innerHTML = `
+  // ----POSTS PUBLICADOS---------CREACIÓN DE LA SECCIÓN DE POSTS (<main>)----------------
+  // ----POSTS PUBLICADOS-1--------Primero se crea el html para ingresar un nuevo post
+  const wallMain = document.createElement('main');
+  wallMain.className = 'posts-main';
+  wallMain.innerHTML = `
     <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
     <div class="pink-container">
       <h2 class="title-posts">Todas las publicaciones</h2>
-      <div class="all-posts">
-      </div>
-    <div>
-      <button id="go-home" class="go-home">Home</button>
+      <div class="all-posts"></div>
     </div>
     `;
-
-  const allPostsDiv = section.querySelector('.all-posts');
-  section.querySelector('#post-button').addEventListener('click', async () => {
-    const textAreaContent = section.querySelector('.new-post-text');
+  // Luego se llama al botón de postear para que al darle click genere un nuevo post
+  // Esto se hace usando el método de firebase, que incluimos en nuestra función createPost
+  wallMain.querySelector('#post-button').addEventListener('click', async () => {
+    const inputPost = wallMain.querySelector('.new-post-text');
     try {
-      if (textAreaContent.value === '') {
+      if (inputPost.value === '') {
         showMessage('Escribe algo para publicar');
       } else {
-        await createPost(textAreaContent.value);
-
-        // console.log(`Fecha: ${año}-${mes}-${dia}`);
-        // console.log(`Hora: ${hora}:${minutos}:${segundos}`);
-        section.querySelector('.new-post-text').value = '';
+        await createPost(inputPost.value); // Se pasa como argumento el texto del input a createPost
+        wallMain.querySelector('.new-post-text').value = '';
       }
     } catch (error) {
       console.error(error);
     }
   });
 
-  /* FUNCION PARA ELIMINAR LOS POST EN CASO DE NECESITARLA
-  section.querySelector('#post-button').addEventListener('click', async () => {
-    const textAreaContent = section.querySelector('.new-post-text');
-    try {
-      if (textAreaContent.value === '') {
-        await deleteAllPosts();
-        console.log('Posts eliminados.');
-      } else {
-        // Resto de tu código para crear un nuevo post
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }); */
+  // ----POSTS PUBLICADOS-2--Luego se declara la constante que contendrá todos los posts publicados
+  const allPostsDiv = wallMain.querySelector('.all-posts');
+  // obetenemos el usuario actual
 
+  // El querySnapshot es un objeto que resulta de una consulta (query) a firestore
+  // onGetPosts nos trae todos los posts de la colección posts
   onGetPosts((querySnapshot) => {
+    const currentUser = getCurrentUser();
     let postHtml = ''; // Variable para almacenar el postHTML de las publicaciones
-    querySnapshot.forEach((doc) => {
-      const post = doc.data();
-      console.log(post);
+    querySnapshot.forEach((documentSnapshot) => {
+      const post = documentSnapshot.data();
       const postDate = post.postDate.toDate();
       const postYear = postDate.getFullYear();
-      const postMonth = postDate.getMonth() + 1;
+      const postMonth = postDate.getMonth() + 1; // Los meses del año se cuentan desde 1 en firebase
       const postDay = postDate.getDate();
       const likes = post.likes || 0;
-      console.log(post.emailOfUser);
-      // const user = post.userWhoPosted;
-      // const username = user.displayName;
-      console.log(likes);
 
-      postHtml += `
-  <div>
-    <div class="like-div">
-      <p class="user-name">${post.emailOfUser}</p>
-      <img class="delete-icon" src="/assets/images/delete-icon.png">
-      <img class="edit-icon" src="/assets/images/edit-icon.png" data-id="${doc.id}">
-      <img class="like-button" src="/assets/images/before-like.png" data-id="${doc.id}">
-    </div>
-    <div class="post-div" data-id="${doc.id}">${post.content}</div>
-    <div class="date-container">
-      <p class="p-date">Fecha: ${postYear}-${postMonth}-${postDay}</p>
-      <p class="p-likes">Likes: ${likes}</p>
-    </div>
-  </div>
-`;
+      if (currentUser.email === post.emailOfUser) {
+        postHtml += `
+        <div>
+          <div class="like-div">
+            <p class="user-name">${post.emailOfUser}</p>
+            <img class="delete-icon" src="/assets/images/delete-icon.png" data-id="${documentSnapshot.id}">
+            <img class="edit-icon" src="/assets/images/edit-icon.png" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="/assets/images/before-like.png" data-id="${documentSnapshot.id}">
+          </div>
+          <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
+          <div class="date-container">
+            <p class="p-date">Fecha: ${postYear}-${postMonth}-${postDay}</p>
+            <p class="p-likes">Likes: ${likes}</p>
+          </div>
+        </div>
+      `;
+      } else {
+        postHtml += `
+        <div>
+          <div class="like-div">
+            <p class="user-name">${post.emailOfUser}</p>
+            <img class="like-button" src="/assets/images/before-like.png" data-id="${documentSnapshot.id}">
+          </div>
+          <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
+          <div class="date-container">
+            <p class="p-date">Fecha: ${postYear}-${postMonth}-${postDay}</p>
+            <p class="p-likes">Likes: ${likes}</p>
+          </div>
+        </div>
+      `;
+      }
     });
+    // ---POSTS PUBLICADOS-3--- finalmente se introduce el html dentro del div de posts --
+    // if user == user {se lanza este html que tiene los botones de editar y borrar}
     allPostsDiv.innerHTML = postHtml;
+    // else, se lanza sin los botones de editar y eliminar.
 
-    // Agregar evento de clic a los botones de like
+    // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
+    // Inicialización botón delete
     allPostsDiv.addEventListener('click', async (event) => {
-      const clickedElement = event.target;
-      if (clickedElement.matches('.like-button')) {
-        const postId = clickedElement.dataset.id;
+      const deleteButton = event.target;
+      if (deleteButton.matches('.delete-icon')) {
+        await deletePost(deleteButton.dataset.id);
+      }
+    });
+
+    // HASTA AQUÍ ENTENDIDO (21.06.23)
+
+    // Inicialización botón like
+    allPostsDiv.addEventListener('click', async (event) => {
+      const likeButton = event.target;
+      if (likeButton.matches('.like-button')) {
+        const postId = likeButton.dataset.id;
         console.log(postId);
         try {
           const user = getCurrentUser();
@@ -143,12 +161,12 @@ export const Wall = (onNavigate) => {
             const hasLiked = await checkIfUserLikedPost(userId, postId);
             if (!hasLiked) {
               incrementLikes(postId).then(async () => {
-                clickedElement.src = './assets/images/after-like.png';
+                likeButton.src = './assets/images/after-like.png';
                 await saveLikesToPost(postId, userId);
               });
             } else {
               revertLike(postId).then(async () => {
-                clickedElement.src = './assets/images/before-like.png';
+                likeButton.src = './assets/images/before-like.png';
                 await removeLikesFromPost(postId);
               });
             }
@@ -160,22 +178,7 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  // función para eliminar los posts
-  allPostsDiv.addEventListener('click', async (event) => {
-    const clickedElement = event.target;
-    if (clickedElement.matches('.delete-icon')) {
-      await deletePost(clickedElement.dataset.id);
-      console.log(clickedElement.dataset.id);
-      console.log('delete');
-    }
-  });
-
-  window.addEventListener('DOMContentLoaded', async () => {
-    console.log('DOMContentLoaded event fired');
-  });
-
-  const buttonHome = section.querySelector('#go-home');
-  buttonHome.addEventListener('click', () => {
+  logoutButton.addEventListener('click', () => {
     onNavigate('/');
   });
   const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
@@ -186,7 +189,7 @@ export const Wall = (onNavigate) => {
       postDiv.focus();
     });
   });
-  wallDiv.appendChild(section);
+  wallDiv.appendChild(wallMain);
 
   return wallDiv;
 };
