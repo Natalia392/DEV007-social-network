@@ -134,7 +134,11 @@ a {
     padding: 30px;
     max-width: 75%;;
   }
-
+  .books{
+    background: url('./assets/images/books.png');
+  width: 200px;
+  height: 300px;
+}
   .new-post-text{
     max-width: 80%;
   }
