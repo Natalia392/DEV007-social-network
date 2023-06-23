@@ -149,16 +149,21 @@ export const Wall = (onNavigate) => {
     // Inicialización botón like
     likePostButtons.forEach((likePostButton) => {
       likePostButton.addEventListener('click', async () => {
-        console.log('ahorita sí?');
         const postId = likePostButton.dataset.id;
-        const post = await querySnapshot.docs.find((doc) => doc.id === postId).data();
+        const post = await querySnapshot.docs.find((doc) => doc.id === postId);
+        const postData = post.data();
+        console.log(postId);
+        console.log(postData);
+        console.log(postData.emailOfUser);
+        console.log(postData.likes);
         console.log(post);
-        if (postId.likes && postId.likes.includes(currentUser.email)) {
-          removeLike(postId, post.likes).then(() => {
+        if (postData.likes && postData.likes.includes(currentUser.emailOfUser)) {
+          removeLike(postId, postData.likes).then(() => {
+            console.log(postData.likes);
             likePostButton.src = './assets/images/before-like.png';
           });
         } else {
-          likePost(postId, post.likes).then(() => {
+          likePost(postId, postData.likes).then(() => {
             likePostButton.src = './assets/images/after-like.png';
           });
         }
