@@ -4,6 +4,7 @@ import {
   createPost,
   deletePost,
   likePost,
+  removeLike,
 } from '../lib';
 import { showMessage, showDeleteMessage } from './modal';
 
@@ -93,7 +94,7 @@ export const Wall = (onNavigate) => {
       const postYear = postDate.getFullYear();
       const postMonth = postDate.getMonth() + 1; // Los meses del año se cuentan desde 1 en firebase
       const postDay = postDate.getDate();
-      const likes = post.likes || 0;
+      const likes = post.likes.length || 0;
 
       if (currentUser.email === post.emailOfUser) {
         postHtml += `
@@ -131,14 +132,14 @@ export const Wall = (onNavigate) => {
     allPostsDiv.innerHTML = postHtml;
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
-    const deletePostButton = document.querySelector('.delete-icon');
+    const deletePostButtons = document.querySelector('.delete-icon');
     const editPostButton = document.querySelector('.edit-icon');
-    const likePostButton = document.querySelector('.like-button');
+    const likePostButtons = document.querySelectorAll('.like-button'); // estos se toman ALL
 
     // Inicialización botón delete
-    if (deletePostButton) {
-      deletePostButton.addEventListener('click', async () => {
-        const postId = deletePostButton.dataset.id;
+    if (deletePostButtons) {
+      deletePostButtons.addEventListener('click', async () => {
+        const postId = deletePostButtons.dataset.id;
         const deletePostCallBack = () => deletePost(postId);
         showDeleteMessage({ deletePostCallBack });
       });
@@ -146,16 +147,23 @@ export const Wall = (onNavigate) => {
     // HASTA AQUÍ ENTENDIDO (21.06.23)
 
     // Inicialización botón like
-    likePostButton.addEventListener('click', async () => {
-      const postId = likePostButton.dataset.id;
-      console.log(postId);
-      if(currentUser.email === post.emailOfUser) {
-        await likePost()
-        likePostButton.src = './assets/images/after-like.png';
-      } else {
-        likePostButton.src = './assets/images/before-like.png';
-      }
-      
+    likePostButtons.forEach((likePostButton) => {
+      likePostButton.addEventListener('click', async () => {
+        console.log('ahorita sí?');
+        const postId = likePostButton.dataset.id;
+        const post = await querySnapshot.docs.find((doc) => doc.id === postId).data();
+        console.log(post);
+        if (postId.likes && postId.likes.includes(currentUser.email)) {
+          removeLike(postId, post.likes).then(() => {
+            likePostButton.src = './assets/images/before-like.png';
+          });
+        } else {
+          likePost(postId, post.likes).then(() => {
+            likePostButton.src = './assets/images/after-like.png';
+          });
+        }
+      });
+    });
     /* likePostButton.addEventListener('click', async () => {
       const postId = likePostButton.dataset.id;
       console.log(postId);
