@@ -53,6 +53,7 @@ export const Wall = (onNavigate) => {
   const wallMain = document.createElement('main');
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
+    <img class="books" src="/assets/images/books.png" id="books">
     <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
@@ -93,7 +94,7 @@ export const Wall = (onNavigate) => {
       const postYear = postDate.getFullYear();
       const postMonth = postDate.getMonth() + 1; // Los meses del año se cuentan desde 1 en firebase
       const postDay = postDate.getDate();
-      const likes = post.likes || 0;
+      const likes = post.likes.length || 0;
 
       if (currentUser.email === post.emailOfUser) {
         postHtml += `
@@ -133,7 +134,7 @@ export const Wall = (onNavigate) => {
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
     const deletePostButton = document.querySelector('.delete-icon');
     const editPostButton = document.querySelector('.edit-icon');
-    const likePostButton = document.querySelector('.like-button');
+    const likePostButtons = document.querySelectorAll('.like-button');
 
     // Inicialización botón delete
     if (deletePostButton) {
@@ -146,16 +147,32 @@ export const Wall = (onNavigate) => {
     // HASTA AQUÍ ENTENDIDO (21.06.23)
 
     // Inicialización botón like
-    likePostButton.addEventListener('click', async () => {
+    likePostButtons.forEach((likePostButton) => {
+      likePostButton.addEventListener('click', async () => {
+        console.log('ahorita sí?');
+        const postId = likePostButton.dataset.id;
+        if (postId.likes === undefined || postId.likes.indexOf(currentUser)) {
+          likePost(postId, []);
+          likePostButton.src = './assets/images/after-like.png';
+        } else {
+          likePost(postId, postId.data().likes);
+        }
+      });
+    });
+    /*likePostButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+      console.log('funciona?');
       const postId = likePostButton.dataset.id;
       console.log(postId);
-      if(currentUser.email === post.emailOfUser) {
-        await likePost()
+      const user = getCurrentUser();
+      const userId = user.uid;
+      if (userId === user.uid) {
+        await likePost();
         likePostButton.src = './assets/images/after-like.png';
       } else {
         likePostButton.src = './assets/images/before-like.png';
       }
-      
+    });*/
     /* likePostButton.addEventListener('click', async () => {
       const postId = likePostButton.dataset.id;
       console.log(postId);
