@@ -4,6 +4,7 @@ import {
   createPost,
   deletePost,
   // likePost,
+  // removeLike,
 } from '../lib';
 import { showMessage, showDeleteMessage } from './modal';
 
@@ -93,7 +94,7 @@ export const Wall = (onNavigate) => {
       const postYear = postDate.getFullYear();
       const postMonth = postDate.getMonth() + 1; // Los meses del año se cuentan desde 1 en firebase
       const postDay = postDate.getDate();
-      const likes = post.likes || 0;
+      const likes = post.likes.length || 0;
 
       if (currentUser.email === post.emailOfUser) {
         postHtml += `
