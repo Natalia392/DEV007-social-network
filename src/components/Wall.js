@@ -3,7 +3,7 @@ import {
   getCurrentUser,
   createPost,
   deletePost,
-  likePost,
+  // likePost,
 } from '../lib';
 import { showMessage, showDeleteMessage } from './modal';
 
@@ -132,8 +132,8 @@ export const Wall = (onNavigate) => {
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
     const deletePostButton = document.querySelector('.delete-icon');
-    const editPostButton = document.querySelector('.edit-icon');
-    const likePostButton = document.querySelector('.like-button');
+    // const editPostButton = document.querySelector('.edit-icon');
+    // const likePostButton = document.querySelector('.like-button');
 
     // Inicialización botón delete
     if (deletePostButton) {
@@ -146,17 +146,19 @@ export const Wall = (onNavigate) => {
     // HASTA AQUÍ ENTENDIDO (21.06.23)
 
     // Inicialización botón like
-    likePostButton.addEventListener('click', async () => {
+    /* likePostButton.addEventListener('click', async () => {
       const postId = likePostButton.dataset.id;
       console.log(postId);
-      if(currentUser.email === post.emailOfUser) {
+      if (currentUser.email === post.emailOfUser) {
         await likePost()
         likePostButton.src = './assets/images/after-like.png';
       } else {
-        likePostButton.src = './assets/images/before-like.png';
+        likePost(postId, postId.data().likes);
       }
-      
-    /* likePostButton.addEventListener('click', async () => {
+    });
+  });
+
+  /* likePostButton.addEventListener('click', async () => {
       const postId = likePostButton.dataset.id;
       console.log(postId);
       try {
@@ -181,19 +183,20 @@ export const Wall = (onNavigate) => {
         console.error(`Error al gestionar el like: ${error.message}`);
       }
     }); */
-  });
 
-  logoutButton.addEventListener('click', () => {
-    onNavigate('/');
+    logoutButton.addEventListener('click', () => {
+      onNavigate('/');
+    });
+
+    const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
+    editIcons.forEach((editIcon) => {
+      editIcon.addEventListener('click', () => {
+        const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
+        postDiv.contentEditable = true;
+        postDiv.focus();
+      });
+    });
   });
-  // const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
-  // editIcons.forEach((editIcon) => {
-  //   editIcon.addEventListener('click', () => {
-  //     const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
-  //     postDiv.contentEditable = true;
-  //     postDiv.focus();
-  //   });
-  // });
   wallDiv.appendChild(wallMain);
 
   return wallDiv;
