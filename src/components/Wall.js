@@ -157,14 +157,14 @@ export const Wall = (onNavigate) => {
         console.log(postData.emailOfUser);
         console.log(postData.likes);
         console.log(post);
-        if (postData.likes && postData.likes.includes(currentUser.emailOfUser)) {
-          removeLike(postId, postData.likes).then(() => {
+        if (!postData.likes && !postData.likes.includes(currentUser.emailOfUser)) {
+          likePost(postId, postData.likes).then(() => {
             console.log(postData.likes);
-            likePostButton.src = './assets/images/before-like.png';
+            likePostButton.src = './assets/images/after-like.png';
           });
         } else {
-          likePost(postId, postData.likes).then(() => {
-            likePostButton.src = './assets/images/after-like.png';
+          removeLike(postId, postData.likes).then(() => {
+            likePostButton.src = './assets/images/-like.png';
           });
         }
       });

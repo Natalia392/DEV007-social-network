@@ -74,12 +74,19 @@ export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts')
 
 export const deletePost = async (id) => deleteDoc(doc(db, 'posts', id));
 
+export const editPost = async (id, newText) => {
+  updateDoc(doc(db, 'posts', id), {
+    contet: newText,
+  });
+};
+
 export const likePost = async (id, likes) => {
   if (likes.length === 0 || !(likes.includes(auth.currentUser.email))) {
     await updateDoc(doc(db, 'posts', id), {
       likes: arrayUnion(auth.currentUser.email),
     });
   }
+  console.log(likes);
 };
 
 export const removeLike = async (id, likes) => {
@@ -88,4 +95,5 @@ export const removeLike = async (id, likes) => {
       likes: arrayRemove(auth.currentUser.email),
     });
   }
+  console.log(likes);
 };
