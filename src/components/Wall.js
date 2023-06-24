@@ -4,6 +4,7 @@ import {
   createPost,
   deletePost,
   likePost,
+  removeLike,
 } from '../lib';
 import { showMessage, showDeleteMessage } from './modal';
 
@@ -54,7 +55,6 @@ export const Wall = (onNavigate) => {
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
     <div class="new-post-container" id="new-post-container">
-    <div class='books'></div>
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
@@ -132,14 +132,14 @@ export const Wall = (onNavigate) => {
     allPostsDiv.innerHTML = postHtml;
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
-    const deletePostButton = document.querySelector('.delete-icon');
+    const deletePostButtons = document.querySelector('.delete-icon');
     const editPostButton = document.querySelector('.edit-icon');
-    const likePostButtons = document.querySelectorAll('.like-button');
+    const likePostButtons = document.querySelectorAll('.like-button'); // estos se toman ALL
 
     // Inicialización botón delete
-    if (deletePostButton) {
-      deletePostButton.addEventListener('click', async () => {
-        const postId = deletePostButton.dataset.id;
+    if (deletePostButtons) {
+      deletePostButtons.addEventListener('click', async () => {
+        const postId = deletePostButtons.dataset.id;
         const deletePostCallBack = () => deletePost(postId);
         showDeleteMessage({ deletePostCallBack });
       });
@@ -149,30 +149,26 @@ export const Wall = (onNavigate) => {
     // Inicialización botón like
     likePostButtons.forEach((likePostButton) => {
       likePostButton.addEventListener('click', async () => {
-        console.log('ahorita sí?');
         const postId = likePostButton.dataset.id;
-        if (postId.likes === undefined || postId.likes.indexOf(currentUser)) {
-          likePost(postId, []);
-          likePostButton.src = './assets/images/after-like.png';
+        const post = await querySnapshot.docs.find((doc) => doc.id === postId);
+        const postData = post.data();
+        console.log(postId);
+        console.log(postData);
+        console.log(postData.emailOfUser);
+        console.log(postData.likes);
+        console.log(post);
+        if (postData.likes && postData.likes.includes(currentUser.emailOfUser)) {
+          removeLike(postId, postData.likes).then(() => {
+            console.log(postData.likes);
+            likePostButton.src = './assets/images/before-like.png';
+          });
         } else {
-          likePost(postId, postId.data().likes);
+          likePost(postId, postData.likes).then(() => {
+            likePostButton.src = './assets/images/after-like.png';
+          });
         }
       });
     });
-    /*likePostButton.addEventListener('click', async (e) => {
-      e.preventDefault();
-      console.log('funciona?');
-      const postId = likePostButton.dataset.id;
-      console.log(postId);
-      const user = getCurrentUser();
-      const userId = user.uid;
-      if (userId === user.uid) {
-        await likePost();
-        likePostButton.src = './assets/images/after-like.png';
-      } else {
-        likePostButton.src = './assets/images/before-like.png';
-      }
-    });*/
     /* likePostButton.addEventListener('click', async () => {
       const postId = likePostButton.dataset.id;
       console.log(postId);
