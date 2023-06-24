@@ -7,7 +7,7 @@ import {
   likePost,
   removeLike,
 } from '../lib';
-import { showMessage, showDeleteMessage } from './modal';
+import { showMessage, showDeleteMessage, showEditModal } from './modal';
 
 export const Wall = (onNavigate) => {
   // Creación del div que contiene tanto header como main y footer
@@ -155,16 +155,16 @@ export const Wall = (onNavigate) => {
       editPostButtons.forEach((editPostButton) => {
         editPostButton.addEventListener('click', async () => {
           const postId = editPostButton.dataset.id;
-          let newText = '';
-          newText = prompt("Edita tu post");
-          if (newText != null) {
-            editPost(postId, newText);
-            console.log(newText);
-          } else {
-            alert("No has introducido nada");
-          }
+          showEditModal(async (newText) => {
+            if (newText !== '') {
+              await editPost(postId, newText);
+              console.log(newText);
+            } else {
+              alert("No has introducido nada");
+            }
+          });
         });
-      }); // <- Agregar el cierre del paréntesis aquí
+      });
     }
 
     // Inicialización botón like
