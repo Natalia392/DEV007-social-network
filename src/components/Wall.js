@@ -3,6 +3,7 @@ import {
   getCurrentUser,
   createPost,
   deletePost,
+  editPost,
   likePost,
   removeLike,
 } from '../lib';
@@ -55,6 +56,7 @@ export const Wall = (onNavigate) => {
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
     <div class="new-post-container" id="new-post-container">
+    <div class="books"></div>
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
@@ -144,6 +146,21 @@ export const Wall = (onNavigate) => {
         const postId = deletePostButtons.dataset.id;
         const deletePostCallBack = () => deletePost(postId);
         showDeleteMessage({ deletePostCallBack });
+      });
+    }
+    // Inicialización botón edit
+    if (editPostButton) {
+      editPostButton.addEventListener('click', async () => {
+        const postId = deletePostButtons.dataset.id;
+        let newText = '';
+
+        newText = prompt("Edita tu post");
+        if (newText != null) {
+          editPost(postId, newText);
+          console.log(newText);
+        } else {
+          alert("No has introducido nada");
+        }
       });
     }
 
