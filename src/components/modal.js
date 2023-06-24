@@ -123,7 +123,7 @@ export function showDeleteMessage({ deletePostCallBack }) {
   // Mostrar mensaje en la ventana modal
   showModal();
 }
-export function showEditModal(editPostCallBack) {
+export function showEditModal(originalText, onSave) {
   // Crea el contenedor de la ventana modal
   const modalContainer = document.createElement('div');
   modalContainer.className = 'modal-container';
@@ -184,6 +184,7 @@ export function showEditModal(editPostCallBack) {
   function showModal() {
     overlay.style.display = 'flex';
     modalContainer.style.display = 'flex';
+    inputText.value = originalText; // Establecer el valor original en el campo de entrada
   }
 
   // Función para ocultar la ventana modal
@@ -199,7 +200,7 @@ export function showEditModal(editPostCallBack) {
   acceptButton.addEventListener('click', async () => {
     const newText = inputText.value;
     if (newText !== '') {
-      await editPostCallBack(newText);
+      await onSave(newText); // Llamada a la función onSave con el nuevo texto
       hideModal();
     }
   });

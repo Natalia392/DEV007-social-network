@@ -155,7 +155,9 @@ export const Wall = (onNavigate) => {
       editPostButtons.forEach((editPostButton) => {
         editPostButton.addEventListener('click', async () => {
           const postId = editPostButton.dataset.id;
-          showEditModal(async (newText) => {
+          const postContentDiv = editPostButton.parentNode.parentNode.querySelector('.post-div');
+          const postContent = postContentDiv.textContent; // Obtener el contenido original del post
+          showEditModal(postContent, async (newText) => {
             if (newText !== '') {
               await editPost(postId, newText);
               console.log(newText);
