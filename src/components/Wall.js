@@ -56,7 +56,6 @@ export const Wall = (onNavigate) => {
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
     <div class="new-post-container" id="new-post-container">
-    <div class="books"></div>
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
@@ -136,32 +135,36 @@ export const Wall = (onNavigate) => {
     allPostsDiv.innerHTML = postHtml;
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
-    const deletePostButtons = document.querySelector('.delete-icon'); // ojito aquí
-    const editPostButton = document.querySelector('.edit-icon'); // ojito aquí x2
+    const deletePostButtons = document.querySelectorAll('.delete-icon'); // ojito aquí
+    const editPostButtons = document.querySelectorAll('.edit-icon'); // ojito aquí x2
     const likePostButtons = allPostsDiv.querySelectorAll('.like-button'); // estos se toman ALL, ojo aquí debemos referenciar al contenedor padre
 
     // Inicialización botón delete
     if (deletePostButtons) {
-      deletePostButtons.addEventListener('click', async () => {
-        const postId = deletePostButtons.dataset.id;
-        const deletePostCallBack = () => deletePost(postId);
-        showDeleteMessage({ deletePostCallBack });
-      });
+      deletePostButtons.forEach((deletePostButton) => {
+        deletePostButton.addEventListener('click', async () => {
+          const postId = deletePostButton.dataset.id;
+          const deletePostCallBack = () => deletePost(postId);
+          showDeleteMessage({ deletePostCallBack });
+        });
+      }); // <- Agregar el cierre del paréntesis aquí
     }
-    // Inicialización botón edit
-    if (editPostButton) {
-      editPostButton.addEventListener('click', async () => {
-        const postId = deletePostButtons.dataset.id;
-        let newText = '';
 
-        newText = prompt("Edita tu post");
-        if (newText != null) {
-          editPost(postId, newText);
-          console.log(newText);
-        } else {
-          alert("No has introducido nada");
-        }
-      });
+    // Inicialización botón edit
+    if (editPostButtons) {
+      editPostButtons.forEach((editPostButton) => {
+        editPostButton.addEventListener('click', async () => {
+          const postId = editPostButton.dataset.id;
+          let newText = '';
+          newText = prompt("Edita tu post");
+          if (newText != null) {
+            editPost(postId, newText);
+            console.log(newText);
+          } else {
+            alert("No has introducido nada");
+          }
+        });
+      }); // <- Agregar el cierre del paréntesis aquí
     }
 
     // Inicialización botón like

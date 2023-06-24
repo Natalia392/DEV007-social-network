@@ -134,11 +134,13 @@ a {
     padding: 30px;
     max-width: 75%;;
   }
-  .books{
-    background: url('./assets/images/books.png');
-  width: 200px;
-  height: 300px;
-}
+
+ 
+  .books {
+    max-width: 20% !important;
+    height: 300px !important;
+  }
+
   .new-post-text{
     max-width: 80%;
   }
