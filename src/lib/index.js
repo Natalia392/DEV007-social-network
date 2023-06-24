@@ -74,18 +74,14 @@ export const onGetPosts = (callback) => onSnapshot(query(collection(db, 'posts')
 
 export const deletePost = async (id) => deleteDoc(doc(db, 'posts', id));
 
-export const likePost = async (id, likes) => {
-  if (likes.length === 0 || !(likes.includes(auth.currentUser.email))) {
-    await updateDoc(doc(db, 'posts', id), {
-      likes: arrayUnion(auth.currentUser.email),
-    });
-  }
+export const likePost = (docId, uidUser) => { // pasamos por parámetro que post debe agregar un like, y dentro del like se almacenará el uid del usuario
+  updateDoc(doc(db, 'posts', docId), {
+    likes: arrayUnion(uidUser), // se une el uid para evitar errores con el mail.
+  });
 };
 
-export const removeLike = async (id, likes) => {
-  if (likes.includes(auth.currentUser.email)) {
-    await updateDoc(doc(db, 'posts', id), {
-      likes: arrayRemove(auth.currentUser.email),
-    });
-  }
+export const removeLike = (docId, uidUser) => { // pasamos por parámetro que post debe remover el like y el uid que debe remover.
+  updateDoc(doc(db, 'posts', docId), {
+    likes: arrayRemove(uidUser), // se remueve buscando el uid para evitar errores con el mail.
+  });
 };
