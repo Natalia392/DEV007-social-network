@@ -3,10 +3,11 @@ import {
   getCurrentUser,
   createPost,
   deletePost,
-  // likePost,
-  // removeLike,
+  editPost,
+  likePost,
+  removeLike,
 } from '../lib';
-import { showMessage, showDeleteMessage } from './modal';
+import { showMessage, showDeleteMessage, showEditModal } from './modal';
 
 export const Wall = (onNavigate) => {
   // Creación del div que contiene tanto header como main y footer
@@ -54,7 +55,10 @@ export const Wall = (onNavigate) => {
   const wallMain = document.createElement('main');
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
-    <div class="new-post-container" id="new-post-container">
+  <div class="books">
+  <img class="books" src="/assets/images/books2.png">
+  </div>
+  <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
@@ -95,7 +99,9 @@ export const Wall = (onNavigate) => {
       const postMonth = postDate.getMonth() + 1; // Los meses del año se cuentan desde 1 en firebase
       const postDay = postDate.getDate();
       const likes = post.likes.length || 0;
-
+      const likedByUser = post.likes.includes(currentUser.email);
+      // aquí validamos si el usuario ya le dio like
+      const likeButtonImg = likedByUser ? 'after-like.png' : 'before-like.png'; // aquí bindeamos cuál se deberá colocar, si el corazón likeado o vacío.
       if (currentUser.email === post.emailOfUser) {
         postHtml += `
         <div>
@@ -103,7 +109,7 @@ export const Wall = (onNavigate) => {
             <p class="user-name">${post.emailOfUser}</p>
             <img class="delete-icon" src="/assets/images/delete-icon.png" data-id="${documentSnapshot.id}">
             <img class="edit-icon" src="/assets/images/edit-icon.png" data-id="${documentSnapshot.id}">
-            <img class="like-button" src="/assets/images/before-like.png" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
           <div class="date-container">
@@ -117,7 +123,7 @@ export const Wall = (onNavigate) => {
         <div>
           <div class="like-div">
             <p class="user-name">${post.emailOfUser}</p>
-            <img class="like-button" src="/assets/images/before-like.png" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
           <div class="date-container">
@@ -128,38 +134,68 @@ export const Wall = (onNavigate) => {
       `;
       }
     });
-    // ---POSTS PUBLICADOS-3--- finalmente se introduce el html dentro del div de posts --
+    // ---POSTS PUBLICADOS-3--- finalmente se introduce el html dentro del div de posts
     allPostsDiv.innerHTML = postHtml;
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
-    const deletePostButton = document.querySelector('.delete-icon');
-    // const editPostButton = document.querySelector('.edit-icon');
-    // const likePostButton = document.querySelector('.like-button');
+    const deletePostButtons = document.querySelectorAll('.delete-icon'); // ojito aquí
+    const editPostButtons = document.querySelectorAll('.edit-icon'); // ojito aquí x2
+    const likePostButtons = allPostsDiv.querySelectorAll('.like-button'); // estos se toman ALL, ojo aquí debemos referenciar al contenedor padre
 
     // Inicialización botón delete
-    if (deletePostButton) {
-      deletePostButton.addEventListener('click', async () => {
-        const postId = deletePostButton.dataset.id;
-        const deletePostCallBack = () => deletePost(postId);
-        showDeleteMessage({ deletePostCallBack });
+    if (deletePostButtons) {
+      deletePostButtons.forEach((deletePostButton) => {
+        deletePostButton.addEventListener('click', async () => {
+          const postId = deletePostButton.dataset.id;
+          const deletePostCallBack = () => deletePost(postId);
+          showDeleteMessage({ deletePostCallBack });
+        });
+      }); // <- Agregar el cierre del paréntesis aquí
+    }
+
+    // Inicialización botón edit
+    if (editPostButtons) {
+      editPostButtons.forEach((editPostButton) => {
+        editPostButton.addEventListener('click', async () => {
+          const postId = editPostButton.dataset.id;
+          const postContentDiv = editPostButton.parentNode.parentNode.querySelector('.post-div');
+          const postContent = postContentDiv.textContent; // Obtener el contenido original del post
+          showEditModal(postContent, async (newText) => {
+            if (newText !== '') {
+              await editPost(postId, newText);
+              console.log(newText);
+            } else {
+              alert("No has introducido nada");
+            }
+          });
+        });
       });
     }
-    // HASTA AQUÍ ENTENDIDO (21.06.23)
 
     // Inicialización botón like
-    /* likePostButton.addEventListener('click', async () => {
-      const postId = likePostButton.dataset.id;
-      console.log(postId);
-      if (currentUser.email === post.emailOfUser) {
-        await likePost()
-        likePostButton.src = './assets/images/after-like.png';
-      } else {
-        likePost(postId, postId.data().likes);
-      }
-    });
-  });
+    likePostButtons.forEach((likePostButton) => {
+      likePostButton.addEventListener('click', async () => {
+        const postId = likePostButton.dataset.id;
+        const post = querySnapshot.docs.find((doc) => doc.id === postId);
+        const postData = post.data();
 
-  /* likePostButton.addEventListener('click', async () => {
+        if (postData.likes && postData.likes.includes(currentUser.email)) {
+          await removeLike(postId, currentUser.email);
+          postData.likes = postData.likes.filter((like) => like !== currentUser.email);
+          likePostButton.src = '/assets/images/before-like.png';
+        } else {
+          await likePost(postId, currentUser.email);
+          postData.likes.push(currentUser.email);
+          likePostButton.src = '/assets/images/after-like.png';
+        }
+
+        const likesCountElement = likePostButton.parentNode.parentNode.querySelector('.p-likes');
+        likesCountElement.textContent = `Likes: ${postData.likes.length}`;
+      });
+    });
+    // HASTA AQUÍ ENTENDIDO (21.06.23)
+
+    /* likePostButton.addEventListener('click', async () => {
       const postId = likePostButton.dataset.id;
       console.log(postId);
       try {
