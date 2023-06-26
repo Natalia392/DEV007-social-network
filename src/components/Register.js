@@ -33,7 +33,7 @@ export const Register = (onNavigate) => {
   // inputs
   const inputNameRegister = document.createElement('input');
   inputNameRegister.setAttribute('type', 'text');
-  inputNameRegister.setAttribute('id', 'user-name');
+  inputNameRegister.setAttribute('id', 'displayname-name');
   inputNameRegister.setAttribute('placeholder', 'Nombre');
 
   const inputEmailRegister = document.createElement('input');
