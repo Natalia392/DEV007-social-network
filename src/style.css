@@ -134,8 +134,14 @@ a {
     padding: 30px;
     max-width: 75%;;
   }
-
+  p {
+    font-size: 85%;
  
+  }
+  .overlay{
+    max-width: 360px;
+    padding: auto;
+  }
   .books {
     max-width: 20% !important;
     height: 300px !important;
@@ -152,9 +158,6 @@ a {
     padding: 20px;
     border-radius: 5px;
     width: 85%; /* Agregado */
-  }
-  .posts-div{
-    width: 105%;
   }
 
   .new-post-text {
@@ -178,7 +181,7 @@ a {
 
   .user-name {
     margin-left: 5px;
-    width: 2%;
+    width: 0.5px;
   }
 
   .date-container {
