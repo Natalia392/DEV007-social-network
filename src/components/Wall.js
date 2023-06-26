@@ -55,7 +55,10 @@ export const Wall = (onNavigate) => {
   const wallMain = document.createElement('main');
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
-    <div class="new-post-container" id="new-post-container">
+  <div class="books">
+  <img class="books" src="/assets/images/books2.png">
+  </div>
+  <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
       <button id="post-button" class="post-button">Publica tu post</button>
     </div>
