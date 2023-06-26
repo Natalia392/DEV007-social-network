@@ -651,4 +651,19 @@ text-align: right;
 font-size: 16px;
 }
 
+.footer {
+  background-color: #006d77;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  align-items: end;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #fffaf0;
+}
+
 

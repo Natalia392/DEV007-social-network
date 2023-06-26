@@ -42,6 +42,20 @@ export const Wall = (onNavigate) => {
   logoutButton.textContent = 'Cerrar sesión';
   logoutButton.className = 'logout-btn';
 
+  // -----------Creación del footer----------------
+  const footerDiv = document.createElement('footer');
+  footerDiv.className = 'footer';
+
+  const createdByDiv = document.createElement('div');
+  createdByDiv.className = 'created-by';
+
+  const createdByText = document.createElement('p');
+  createdByText.textContent = '®Creado por Javiera Gandarillas, Natalia Torrejón y Andrea Ramirez';
+
+  const footerText = document.createElement('p');
+  footerText.className = 'footer-text';
+  footerText.textContent = 'Por favor, Sé amable con los otros participantes de la red social';
+
   // Se apendizan todos los elementos dentro del header y el header dentro del wall
   logoWallDiv.appendChild(imgLogo);
   logoWallDiv.appendChild(appName);
@@ -165,7 +179,7 @@ export const Wall = (onNavigate) => {
               await editPost(postId, newText);
               console.log(newText);
             } else {
-              alert("No has introducido nada");
+              showMessage('No has introducido nada');
             }
           });
         });
@@ -193,48 +207,17 @@ export const Wall = (onNavigate) => {
         likesCountElement.textContent = `Likes: ${postData.likes.length}`;
       });
     });
-    // HASTA AQUÍ ENTENDIDO (21.06.23)
-
-    /* likePostButton.addEventListener('click', async () => {
-      const postId = likePostButton.dataset.id;
-      console.log(postId);
-      try {
-        const user = getCurrentUser();
-        if (user) {
-          const userId = user.uid;
-          console.log(userId);
-          const hasLiked = await checkIfUserLikedPost(userId, postId);
-          if (!hasLiked) {
-            incrementLikes(postId).then(async () => {
-              likePostButton.src = './assets/images/after-like.png';
-              await saveLikesToPost(postId, userId);
-            });
-          } else {
-            revertLike(postId).then(async () => {
-              likePostButton.src = './assets/images/before-like.png';
-              await removeLikesFromPost(postId);
-            });
-          }
-        }
-      } catch (error) {
-        console.error(`Error al gestionar el like: ${error.message}`);
-      }
-    }); */
-
-    logoutButton.addEventListener('click', () => {
-      onNavigate('/');
-    });
-
-    const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
-    editIcons.forEach((editIcon) => {
-      editIcon.addEventListener('click', () => {
-        const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
-        postDiv.contentEditable = true;
-        postDiv.focus();
-      });
-    });
   });
+
+  logoutButton.addEventListener('click', () => {
+    onNavigate('/');
+  });
+
   wallDiv.appendChild(wallMain);
+  wallDiv.appendChild(footerDiv);
+  createdByDiv.appendChild(createdByText);
+  footerDiv.appendChild(createdByDiv);
+  footerDiv.appendChild(footerText);
 
   return wallDiv;
 };
