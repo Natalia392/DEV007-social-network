@@ -1,6 +1,6 @@
 /* Estilos generales */
 * {
-  font-family: "League Spartan";
+  font-family: "League Spartan", sans-serif;
   text-align: center;
   margin: 0%;
 }
@@ -32,7 +32,6 @@ p {
 
 a {
   font-size: 18px;
-  font-weight: 100;
   line-height: 1.2;
   font-weight: 800;
   cursor: pointer;
@@ -53,6 +52,7 @@ a {
 .texto-secundario { /* Elige una opción para continuar - Home */
   margin-bottom: 15px;
   padding: 0 50px;
+  color: #e29578;
 }
 
 /* Estilos para pantallas grandes (versión de escritorio) */
@@ -159,7 +159,7 @@ a {
     flex-direction: column;
     justify-content: center;
     padding: 30px;
-    max-width: 75%;;
+    max-width: 75%;
   }
   p {
     font-size: 85%;
@@ -175,9 +175,6 @@ a {
     margin-right: auto;
   }
 
-  .new-post-text{
-    max-width: 80%;
-  }
   .pink-container {
     background: #FFDDD2;
     box-shadow: 1px 1px 10px 1px #e29578;
@@ -189,6 +186,7 @@ a {
   }
 
   .new-post-text {
+    max-width: 80%;
     width: 100%; /* Agregado */
     height: 120px;
     background-color: #FFFFFF;
@@ -279,7 +277,6 @@ button {
 
 .button-login:hover {
   background-color: #83c5be;
-  box-shadow: 0px 0px 5px rgba(230, 147, 116, 0.555);
   cursor: pointer;
   transition: 0.3s;
   text-shadow: 5px 3px 5px #006d77, -2px -2px 4px #006d77;
@@ -292,7 +289,6 @@ button {
 
 .button-register:hover {
   background-color: #83c5be;
-  box-shadow: 0px 0px 5px rgba(230, 147, 116, 0.555);
   cursor: pointer;
   transition: 0.3s;
   text-shadow: 5px 3px 5px #006d77, -2px -2px 4px #006d77;
@@ -301,8 +297,7 @@ button {
 
 .google-button {
   background: #ffffff;
-  font-family: "Roboto";
-  padding: 0 8px;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   color: #000000;
   cursor: pointer;
@@ -312,16 +307,12 @@ button {
   box-shadow: 0px 0px 5px rgba(93, 92, 91, 0.555);
   background-position: 15px 50%; /* Ajusta la posición de la imagen de fondo */
   text-align: right;
-  padding: 10px 20px;;
+  padding: 10px 20px;
 }
 
 .page-title {
   color: #006d77;
   width: fit-content;
-}
-
-.texto-secundario {
-  color: #e29578;
 }
 
 /* Estilos para la ventana modal */
@@ -352,11 +343,6 @@ button {
   border-radius: 5%;
 }
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .all-posts{
   display: flex;
   flex-direction: column-reverse;
@@ -368,6 +354,7 @@ button {
   margin-top: 40px;
   width: 300px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 20px;
@@ -489,12 +476,12 @@ input:focus {
   outline: none;
   box-shadow: 0px 0px 10px 0px #006d77 inset, 0px 0px 10px 0px #006d77;
 }
+
 .post-button { /*publica tu post*/
   background: #006d77;
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;}
-button:hover .post-button {
-  transform: scale(1.2);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+
 .post-button:hover { /*publica tu post*/
   background-color: #83c5be;
   cursor: pointer;
@@ -591,7 +578,6 @@ button:hover .post-button {
 
 
 .go-home:hover{
-  transition: all 2s;
   background-color: #83c5be;
   cursor: pointer;
   transition: 0.3s;
@@ -603,18 +589,18 @@ button:hover .post-button {
   transform: scale(1.1);
   transition: all 1s;
 }
-.user-name { /*nombre del usuario*/
-margin-left: 10px;
-color: #fffaf0;
-width: 83%;
-text-align: left;
-padding-top: 5px;
+.user-name {
+  /*nombre del usuario*/
+  margin-left: 10px;
+  color: #fffaf0;
+  width: 83%;
+  text-align: left;
+  padding-top: 5px;
 }
 
 .date-container { /*contenedor de la fecha de la publicación*/
   height: 35px;
   width: 100%;
-  background-color: #006d77;
   box-shadow: 0px 1px 5px -1px #e29578;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -627,11 +613,12 @@ padding-top: 5px;
   background-color:#fffaf0;
 }
 
-.p-date { /*fecha de la publicación*/
-margin-left: 10px;
-color: #adadab;
-text-align: left;
-font-size: 16px;
+.p-date {
+  /*fecha de la publicación*/
+  margin-left: 10px;
+  color: #adadab;
+  text-align: left;
+  font-size: 16px;
 }
 
 .after-like { /*icono después de dar like*/
@@ -644,11 +631,12 @@ font-size: 16px;
   transition: all 1s;
 }
 
-.p-likes { /*contador de likes*/
-margin-right: 30px;
-color: #adadab;
-text-align: right;
-font-size: 16px;
+.p-likes {
+  /*contador de likes*/
+  margin-right: 30px;
+  color: #adadab;
+  text-align: right;
+  font-size: 16px;
 }
 
 .footer {
