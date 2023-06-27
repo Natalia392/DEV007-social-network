@@ -6,6 +6,7 @@ import {
   editPost,
   likePost,
   removeLike,
+  // logOutOfApp,
 } from '../lib';
 import { showMessage, showDeleteMessage, showEditModal } from './modal';
 
@@ -209,8 +210,13 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  logoutButton.addEventListener('click', () => {
+  logoutButton.addEventListener('click', async () => {
     onNavigate('/');
+    /* try {
+      await logOutOfApp();
+    } catch (error) {
+      console.log(error);
+    } */
   });
 
   wallDiv.appendChild(wallMain);
