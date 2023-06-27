@@ -6,6 +6,7 @@ import {
   editPost,
   likePost,
   removeLike,
+  // logOutOfApp,
 } from '../lib';
 import { showMessage, showDeleteMessage, showEditModal } from './modal';
 
@@ -41,6 +42,20 @@ export const Wall = (onNavigate) => {
   const logoutButton = document.createElement('a');
   logoutButton.textContent = 'Cerrar sesión';
   logoutButton.className = 'logout-btn';
+
+  // -----------Creación del footer----------------
+  const footerDiv = document.createElement('footer');
+  footerDiv.className = 'footer';
+
+  const createdByDiv = document.createElement('div');
+  createdByDiv.className = 'created-by';
+
+  const createdByText = document.createElement('p');
+  createdByText.textContent = '®Creado por Javiera Gandarillas, Natalia Torrejón y Andrea Ramirez';
+
+  const footerText = document.createElement('p');
+  footerText.className = 'footer-text';
+  footerText.textContent = 'Por favor, Sé amable con los otros participantes de la red social';
 
   // Se apendizan todos los elementos dentro del header y el header dentro del wall
   logoWallDiv.appendChild(imgLogo);
@@ -165,7 +180,7 @@ export const Wall = (onNavigate) => {
               await editPost(postId, newText);
               console.log(newText);
             } else {
-              alert("No has introducido nada");
+              showMessage('No has introducido nada');
             }
           });
         });
@@ -195,11 +210,20 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  logoutButton.addEventListener('click', () => {
+  logoutButton.addEventListener('click', async () => {
     onNavigate('/');
+    /* try {
+      await logOutOfApp();
+    } catch (error) {
+      console.log(error);
+    } */
   });
 
   wallDiv.appendChild(wallMain);
+  wallDiv.appendChild(footerDiv);
+  createdByDiv.appendChild(createdByText);
+  footerDiv.appendChild(createdByDiv);
+  footerDiv.appendChild(footerText);
 
   return wallDiv;
 };

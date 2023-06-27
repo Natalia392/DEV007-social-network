@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  // signOut,
   // onAuthStateChanged,
 } from 'firebase/auth';
 
@@ -22,13 +23,13 @@ import {
 import { auth, db } from '../app/firebase';
 
 // Crea un nuevo usuario con el método de autenticación de correo y contraseña de Firebase.
-export const ourCreateUserWithEmailAndPassword = async (email, password) => {
-  await createUserWithEmailAndPassword(auth, email, password);
-};
+export const ourCreateUserWithEmailAndPassword = (email, password) => (
+  createUserWithEmailAndPassword(auth, email, password));
 
 // Inicia sesión el método de autenticación anterior
 export const ourSignInWithEmailAndPassword = async (email, password) => {
-  await signInWithEmailAndPassword(auth, email, password);
+  const credenciales = await signInWithEmailAndPassword(auth, email, password);
+  return credenciales;
 };
 
 // Inicia sesión en la aplicación utilizando la autenticación de Google.
@@ -79,7 +80,7 @@ export const editPost = async (id, newText) => {
     content: newText,
   });
 };
-export const likePost = (docId, uidUser) => {
+export const likePost = async (docId, uidUser) => {
   // pasamos por parámetro que post debe agregar un like, y dentro del like
   // se almacenará el uid del usuario
   updateDoc(doc(db, 'posts', docId), {
@@ -87,9 +88,13 @@ export const likePost = (docId, uidUser) => {
   });
 };
 
-export const removeLike = (docId, uidUser) => {
+export const removeLike = async (docId, uidUser) => {
   // pasamos por parámetro que post debe remover el like y el uid que debe remover.
   updateDoc(doc(db, 'posts', docId), {
     likes: arrayRemove(uidUser), // se remueve buscando el uid para evitar errores con el mail.
   });
 };
+
+/* export const logOutOfApp = async () => {
+  signOut();
+}; */
