@@ -193,46 +193,12 @@ export const Wall = (onNavigate) => {
         likesCountElement.textContent = `Likes: ${postData.likes.length}`;
       });
     });
-    // HASTA AQUÍ ENTENDIDO (21.06.23)
-
-    /* likePostButton.addEventListener('click', async () => {
-      const postId = likePostButton.dataset.id;
-      console.log(postId);
-      try {
-        const user = getCurrentUser();
-        if (user) {
-          const userId = user.uid;
-          console.log(userId);
-          const hasLiked = await checkIfUserLikedPost(userId, postId);
-          if (!hasLiked) {
-            incrementLikes(postId).then(async () => {
-              likePostButton.src = './assets/images/after-like.png';
-              await saveLikesToPost(postId, userId);
-            });
-          } else {
-            revertLike(postId).then(async () => {
-              likePostButton.src = './assets/images/before-like.png';
-              await removeLikesFromPost(postId);
-            });
-          }
-        }
-      } catch (error) {
-        console.error(`Error al gestionar el like: ${error.message}`);
-      }
-    }); */
   });
 
   logoutButton.addEventListener('click', () => {
     onNavigate('/');
   });
-  // const editIcons = allPostsDiv.querySelectorAll('.edit-icon');
-  // editIcons.forEach((editIcon) => {
-  //   editIcon.addEventListener('click', () => {
-  //     const postDiv = editIcon.parentNode.parentNode.querySelector('.post-div');
-  //     postDiv.contentEditable = true;
-  //     postDiv.focus();
-  //   });
-  // });
+
   wallDiv.appendChild(wallMain);
 
   return wallDiv;

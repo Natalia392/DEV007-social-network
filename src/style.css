@@ -141,7 +141,7 @@ a {
     background-color: #006d77;
     order: -1;
     align-self: center;
-    box-shadow: #006d77 0px 22px 70px 4px;
+    box-shadow: none;
     z-index: 5;
   }
  
@@ -435,7 +435,7 @@ input:focus {
   background-color: #006d77;
   order: -1;
   align-self: flex-start;
-  box-shadow: #006d77 0px 22px 70px 4px;
+  box-shadow: #006d77 0px 5px 30px 2px;
   z-index: 999;
 }
 
@@ -516,6 +516,7 @@ button:hover .post-button {
   flex-direction: column;
   margin: auto;
   margin-top: 0;
+
 }
 
 .pink-container { /*container rosado que contiene los posts*/
