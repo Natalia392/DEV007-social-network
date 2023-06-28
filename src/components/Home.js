@@ -1,4 +1,5 @@
 // Aquí inicia Home
+import logoComunidad from '../assets/images/Logo-Comunidad.png';
 
 export const Home = (onNavigate) => {
   // ------------------IMÁGEN Y TÍTULO-------------------------------
@@ -19,7 +20,7 @@ export const Home = (onNavigate) => {
   logo.setAttribute('class', 'logo');
 
   const image = document.createElement('img');
-  image.src = './assets/images/Logo-Comunidad.png';
+  image.src = `${logoComunidad}`;
   image.setAttribute('class', 'image-logo');
 
   // --------------DIV INSTRUCCIONES Y BOTONES -------------------------

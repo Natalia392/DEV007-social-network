@@ -15,8 +15,19 @@ describe('ourSignInWithEmailAndPassword', () => {
     expect(typeof response).toBe('object');
   });
 
-  it('debe llamar a la función de firebase', async () => {
+  it('debe llamar a la función de firebase', async () => { // <----------OJO borrar
     signInWithEmailAndPassword.mockReturnValueOnce('hola');
     expect(signInWithEmailAndPassword()).toBe('hola');
+  });
+
+  it('Debe llamar a la función signInWithEmailAndPassword', async () => {
+    await ourSignInWithEmailAndPassword('harry@potter.com', 'harrypotter');
+    expect(signInWithEmailAndPassword).toHaveBeenCalled();
+  });
+
+  it('Debe ser un objeto que contiene el email harry@potter.com', async () => {
+    signInWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'harry@potter.com' } });
+    const response = await ourSignInWithEmailAndPassword('harry@potter.com', 'harrypotter');
+    expect(response.user.email).toBe('harry@potter.com');
   });
 });

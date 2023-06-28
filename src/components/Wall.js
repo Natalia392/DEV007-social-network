@@ -9,6 +9,12 @@ import {
   // logOutOfApp,
 } from '../lib';
 import { showMessage, showDeleteMessage, showEditModal } from './modal';
+import logoComunidad from '../assets/images/Logo-Comunidad.png';
+import afterLike from '../assets/images/after-like.png';
+import beforeLike from '../assets/images/before-like.png';
+import books from '../assets/images/books2.png';
+import deleteIcon from '../assets/images/delete-icon.png';
+import editIcon from '../assets/images/edit-icon.png';
 
 export const Wall = (onNavigate) => {
   // Creación del div que contiene tanto header como main y footer
@@ -28,7 +34,7 @@ export const Wall = (onNavigate) => {
 
   const imgLogo = document.createElement('img');
   imgLogo.className = 'logo-wall';
-  imgLogo.src = './assets/images/Logo-Comunidad.png';
+  imgLogo.src = `${logoComunidad}`;
 
   // Crea el titulo de la comunidad
   const appName = document.createElement('p');
@@ -71,7 +77,7 @@ export const Wall = (onNavigate) => {
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
   <div class="books">
-  <img class="books" src="/assets/images/books2.png">
+  <img class="books" src=${books}>
   </div>
   <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
@@ -116,14 +122,14 @@ export const Wall = (onNavigate) => {
       const likes = post.likes.length || 0;
       const likedByUser = post.likes.includes(currentUser.email);
       // aquí validamos si el usuario ya le dio like
-      const likeButtonImg = likedByUser ? 'after-like.png' : 'before-like.png'; // aquí bindeamos cuál se deberá colocar, si el corazón likeado o vacío.
+      const likeButtonImg = likedByUser ? `${afterLike}` : `${beforeLike}`; // aquí bindeamos cuál se deberá colocar, si el corazón likeado o vacío.
       if (currentUser.email === post.emailOfUser) {
         postHtml += `
         <div>
           <div class="like-div">
             <p class="user-name">${post.emailOfUser}</p>
-            <img class="delete-icon" src="/assets/images/delete-icon.png" data-id="${documentSnapshot.id}">
-            <img class="edit-icon" src="/assets/images/edit-icon.png" data-id="${documentSnapshot.id}">
+            <img class="delete-icon" src=${deleteIcon} data-id="${documentSnapshot.id}">
+            <img class="edit-icon" src=${editIcon} data-id="${documentSnapshot.id}">
             <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
@@ -197,11 +203,11 @@ export const Wall = (onNavigate) => {
         if (postData.likes && postData.likes.includes(currentUser.email)) {
           await removeLike(postId, currentUser.email);
           postData.likes = postData.likes.filter((like) => like !== currentUser.email);
-          likePostButton.src = '/assets/images/before-like.png';
+          likePostButton.src = `${beforeLike}`;
         } else {
           await likePost(postId, currentUser.email);
           postData.likes.push(currentUser.email);
-          likePostButton.src = '/assets/images/after-like.png';
+          likePostButton.src = `${afterLike}`;
         }
 
         const likesCountElement = likePostButton.parentNode.parentNode.querySelector('.p-likes');
