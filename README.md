@@ -1,554 +1,290 @@
-# Creando una Red Social
+# Red Social: La comunidad del libro
 
 ## Índice
 
-* [1. Preámbulo](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-* [4. Consideraciones generales](#4-consideraciones-generales)
-* [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
-* [6. Hacker edition](#6-hacker-edition)
-* [7. Entrega](#7-entrega)
-* [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
+* [1. Descripción](#1-descripción)
+* [2. Implementación del proyecto](#2-implementación-del-proyecto)
+* [3. Encuestas](#3-encuestas)
+* [4. Historias de usuario](#4-historias-de-usuario)
+* [5. Prototipos de baja fidelidad](#5-prototipos-de-baja-fidelidad)
+* [6. Prototipos de alta fidelidad](#6-prototipos-de-alta-fidelidad)
+* [7. Test de usabilidad](#7-test-de-usabilidad)
+* [8. Tecnologías y Herramientas Utilizadas](#8-Tecnologias-y-herramientas)
 
-## 1. Preámbulo
-
-Instagram, Snapchat, Twitter, Facebook, Twitch, Linkedin, etc. Las redes
-sociales han invadido nuestras vidas. Las amamos u odiamos, y muchos no podemos
-vivir sin ellas.
-
-![adem-ay-Tk9m_HP4rgQ-unsplash](https://user-images.githubusercontent.com/110297/135544666-4efa54f1-4ff6-4c4c-b398-6df04ef56117.jpg)
-
-Hay redes sociales de todo tipo y para todo tipo de intereses. Por ejemplo,
-en una ronda de financiamiento con inversionistas, se presentó una red social
-para químicos en la que los usuarios podían publicar artículos sobre sus
-investigaciones, comentar en los artículos de sus colegas, y filtrar artículos
-de acuerdo a determinadas etiquetas o su popularidad, lo más reciente, o lo
-más comentado.
-
-## 2. Resumen del proyecto
-
-En este proyecto construirás una Red Social sobre lo que decidan tú y tu equipo.
-Podría ser, por ejemplo, sobre alimentación saludable, feminismo, educación,
-salud, energías renovables, amantes de las [Empanadas](https://es.wikipedia.org/wiki/Empanada)
-o de los [Tacos de Canasta](https://es.wikipedia.org/wiki/Taco),
-de la [Feijoada](https://es.wikipedia.org/wiki/Feijoada), o de lo que sea.
-
-Tu Red Social tendrá que permitir a cualquier usuario crear una cuenta de acceso
-y loguearse con ella; crear, editar, borrar y _"likear"_ publicacciones.
-
-Por lo tanto, en este proyecto construirás una
-[Single-page Application (SPA)](https://es.wikipedia.org/wiki/Single-page_application)
-[_responsive_](https://curriculum.laboratoria.la/es/topics/css/02-responsive) (con más de una vista / página)
-en la que podamos **leer y escribir datos**.
-
-### Los objetivos generales de este proyecto son los siguientes
-
-* Desarrollar una SPA con temática de red social
-* Aplicar los conceptos de responsividad en el desarrollo de las vistas (templates)
-* Implementar un router para la navegación entre las diferentes vistas de la aplicación
-* Emplear un servicio externo para la persistencia de datos de la aplicación
-* Crear una suite de pruebas unitarias que permitan testear código asíncrono
-
-Para lograr estos objetivos, deberás aprender y hacer uso de las siguientes
-herramientas o habilidades técnicas:
-
-## 3. Objetivos de aprendizaje
-
-Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
-
-### HTML
-
-- [ ] **Uso de HTML semántico**
-
-  <details><summary>Links</summary><p>
-
-  * [HTML semántico](https://curriculum.laboratoria.la/es/topics/html/02-html5/02-semantic-html)
-  * [Semantics - MDN Web Docs Glossary](https://developer.mozilla.org/en-US/docs/Glossary/Semantics#Semantics_in_HTML)
-</p></details>
-
-### CSS
-
-- [ ] **Uso de selectores de CSS**
-
-  <details><summary>Links</summary><p>
-
-  * [Intro a CSS](https://curriculum.laboratoria.la/es/topics/css/01-css/01-intro-css)
-  * [CSS Selectors - MDN](https://developer.mozilla.org/es/docs/Web/CSS/CSS_Selectors)
-</p></details>
-
-- [ ] **Modelo de caja (box model): borde, margen, padding**
-
-  <details><summary>Links</summary><p>
-
-  * [Box Model & Display](https://curriculum.laboratoria.la/es/topics/css/01-css/02-boxmodel-and-display)
-  * [The box model - MDN](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
-  * [Introduction to the CSS box model - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)
-  * [CSS display - MDN](https://developer.mozilla.org/pt-BR/docs/Web/CSS/display)
-  * [display - CSS Tricks](https://css-tricks.com/almanac/properties/d/display/)
-</p></details>
-
-- [ ] **Uso de flexbox en CSS**
-
-  <details><summary>Links</summary><p>
-
-  * [A Complete Guide to Flexbox - CSS Tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-  * [Flexbox Froggy](https://flexboxfroggy.com/#es)
-  * [Flexbox - MDN](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
-</p></details>
-
-- [ ] **Uso de CSS Grid Layout**
-
-  <details><summary>Links</summary><p>
-
-  * [A Complete Guide to Grid - CSS Tricks](https://css-tricks.com/snippets/css/complete-guide-grid/)
-  * [Grids - MDN](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids)
-</p></details>
-
-### Web APIs
-
-- [ ] **Uso de selectores del DOM**
-
-  <details><summary>Links</summary><p>
-
-  * [Manipulación del DOM](https://curriculum.laboratoria.la/es/topics/browser/02-dom/03-1-dom-methods-selection)
-  * [Introducción al DOM - MDN](https://developer.mozilla.org/es/docs/Web/API/Document_Object_Model/Introduction)
-  * [Localizando elementos DOM usando selectores - MDN](https://developer.mozilla.org/es/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors)
-</p></details>
-
-- [ ] **Manejo de eventos del DOM (listeners, propagación, delegación)**
-
-  <details><summary>Links</summary><p>
-
-  * [Introducción a eventos - MDN](https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Events)
-  * [EventTarget.addEventListener() - MDN](https://developer.mozilla.org/es/docs/Web/API/EventTarget/addEventListener)
-  * [EventTarget.removeEventListener() - MDN](https://developer.mozilla.org/es/docs/Web/API/EventTarget/removeEventListener)
-  * [El objeto Event](https://developer.mozilla.org/es/docs/Web/API/Event)
-</p></details>
-
-- [ ] **Manipulación dinámica del DOM**
-
-  <details><summary>Links</summary><p>
-
-  * [Introducción al DOM](https://developer.mozilla.org/es/docs/Web/API/Document_Object_Model/Introduction)
-  * [Node.appendChild() - MDN](https://developer.mozilla.org/es/docs/Web/API/Node/appendChild)
-  * [Document.createElement() - MDN](https://developer.mozilla.org/es/docs/Web/API/Document/createElement)
-  * [Document.createTextNode()](https://developer.mozilla.org/es/docs/Web/API/Document/createTextNode)
-  * [Element.innerHTML - MDN](https://developer.mozilla.org/es/docs/Web/API/Element/innerHTML)
-  * [Node.textContent - MDN](https://developer.mozilla.org/es/docs/Web/API/Node/textContent)
-</p></details>
-
-- [ ] **Ruteado (History API, evento hashchange, window.location)**
-
-  <details><summary>Links</summary><p>
-
-  * [Manipulando el historial del navegador - MDN](https://developer.mozilla.org/es/docs/DOM/Manipulando_el_historial_del_navegador)
-</p></details>
-
-### JavaScript
-
-- [ ] **Arrays (arreglos)**
-
-  <details><summary>Links</summary><p>
-
-  * [Arreglos](https://curriculum.laboratoria.la/es/topics/javascript/04-arrays)
-  * [Array - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/)
-  * [Array.prototype.sort() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
-  * [Array.prototype.forEach() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
-  * [Array.prototype.map() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-  * [Array.prototype.filter() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
-  * [Array.prototype.reduce() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
-</p></details>
-
-- [ ] **Objetos (key, value)**
-
-  <details><summary>Links</summary><p>
-
-  * [Objetos en JavaScript](https://curriculum.laboratoria.la/es/topics/javascript/05-objects/01-objects)
-</p></details>
-
-- [ ] **Diferenciar entre tipos de datos primitivos y no primitivos**
-
-- [ ] **Variables (declaración, asignación, ámbito)**
-
-  <details><summary>Links</summary><p>
-
-  * [Valores, tipos de datos y operadores](https://curriculum.laboratoria.la/es/topics/javascript/01-basics/01-values-variables-and-types)
-  * [Variables](https://curriculum.laboratoria.la/es/topics/javascript/01-basics/02-variables)
-</p></details>
-
-- [ ] **Uso de condicionales (if-else, switch, operador ternario, lógica booleana)**
-
-  <details><summary>Links</summary><p>
-
-  * [Estructuras condicionales y repetitivas](https://curriculum.laboratoria.la/es/topics/javascript/02-flow-control/01-conditionals-and-loops)
-  * [Tomando decisiones en tu código — condicionales - MDN](https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/conditionals)
-</p></details>
-
-- [ ] **Uso de bucles/ciclos (while, for, for..of)**
-
-  <details><summary>Links</summary><p>
-
-  * [Bucles (Loops)](https://curriculum.laboratoria.la/es/topics/javascript/02-flow-control/02-loops)
-  * [Bucles e iteración - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Loops_and_iteration)
-</p></details>
-
-- [ ] **Funciones (params, args, return)**
-
-  <details><summary>Links</summary><p>
-
-  * [Funciones (control de flujo)](https://curriculum.laboratoria.la/es/topics/javascript/02-flow-control/03-functions)
-  * [Funciones clásicas](https://curriculum.laboratoria.la/es/topics/javascript/03-functions/01-classic)
-  * [Arrow Functions](https://curriculum.laboratoria.la/es/topics/javascript/03-functions/02-arrow)
-  * [Funciones — bloques de código reutilizables - MDN](https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions)
-</p></details>
-
-- [ ] **Pruebas unitarias (unit tests)**
-
-  <details><summary>Links</summary><p>
-
-  * [Empezando con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/getting-started)
-</p></details>
-
-- [ ] **Pruebas asíncronas**
-
-  <details><summary>Links</summary><p>
-
-  * [Tests de código asincrónico con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/asynchronous)
-</p></details>
-
-- [ ] **Uso de mocks y espías**
-
-  <details><summary>Links</summary><p>
-
-  * [Manual Mocks con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/manual-mocks)
-</p></details>
-
-- [ ] **Módulos de ECMAScript (ES Modules)**
-
-  <details><summary>Links</summary><p>
-
-  * [import - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/import)
-  * [export - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/export)
-</p></details>
-
-- [ ] **Uso de linter (ESLINT)**
-
-- [ ] **Uso de identificadores descriptivos (Nomenclatura y Semántica)**
-
-- [ ] **Diferenciar entre expresiones (expressions) y sentencias (statements)**
-
-- [ ] **Callbacks**
-
-  <details><summary>Links</summary><p>
-
-  * [Función Callback - MDN](https://developer.mozilla.org/es/docs/Glossary/Callback_function)
-</p></details>
-
-- [ ] **Promesas**
-
-  <details><summary>Links</summary><p>
-
-  * [Promise - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-  * [How to Write a JavaScript Promise - freecodecamp (en inglés)](https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
-</p></details>
-
-### Control de Versiones (Git y GitHub)
-
-- [ ] **Git: Instalación y configuración**
-
-- [ ] **Git: Control de versiones con git (init, clone, add, commit, status, push, pull, remote)**
-
-- [ ] **Git: Integración de cambios entre ramas (branch, checkout, fetch, merge, reset, rebase, tag)**
-
-- [ ] **GitHub: Creación de cuenta y repos, configuración de llaves SSH**
-
-- [ ] **GitHub: Despliegue con GitHub Pages**
-
-  <details><summary>Links</summary><p>
-
-  * [Sitio oficial de GitHub Pages](https://pages.github.com/)
-</p></details>
-
-- [ ] **GitHub: Colaboración en Github (branches | forks | pull requests | code review | tags)**
-
-- [ ] **GitHub: Organización en Github (projects | issues | labels | milestones | releases)**
-
-### Centrado en el usuario
-
-- [ ] **Diseñar y desarrollar un producto o servicio poniendo a las usuarias en el centro**
-
-### Diseño de producto
-
-- [ ] **Crear prototipos de alta fidelidad que incluyan interacciones**
-
-- [ ] **Seguir los principios básicos de diseño visual**
-
-### Investigación
-
-- [ ] **Planear y ejecutar testeos de usabilidad de prototipos en distintos niveles de fidelidad**
-
-  <details><summary>Links</summary><p>
-
-  * [Intro a testeos usabilidad](https://coda.io/@bootcamp-laboratoria/contenido-ux/test-de-usabilidad-15)
-  * [Pruebas con Usuarios 1 — ¿Qué, cuándo y para qué testeamos?](https://eugeniacasabona.medium.com/pruebas-con-usuarios-1-qu%C3%A9-cu%C3%A1ndo-y-para-qu%C3%A9-testeamos-7c3a89b4b5e7)
-</p></details>
-
-### Firebase
-
-- [ ] **Firebase Auth**
-
-  <details><summary>Links</summary><p>
-
-  * [Primeros pasos con Firebase Authentication en sitios web - Documentación oficial](https://firebase.google.com/docs/auth/web/start?hl=es)
-  * [Administra usuarios en Firebase (onAuthStateChanged)](https://firebase.google.com/docs/auth/web/manage-users?hl=es#get_the_currently_signed-in_user)
-</p></details>
-
-- [ ] **Firestore**
-
-  <details><summary>Links</summary><p>
-
-  * [Firestore - Documentación oficial](https://firebase.google.com/docs/firestore?hl=es)
-  * [Reglas de seguridad de Firestore - Documentación oficial](https://firebase.google.com/docs/rules?hl=es)
-  * [Obtén actualizaciones en tiempo real con Cloud Firestore - Documentación oficial](https://firebase.google.com/docs/firestore/query-data/listen?hl=es)
-</p></details>
-
-## 4. Consideraciones generales
-
-* Este proyecto se debe trabajar en equipos de tres.
-
-* El rango de tiempo estimado para completar el proyecto es de 4 a 5 Sprints.
-
-* La lógica del proyecto debe estar implementada completamente en JavaScript
-  (ES6+), HTML y CSS :smiley:. Para este proyecto **no está permitido** utilizar
-  _frameworks_ o librerías de CSS y JS.
-
-* La división y organización del trabajo debe permitir, sin excepciones, que
-  **cada integrante** del equipo practique el aprendizaje de todo lo involucrado
-  en **cada historia**. _No se dividan el trabajo como en una fábrica._
-  - ¿Hasta acá has avanzado en tus proyectos con cierta fluidez y sin mayores
-    problemas? Sé generosa con tus compañeras, permíteles aprender y practicar
-    sin restricciones, aunque tome un poco más de tiempo. Aproveha de
-    _coachearlas_, de hacer _pair programming_, una de las mejores maneras de
-    aprender es explicando verbalmente.
-
-  - ¿Se te está haciendo difícil y te cuesta un poco más avanzar? No te quedes
-    con las partes "fáciles" del proyecto, conversa, negocia, exige tu oportunidad
-    para practicar y aprender lo que se te hace más difícil.
-
-* Solamente pueden trabajar en una única historia por vez, no pueden avanzar a
-  la siguiente sin haber completado la anterior. La historia se completa cuando
-  se cumplen **todos** sus Criterios de Aceptación + **toda** su Definición
-  de Terminado.
-
-Para comenzar tendrás que hacer un _fork_ y _clonar_ este repositorio.
-
-## 5. Criterios de aceptación mínimos del proyecto
-
-### 5.1 Boilerplate
-
-Este proyecto no incluye un _boilerplate_ completo, solo algunos archivos de
-configuración basico, así es que tendrás que definir la estructura de carpetas
-y escribir tus propias Pruebas Unitarias (_tests_). Para hacerlo, puedes guiarte
-de los proyectos anteriores y/o organizar los archivos siguiendo una estructura
-de [Modelo-Vista-Controlador](https://developer.mozilla.org/es/docs/Glossary/MVC).
-
-En este proyecto vamos a usar una herramienta llamada
-[Vite](https://es.vitejs.dev/) para empaquetar nuestros módulos y arrancar
-el servidor de desarrollo, el cual provee nuestros archivos utilizando
-la estrategia `Hot Module Replacement`
-[(HMR)](https://es.vitejs.dev/guide/features.html#hot-module-replacement),
-esto significa que cuando hagas cambios en los archivos que estén siendo
-servidos, el navegador automáticamente se actualizará sin tener que refrescar
-y volver a cargar todo el sitio. Debes tener especial cuidado de no tener
-ninguna _dependencia circular_ en tu código ya que
-[eso puede ocasionar problemas con HMR](https://es.vitejs.dev/guide/troubleshooting.html#ocurre-un-refresco-completo-en-lugar-de-hmr).
-(`eslint-plugin-import` tiene una regla
-[import/no-cycle](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-cycle.md)
-que va a avisar si las tiene.)
-
-### 5.2 Definición del producto
-
-En el `README.md` cuéntanos brevemente cómo descubriste las necesidades de los
-usuarios y cómo llegaste a la definición final de tu producto. Es importante
-que detalles:
-
-* Quiénes son los principales usuarios de producto.
-* Qué problema resuelve el producto / para qué le servirá a estos usuarios.
-
-### 5.3 Historias de usuario
-
-Una vez que entiendas las necesidades de tus usuarixs, escribe las Historias de
-Usuario que representen todo lo que necesitan hacer/ver en la Red Social. Cada
-una de tus Historias de Usuario debe tener:
-
-* **Criterios de Aceptación:** todo lo que debe ocurrir para satisfacer las
-  necesidades del usuario.
-
-* **Definición de terminado:** todos los aspectos técnicos que deben cumplirse
-  para que, como equipo, sepan que esa historia está terminada y lista
-  para publicarse. **Todas** tus Historias de Usuario (salvo excepciones), deben
-  incluir estos aspectos en su Definición de Terminado (más todo lo que
-  necesiten agregar):
-
-  - Debe ser una SPA.
-  - Debe ser _responsive_.
-  - Deben haber recibido _code review_ de al menos una compañera de otro equipo.
-  - Hicieron los _test_ unitarios
-  - Testearon manualmente buscando errores e imperfecciones simples.
-  - Hicieron _pruebas_ de usabilidad e incorporaron el _feedback_ de los
-    usuarios como mejoras.
-  - Desplegaron su aplicación y etiquetaron la versión (git tag).
-
-### 5.4 Diseño de la Interfaz de Usuario (prototipo de baja fidelidad)
-
-Debes definir cuál será el flujo que seguirá el usuario dentro de tu aplicación
-y, con eso, diseña la Interfaz de Usuario (UI por sus siglas en inglés) que
-siga este flujo.
-
-### 5.5 Responsive
-
-Debe verse bien en dispositivos de pantallas grandes
-(computadoras/es, laptops, etc.) y pequeñas (_tablets_, celulares, etc.). Te
-sugerimos seguir la técnica de _`mobile first`_ (más detalles sobre esta técnica
-al final).
-
-### 5.6 Consideraciones del comportamiento de la interfaz de usuario (UI)
-
-Estas consideraciones te ayudarán a escribir las Definiciones de Terminado de
-tus H.U.:
-
-#### Creación de cuenta de usuario e inicio de sesión
-
-* _Login_ con Firebase:
-  - Para el _login_ y las publicaciones en el muro puedes utilizar [Firebase](https://firebase.google.com/products/database/)
-  - Creación de cuenta de acceso y autenticación con cuenta de correo y
-    contraseña, y también con una cuenta de Google.
-* Validaciones:
-  - Solamente se permite el acceso a usuarios con cuentas válidas.
-  - No pueden haber usuarios repetidos.
-  - La cuenta de usuario debe ser un correo electrónico válido.
-  - Lo que se escriba en el campo (_input_) de contraseña debe ser secreto.
-* Comportamiento:
-  - Al enviarse el formulario de registro o inicio de sesión, debe validarse.
-  - Si hay errores, se deben mostrar mensajes descriptivos para ayudar al
-  usuario a corregirlos.
-
-#### Muro/timeline
-
-* Validaciones:
-  - Al publicar, se debe validar que exista contenido en el _input_.
-* Comportamiento:
-  - Al recargar la aplicación, se debe verificar si el usuario está _logueado_
-    antes de mostrar contenido.
-  - Poder publicar un _post_.
-  - Poder dar y quitar _like_ a una publicación. Máximo uno por usuario.
-  - Llevar un conteo de los _likes_.
-  - Poder eliminar un post específico.
-  - Pedir confirmación antes de eliminar un _post_.
-  - Al dar _click_ para editar un _post_, debe cambiar el texto por un _input_
-    que permita editar el texto y luego guardar los cambios.
-  - Al guardar los cambios debe cambiar de vuelta a un texto normal pero con la
-    información editada.
-  - Al recargar la página debo de poder ver los textos editados.
-
-### 5.7 Consideraciones técnicas Front-end
-
-* Separar la manipulación del DOM de la lógica (Separación de responsabilidades).
-* Contar con múltiples vistas. Para esto, tu aplicación debe ser una
- [Single Page Application (SPA)](https://es.wikipedia.org/wiki/Single-page_application)
-* Alterar y persistir datos. Los datos que agregues o modifiques deberán
-  persistir a lo largo de la aplicación. Te recomendamos que uses
-  [Firebase](https://firebase.google.com/) para eso también.
-
-#### Pruebas unitarias (unit tests)
-
-* Recuerda que no hay un _setup_ de **tests** definido, dependerá de
-  la estructura de tu proyecto. Algo que no debes de olvidar es pensar en éstas
-  pruebas, te pueden ayudar a definir la estructura y nomenclatura de tu lógica.
-
-* Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_,
-  _lines_, y _branches_.
-
-### 5.8 Consideraciones técnicas UX
-
-* Hacer al menos 2 entrevistas con usuarios.
-* Hacer un  prototipo de baja fidelidad.
-* Asegurarte de que la implementación en código siga los lineamientos del
-  diseño.
-* Hacer sesiones de _testing de usabilidad_ con el producto en HTML.
-
-## 6. Hacker edition
-
-Las secciones llamadas _Hacker Edition_ son **opcionales**. Si **terminaste**
-con todo lo anterior y te queda tiempo, intenta completarlas. Así podrás
-profundizar y/o ejercitar más sobre los objetivos de aprendizaje del proyecto.
-
-* Permite crear posts con imágenes.
-* Permite buscar usuarios, agregar y eliminar "amigos".
-* Permite definir la privacidad de los _posts_ (público o solamente para amigos).
-* Permite ver su muro de cualquier usuario "no-amigo" (solamente los
-  posts _públicos_).
-* Permite comentar o responder una publicación.
-* Permite editar perfil.
-
-## 7. Entrega
-
-El proyecto será _entregado_ subiendo tu código a GitHub (`commit`/`push`) y la
-interfaz será desplegada usando GitHub pages u otro servicio de hosting
-(Firebase, Netlify, Vercel, etc) que puedas haber encontrado en el camino.
-Revisa la [documentación de Vite](https://vitejs.dev/guide/static-deploy.html)
-para guiarte con eso.
 
 ***
+## 1. Descripción
 
-## 8. Pistas, tips y Lecturas complementarias
+La Red Social de Amantes de los Libros es una plataforma en línea diseñada específicamente para personas apasionadas por la lectura. Proporciona un espacio donde los usuarios pueden crear una cuenta utilizando su correo y contraseña, o iniciar sesión a través de Google. Una vez autenticados, los usuarios pueden realizar diversas acciones, como realizar publicaciones, dar likes, quitar likes, editar y eliminar sus publicaciones.
 
-### Mobile first
+El enfoque principal de esta red social es permitir a los usuarios compartir sus experiencias de lectura, especialmente enfocándose en los libros que han leído recientemente y desean comentar. Con la capacidad de interactuar mediante publicaciones y likes, se fomenta la participación y la creación de una comunidad unida por su amor por los libros.
 
-El concepto de [_mobile first_](https://www.mediaclick.es/blog/diseno-web-responsive-design-y-la-importancia-del-mobile-first/)
-hace referencia a un proceso de diseño y desarrollo donde partimos de cómo se ve
-y cómo funciona la aplicación en un dispositivo móvil primero, y más adelante se
-ve como adaptar la aplicación a pantallas progresivamente grandes y
-características específicas del entorno desktop. Esto es en contraposición al
-modelo tradicional, donde primero se diseñaban los websites (o webapps) para
-desktop y después se trataba de _arrugar_ el diseño para que entre en pantallas
-más chicas. La clave acá es asegurarse de que desde el principio diseñan usando
-la vista _responsive_ de las herramientas de desarrollador (developer tools) del
-navegador. De esa forma, partimos de cómo se ve y comporta la aplicación en una
-pantalla y entorno móvil.
+## 2. Implementación del proyecto
 
-### Múltiples vistas
+Para la implementación del proyecto seguimos una serie de parámetros y consideraciones específicas. Estos parámetros incluyeron el uso de tecnologías como HTML, CSS y JavaScript, así como el aprovechamiento de las funcionalidades de firestore y firebase.
 
-En proyectos anteriores nuestras aplicaciones habían estado compuestas de una
-sola _vista_ principal (una sóla _página_). En este proyecto se introduce la
-necesidad de tener que dividir nuestra interfaz en varias _vistas_ o _páginas_
-y ofrecer una manera de navegar entre estas vistas. Este problema se puede
-afrontar de muchas maneras: con archivos HTML independientes (cada uno con su
-URL) y links tradicionales, manteniendo estado en memoria y rederizando
-condicionalmente (sin refrescar la página), [manipulando el historial del
-navegador](https://developer.mozilla.org/es/docs/DOM/Manipulando_el_historial_del_navegador)
-con [`window.history`](https://developer.mozilla.org/es/docs/Web/API/Window/history).
-En este proyecto te invitamos a explorar opciones y decidir una opción
-de implementación.
+A lo largo de la implementación, nos enfocamos en cumplir con los siguientes objetivos:
 
-### Escritura de datos
+- Utilizamos HTML semántico para estructurar adecuadamente el contenido de la aplicación.
+- Aplicamos selectores de CSS para estilizar y dar estilo a los elementos de la interfaz.
+- Comprendimos y utilizamos el modelo de caja (box model) para controlar el diseño y el posicionamiento de los elementos.
+- Empleamos flexbox y CSS Grid Layout para crear diseños flexibles y responsivos.
+- Utilizamos selectores del DOM y manipulamos dinámicamente el DOM mediante el manejo de eventos.
+- Implementamos ruteado utilizando el History API para crear una navegación fluida.
+- Definimos y utilizamos funciones para modularizar el código y reutilizar la lógica.
+- Realizamos pruebas unitarias y pruebas asíncronas para garantizar el correcto funcionamiento de la aplicación.
+- Utilizamos mocks para simular comportamientos y verificar interacciones en las pruebas.
+- Implementamos módulos de ECMAScript (ES Modules) para modularizar y organizar el código de manera eficiente.
+- Aplicamos linter (ESLINT) para mantener una buena calidad de código y seguir buenas prácticas de programación.
+- Utilizamos identificadores descriptivos y seguimos principios básicos de diseño visual para crear una interfaz atractiva y fácil de usar.
+- Nos centramos en el usuario y diseñamos y desarrollamos el producto o servicio teniendo en cuenta las necesidades de los usuarios.
+- Realizamos investigaciones y testeos de usabilidad para obtener feedback y mejorar continuamente la experiencia de usuario.
+- Implementamos autenticación y control de acceso utilizando Firebase Auth.
+- Almacenamos y recuperamos datos utilizando Firebase Firestore.
 
-En los proyectos anteriores hemos consumido (leído) datos, pero todavía no
-habíamos escrito datos (salvar cambios, crear datos, borrar, ...). En este
-proyecto tendrás que crear (salvar) nuevos datos, así como leer, actualizar y
-modificar datos existentes. Estos datos se podrán guardar de forma remota
-usando [Firebase](https://firebase.google.com/).
+Fue fundamental trabajar en equipos de tres, asegurando que cada integrante tuviera la oportunidad de practicar y aprender todos los aspectos involucrados en cada historia de usuario. La división y organización del trabajo permitió el aprendizaje equitativo y la colaboración entre los miembros del equipo.
 
-Para usar Firebase hay que crear un proyecto en la consola de Firebase e
-instalar la dependencia `firebase` utilizando `npm`.
-Lee [las instrucciones paso a paso aqui](https://firebase.google.com/docs/web/setup).
+El proyecto se entregó subiendo el código a GitHub y desplegando la interfaz utilizando los servicios de Firebase. 
 
-Otras:
+## 3. Encuestas
 
-* [Modulos: Export](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/export)
-* [Modulos: Import](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/import)
-* [Diseño web, responsive design y la importancia del mobile first - Media Click](https://www.mediaclick.es/blog/diseno-web-responsive-design-y-la-importancia-del-mobile-first/)
-* [Mobile First: el enfoque actual del diseño web móvil - 1and1](https://www.1and1.es/digitalguide/paginas-web/diseno-web/mobile-first-la-nueva-tendencia-del-diseno-web/)
-* [Mobile First - desarrolloweb.com](https://desarrolloweb.com/articulos/mobile-first-responsive.html)
-* [Mobile First Is NOT Mobile Only - Nielsen Norman Group](https://www.nngroup.com/articles/mobile-first-not-mobile-only/)
+En la sección de encuestas, utilizamos Google Forms para recopilar información y opiniones de los usuarios. Diseñamos un cuestionario con las siguientes preguntas:
+
+- De las siguientes paletas de colores, ¿cuál piensas que queda mejor para este tipo de red social?
+- En una red social para amantes de la lectura, ¿qué te gustaría poder hacer?
+- ¿Qué nombre te resuena más para esta aplicación?
+- ¿En qué categorías te gustaría que estuvieran divididos los espacios para conversar?
+
+Recibimos un total de 30 respuestas, y utilizamos los resultados para adaptar la creación de la red social. Más adelante, realizamos una segunda encuesta para consultar a los usuarios sobre la combinación de colores y el espaciado entre los elementos. En esta encuesta, incluimos una pregunta abierta donde los usuarios brindaron numerosas recomendaciones sobre el uso de los colores. Por ejemplo, un usuario mencionó que descartó la opción 2 de la primera propuesta debido al contraste de colores entre los botones y el fondo, y señaló la importancia de considerar la accesibilidad y los diferentes brillos de pantalla. También destacó que los detalles, como el aspecto de los botones, pueden influir en la experiencia del usuario (UX). Estas sugerencias fueron tomadas en cuenta para garantizar una experiencia de usuario más satisfactoria y una mejor atención a los detalles en el diseño de la interfaz.
+
+Aquí hay algunas capturas de pantalla de nuestra encuesta: 
+
+
+## 4. Historias de usuario
+
+Los resultados de la encuesta nos dieron como resultado estas seis historias de usuario, las cuales cumplimos a cabalidad en este proyecto:  
+
+**Primera historia - Como usuario lector quiero poder crear mi propia cuenta en la La comunidad del libro para poder acceder a su contenido.**
+
+***Criterios de aceptación***
+• Hay una pantalla que da la alternativa para registrarse o hacer inicio de sesión
+• Si el usuario no ha creado su cuenta tendrá la opción de crear la cuenta (ingresar) con Google o bien de registrarse tradicionalmente con un correo y contraseña.
+• Si el usuario ya tiene cuenta pide correo y contraseña 
+• Si ingresa datos incorrectos muestra mensaje de error “contraseña o correo no son válidos”
+• Si al crear una cuenta, el correo ingresado ya está en el registro, se envía un mensaje “este correo ya está asociado a una cuenta”
+
+***Definición de terminado***
+
+• Login con Firebase:
+    ◦ Utiliza Firebase para el login
+    ◦ Creación de cuenta de acceso y autenticación con cuenta de correo y contraseña, y también con una cuenta de Google.
+• Validaciones:
+    ◦ No pueden haber usuarios repetidos.
+    ◦ La cuenta de usuario debe ser un correo electrónico válido.
+    ◦ Lo que se escriba en el campo (input) de contraseña debe ser secreto.
+• Comportamiento:
+    ◦ Al enviarse el formulario de registro o inicio de sesión, debe validarse.
+    ◦ Si hay errores, se deben mostrar mensajes descriptivos para ayudar al usuario a corregirlos.
+General:
+• Es una SPA.
+• Debe ser responsive.
+• Recibimos code review de al menos una compañera de otro equipo.
+• Hicimos los test unitarios
+• Testeamos manualmente buscando errores e imperfecciones simples.
+• Hicimos pruebas de usabilidad e incorporamos el feedback de los usuarios como mejoras.
+• Desplegamos nuestra aplicación y etiquetamos la versión (git tag).
+
+**Segunda historia - Historia de Usuario 2: Como usuario quiero ingresar a mi cuenta para interactuar con el contenido de la web.**
+
+***Criterios de aceptación***
+
+• Hay una pantalla que da la alternativa para registrarse o hacer inicio de sesión 
+• Al ingresar sus datos correctamente se le presenta al usuario una nueva pantalla con un mensaje 
+• notificando que ha ingresado a su sesión.
+• Si no se ha hecho el login, no se está habilitado para postear en La comunidad del libro
+• Si ingresa datos incorrectos muestra mensaje de error “contraseña o correo no son válidos” 
+
+
+***Definición de terminado***
+
+• Login con Firebase:
+    • Autenticación con cuenta de correo y contraseña, y también con una cuenta de Google.
+• Validaciones: 
+    • Solamente se permite el acceso a usuarios con cuentas ya registrada dentro de la base de datos.
+    • Lo que se escriba en el campo (input) de contraseña debe ser secreto y sin espacios.
+General:
+• Es una SPA.
+• Debe ser responsive.
+• Recibimos code review de al menos una compañera de otro equipo.
+• Hicimos los test unitarios
+• Testeamos manualmente buscando errores e imperfecciones simples.
+• Hicimos pruebas de usabilidad e incorporamos el feedback de los usuarios como mejoras.
+• Desplegamos nuestra aplicación y etiquetamos la versión (git tag).
+
+**Tercera historia - Como usuario de La comunidad del libro quiero publicar post para compartir opiniones sobre lecturas.**
+
+***Criterios de aceptación***
+
+• Debe existir un muro para postear
+• El muro debe mostrar las publicaciones que se han registrado
+• El usuario puede escribir y registrar un mensaje en el muro 
+• Solo puede publicar si hay contenido en el input de post. En caso de no haber contenido se manda un mensaje al usuario, por ejemplo “Tu post está vacío”.
+• El usuario debe estar logueado para poder postear
+• Si el usuario no está logueado, no  puede postear y se le manda un mensaje diciendo por ejemplo “haz login o crea una cuenta para poder postear”.  Al recargar la aplicación, se debe verificar si el usuario está logueado antes de mostrar contenido.
+
+***Definición de terminado***
+
+Pre requisito: El usuario debe estar logueado. 
+General:
+• Es una SPA.
+• Debe ser responsive.
+• Recibimos code review de al menos una compañera de otro equipo.
+• Hicimos los test unitarios
+• Testeamos manualmente buscando errores e imperfecciones simples.
+• Hicimos pruebas de usabilidad e incorporamos el feedback de los usuarios como mejoras.
+• Desplegamos su aplicación y etiquetamos la versión (git tag).
+
+**Cuarta historia - Como usuario de esta aplicación quiero dejar mi like en las publicaciones para indicar que me gustan.**
+
+***Criterios de aceptación***
+
+• Debe existir en la publicación el botón para likear
+• Debe mostrar en la publicación un ícono
+• Debe remover el like al clickear el mismo botón.
+• El usuario debe estar logueado para poder dar like.
+• Máximo un like por usuario
+• Llevar conteo de lo likes junto a su respectivo ícono
+
+***Definición de terminado***
+
+Pre requisito: Debe existir una publicación. El usuario debe estar logueado
+General:
+• Es una SPA.
+• Debe ser responsive.
+• Recibimos code review de al menos una compañera de otro equipo.
+• Hicimos los test unitarios
+• Testeamos manualmente buscando errores e imperfecciones simples.
+• Hicimos pruebas de usabilidad e incorporamos el feedback de los usuarios como mejoras.
+• Desplegamos su aplicación y etiquetamos la versión (git tag).
+
+**Quinta historia - Como usuario quiero poder eliminar mis publicaciones para tener control de mis comentarios en la aplicación**
+
+***Criterios de aceptación***
+
+- El usuario puede ver el botón para eliminar posts únicamente en sus propios posts
+- Antes de eliminar el post, se le pregunta al usuario si está seguro de querer eliminarlo a través de una ventana modal.
+- Hay un botón para cancelar la eliminación de post
+- Hay un botón para aceptar la eliminación del post
+- El usuario puede eliminar sus propios posts
+
+***Definición de terminado***
+
+Pre-requisito: se debe poder postear y debe haber un usuario autenticado.
+- Se identifica el usuario del post con el correo.
+- Se identifica al usuario actual con el correo.
+- Se hace la comparación para verificar que coinciden y que pueda ver los botones para eliminar.
+General:
+- Es una SPA.
+- Debe ser responsive.
+- Recibimos code review de al menos una compañera de otro equipo.
+- Hicimos los test unitarios
+- Testeamos manualmente buscando errores e imperfecciones simples.
+- Hicimos pruebas de usabilidad e incorporamos el feedback de los usuarios como mejoras.
+- Desplegamos su aplicación y etiquetamos la versión (git tag).
+- Se elimina de firestore el documento del post.
+
+**Sexta historia - Como usuario quiero editar las publicaciones que he hecho yo, para corregir texto en caso de requerirlo.**
+
+***Criterios de aceptación***
+
+- Sólo el usuario que ha hecho la publicación puede ver el ícono para editarla
+- Al apretar el ícono, al usuario se el despliega una ventana modal.
+- En la ventana modal viene incluido el value del post a editar
+- Hay un botón para aceptar los cambios
+- Hay un botón para cancelar los cambios
+- El usuario puede editar el post y guardar esos cambios.
+
+***Definición de terminado***
+
+Pre-requisito: Tiene que haber un post. Tiene que haber un usuario autenticado
+- Se identifica el usuario del post con el correo.
+- Se identifica al usuario actual con el correo.
+- Se hace la comparación para verificar que coinciden y que pueda ver los botones para editar.
+- Se guarda el nuevo content del post y se reflejan los cambios de esa edición en el post y en firestore.
+General:
+- Es una SPA.
+- Debe ser responsive.
+- Recibimos code review de al menos una compañera de otro equipo.
+- Hicimos los test unitarios
+- Testeamos manualmente buscando errores e imperfecciones simples.
+- Hicimos pruebas de usabilidad e incorporamos el feedback de los usuarios como mejoras.
+ - Desplegamos su aplicación y etiquetamos la versión (git tag).
+- El post queda editado tanto en la interfaz como en firestore (queda guardado en firestore el post actualizado).
+
+## 5. Prototipos de baja fidelidad
+
+Creamos los prototipos de baja fidelidad usando Figma. 
+
+Este es el link: 
+https://www.figma.com/file/xP0gQVyxLwAYcHtX3Pasnd/Prototipos-de-baja-fidelidad?type=design&mode=design&t=Kn1g00Bd4RCs27Xr-1 
+
+Aquí están algunas capturas de pantalla: 
+
+## 6. Prototipos de alta fidelidad
+
+Creamos los prototipos de alta fidelidad usando Figma. 
+
+Aquí está el link para acceder a la vista del prototipo en Figma: 
+https://www.figma.com/file/9t8Sy3NkWdsfN4FECRuHFk/Prototipos-de-alta-fidelidad?type=design&mode=design&t=Kn1g00Bd4RCs27Xr-1
+
+Aquí están algunas capturas de pantalla: 
+
+
+
+## 7. Test de usabilidad
+
+Realizamos pruebas de usabilidad para evaluar la experiencia de los usuarios y recopilar comentarios y sugerencias que nos permitieran mejorar el diseño de nuestra aplicación. A través de estas pruebas, recibimos valiosos feedbacks tanto de los propios usuarios como de compañeras y coaches. Estos comentarios nos ayudaron a identificar áreas de mejora y realizar ajustes significativos en el diseño, especialmente en lo que respecta a los colores utilizados en nuestra interfaz.
+
+Basándonos en los comentarios de los usuarios, notamos que los colores originales que habíamos seleccionado no eran completamente satisfactorios en términos de legibilidad, contraste y estética general. Algunos usuarios mencionaron que les resultaba difícil leer ciertos elementos de la interfaz debido a la falta de contraste entre el texto y el fondo. 
+
+Después de considerar cuidadosamente todos estos aspectos, implementamos los cambios en el diseño de nuestra aplicación. Los nuevos colores seleccionados mejoraron significativamente la legibilidad de los textos, creando un mayor contraste y facilitando la lectura en general. Además, logramos una estética más atractiva y coherente en toda la interfaz.
+
+Estamos agradecidas por el feedback recibido, ya que nos permitió realizar mejoras significativas en el diseño de nuestra aplicación. Valoramos la opinión de los usuarios su retroalimentación, ya que nos ayudaron a brindar una experiencia más agradable y satisfactoria a nuestros usuarios.
+
+## 8. Tecnologías y Herramientas Utilizadas
+
+En el desarrollo de este proyecto, se utilizaron diversas tecnologías y herramientas para implementar la funcionalidad y el diseño de la red social. A continuación, se enumeran las principales:
+
+- HTML: Se utilizó HTML (HyperText Markup Language) para estructurar el contenido de la aplicación web y definir la semántica de los elementos.
+
+- CSS: Se empleó CSS (Cascading Style Sheets) para aplicar estilos y dar formato a los elementos HTML, logrando así una interfaz visualmente atractiva.
+
+- JavaScript: Se utilizó JavaScript como lenguaje de programación principal para implementar la lógica de la aplicación, manipular el DOM y gestionar las interacciones con el usuario.
+
+- Firebase: Se hizo uso de Firebase, una plataforma de desarrollo de aplicaciones web de Google, para la implementación de funcionalidades clave, como la autenticación de usuarios y el almacenamiento de datos en Firestore.
+
+- Firebase Auth: Esta herramienta de Firebase se utilizó para la autenticación de usuarios, permitiendo a los usuarios crear cuentas, iniciar sesión y mantener sesiones activas en la aplicación.
+
+- Firebase Firestore: Se empleó Firestore, una base de datos en tiempo real de Firebase, para almacenar y recuperar datos de forma eficiente. Se utilizó para guardar la información de los usuarios, las publicaciones y los likes.
+
+- HTML Semántico: Se hizo uso del HTML semántico para proporcionar una estructura clara y significativa al contenido de la aplicación, mejorando la accesibilidad y el SEO.
+
+- Flexbox y CSS Grid Layout: Se utilizaron las técnicas de Flexbox y CSS Grid Layout para crear diseños flexibles y responsivos, que se adaptan a diferentes tamaños de pantalla y dispositivos.
+
+- ES Modules: Se implementaron los módulos de ECMAScript (ES Modules) para modularizar y organizar el código de manera eficiente, facilitando el mantenimiento y la reutilización.
+
+- ESLint: Se empleó ESLint como linter para mantener una buena calidad de código y seguir buenas prácticas de programación, asegurando la legibilidad y consistencia del código.
+
+- Git y GitHub: Se utilizó Git como sistema de control de versiones para gestionar y controlar los cambios en el código. GitHub se utilizó como plataforma para alojar el repositorio del proyecto y facilitar la colaboración entre los miembros del equipo.
+
+- Figma: Se utilizó Figma, una herramienta de diseño colaborativo, para crear los prototipos de baja fidelidad de la interfaz de la red social.
+
+- Jest: Se utilizó Jest como framework de pruebas unitarias para garantizar la calidad del código y asegurar el correcto funcionamiento de las diferentes funcionalidades implementadas en la red social.
+
+- Notion: Se utilizó Notion como una herramienta de organización y colaboración para el equipo de desarrollo. Notion es una plataforma todo en uno que permite crear documentos, bases de datos, tableros y mucho más. El equipo pudo utilizar Notion para gestionar tareas, crear y compartir documentación, hacer seguimiento de los avances y mantener un registro de las decisiones tomadas durante el desarrollo del proyecto.
+
+- Trello: Trello también se utilizó como una herramienta de gestión de proyectos basada en tableros. Con Trello, el equipo pudo crear listas y tarjetas para representar las tareas pendientes, en progreso y completadas. Esto permitió tener una visualización clara del flujo de trabajo y facilitó la colaboración entre los miembros del equipo.
+
+- Metodología Scrum: El equipo siguió la metodología Scrum para organizar y gestionar el desarrollo del proyecto. Se organizaron reuniones diarias de seguimiento para compartir actualizaciones, establecer objetivos y coordinar esfuerzos. También se realizaron sprint planning, sprint reviews y sprint retrospectives para iterar y mejorar continuamente el producto.
+
+Estas son algunas de las principales tecnologías y herramientas utilizadas en la implementación de este proyecto. Cada una de ellas desempeñó un papel fundamental en la creación de la Red Social "La comunidad del libro".
