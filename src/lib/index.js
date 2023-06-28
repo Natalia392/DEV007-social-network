@@ -27,8 +27,9 @@ export const ourCreateUserWithEmailAndPassword = (email, password) => (
   createUserWithEmailAndPassword(auth, email, password));
 
 // Inicia sesión el método de autenticación anterior
-export const ourSignInWithEmailAndPassword = async (email, password) => {
-  const credenciales = await signInWithEmailAndPassword(auth, email, password);
+export const ourSignInWithEmailAndPassword = (email, password) => {
+  const credenciales = signInWithEmailAndPassword(auth, email, password);
+  console.log(credenciales);
   return credenciales;
 };
 
@@ -51,20 +52,6 @@ export const createPost = async (text) => {
       emailOfUser: auth.currentUser.email,
       likes: [],
     });
-    // console.log(docRef);
-    // const docSnapshot = await getDoc(docRef);
-    // const post = docSnapshot.data();
-    // const userWhoPosted = auth.currentUser;
-    // console.log(userWhoPosted);
-    // const whenItWasPosted = post.postDate;
-    // const docId = docRef.id;
-
-    // return {
-    //   id: docId,
-    //   user: userWhoPosted,
-    //   content: text,
-    //   when: whenItWasPosted,
-    // };
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
   }
