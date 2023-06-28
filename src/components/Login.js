@@ -75,7 +75,9 @@ export const Login = (onNavigate) => {
     e.preventDefault();
 
     const email = inputEmailLogin.value;
+    console.log(email);
     const password = inputPasswordLogin.value;
+    console.log(password);
 
     try {
       if (email === '' || password === '') {
