@@ -18,7 +18,7 @@
 La Red Social de La comunidad del libro es una plataforma en línea diseñada específicamente para personas apasionadas por la lectura. Proporciona un espacio donde los usuarios pueden crear una cuenta utilizando su correo y contraseña, o iniciar sesión a través de Google. Una vez autenticados, los usuarios pueden realizar diversas acciones, como realizar publicaciones, dar likes, quitar likes, editar y eliminar sus publicaciones.
 
 <div align="center">
-  <img src="https://github.com/Natalia392/DEV007-social-network/assets/129551206/1789a5f9-e6bf-498e-835c-168d7209079a" alt="La comunidad del libro homepage">
+  <img src="https://github.com/Natalia392/DEV007-social-network/assets/129551206/1789a5f9-e6bf-498e-835c-168d7209079a" alt="La comunidad del libro homepage" style="max-width: 100%;">
 </div>
 
 El enfoque principal de esta red social es permitir a los usuarios compartir sus experiencias de lectura, especialmente enfocándose en los libros que han leído recientemente y desean comentar. Con la capacidad de interactuar mediante publicaciones y likes, se fomenta la participación y la creación de una comunidad unida por su amor por los libros.
