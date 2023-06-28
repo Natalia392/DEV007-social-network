@@ -15,7 +15,7 @@
 ***
 ## 1. Descripción
 
-La Red Social de Amantes de los Libros es una plataforma en línea diseñada específicamente para personas apasionadas por la lectura. Proporciona un espacio donde los usuarios pueden crear una cuenta utilizando su correo y contraseña, o iniciar sesión a través de Google. Una vez autenticados, los usuarios pueden realizar diversas acciones, como realizar publicaciones, dar likes, quitar likes, editar y eliminar sus publicaciones.
+La Red Social de La comunidad del libro es una plataforma en línea diseñada específicamente para personas apasionadas por la lectura. Proporciona un espacio donde los usuarios pueden crear una cuenta utilizando su correo y contraseña, o iniciar sesión a través de Google. Una vez autenticados, los usuarios pueden realizar diversas acciones, como realizar publicaciones, dar likes, quitar likes, editar y eliminar sus publicaciones.
 
 <div align="center">
   <img src="https://github.com/Natalia392/DEV007-social-network/assets/129551206/1789a5f9-e6bf-498e-835c-168d7209079a" alt="La comunidad del libro homepage">
