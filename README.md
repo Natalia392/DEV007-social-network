@@ -9,7 +9,7 @@
 * [5. Prototipos de baja fidelidad](#5-prototipos-de-baja-fidelidad)
 * [6. Prototipos de alta fidelidad](#6-prototipos-de-alta-fidelidad)
 * [7. Test de usabilidad](#7-test-de-usabilidad)
-* [8. Tecnologías y Herramientas Utilizadas](#8-tecnologias-y-herramientas-utilizadas)
+* [8. Tecnologías y herramientas utilizadas](#8-tecnologías-y-herramientas-utilizadas)
 
 
 ***
