@@ -17,6 +17,10 @@
 
 La Red Social de Amantes de los Libros es una plataforma en línea diseñada específicamente para personas apasionadas por la lectura. Proporciona un espacio donde los usuarios pueden crear una cuenta utilizando su correo y contraseña, o iniciar sesión a través de Google. Una vez autenticados, los usuarios pueden realizar diversas acciones, como realizar publicaciones, dar likes, quitar likes, editar y eliminar sus publicaciones.
 
+<div align="center">
+  <img src="https://github.com/Natalia392/DEV007-social-network/assets/129551206/1789a5f9-e6bf-498e-835c-168d7209079a" alt="La comunidad del libro homepage">
+</div>
+
 El enfoque principal de esta red social es permitir a los usuarios compartir sus experiencias de lectura, especialmente enfocándose en los libros que han leído recientemente y desean comentar. Con la capacidad de interactuar mediante publicaciones y likes, se fomenta la participación y la creación de una comunidad unida por su amor por los libros.
 
 ## 2. Implementación del proyecto
@@ -59,6 +63,11 @@ Recibimos un total de 30 respuestas, y utilizamos los resultados para adaptar la
 
 Aquí hay algunas capturas de pantalla de nuestra encuesta: 
 
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/947f3471-077c-40dc-a281-98ff70a7a22e)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/3eb39b68-abd3-4321-99b6-fc6722b4cb41)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/50d72a24-bfa3-4900-91e3-2da7c733e354)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/3cd447d4-c9a8-4fdc-be60-7c6432dbebc0)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/c7bf0bc5-f1c2-4d87-ad9b-48ce3c4581fa)
 
 ## 4. Historias de usuario
 
@@ -157,7 +166,7 @@ General:
 
 ***Definición de terminado***
 
-Pre requisito: Debe existir una publicación. El usuario debe estar logueado
+Pre-requisito: Debe existir una publicación. El usuario debe estar logueado
 General:
 • Es una SPA.
 • Debe ser responsive.
@@ -225,21 +234,27 @@ General:
 
 Creamos los prototipos de baja fidelidad usando Figma. 
 
-Este es el link: 
-https://www.figma.com/file/xP0gQVyxLwAYcHtX3Pasnd/Prototipos-de-baja-fidelidad?type=design&mode=design&t=Kn1g00Bd4RCs27Xr-1 
-
 Aquí están algunas capturas de pantalla: 
+
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/7b921117-903a-4fb5-82dd-7a55a2d91d51)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/d9ee06f8-6397-4cda-b850-2f2af72c5833)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/6968278b-96bc-4e65-bc3e-a10dc2da7930)
+
+Para ver más detalles, este es el link: 
+https://www.figma.com/file/xP0gQVyxLwAYcHtX3Pasnd/Prototipos-de-baja-fidelidad?type=design&mode=design&t=Kn1g00Bd4RCs27Xr-1 
 
 ## 6. Prototipos de alta fidelidad
 
 Creamos los prototipos de alta fidelidad usando Figma. 
 
-Aquí está el link para acceder a la vista del prototipo en Figma: 
-https://www.figma.com/file/9t8Sy3NkWdsfN4FECRuHFk/Prototipos-de-alta-fidelidad?type=design&mode=design&t=Kn1g00Bd4RCs27Xr-1
-
 Aquí están algunas capturas de pantalla: 
 
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/2074f0c5-4017-4262-80cc-7daada58d546)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/dfb90f19-5ebd-49ec-b347-5c77b5c612e1)
+![image](https://github.com/Natalia392/DEV007-social-network/assets/129551206/dc9ae070-c206-43d9-a395-5a394296c407)
 
+Para ver más detalles, este es el link: 
+https://www.figma.com/file/9t8Sy3NkWdsfN4FECRuHFk/Prototipos-de-alta-fidelidad?type=design&mode=design&t=Kn1g00Bd4RCs27Xr-1
 
 ## 7. Test de usabilidad
 
