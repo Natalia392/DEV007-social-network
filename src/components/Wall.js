@@ -91,6 +91,7 @@ export const Wall = (onNavigate) => {
         showMessage('Escribe algo para publicar');
       } else {
         await createPost(inputPost.value); // Se pasa como argumento el texto del input a createPost
+        console.log(createPost(inputPost.value));
         wallMain.querySelector('.new-post-text').value = '';
       }
     } catch (error) {
