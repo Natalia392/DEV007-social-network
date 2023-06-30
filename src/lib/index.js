@@ -27,11 +27,8 @@ export const ourCreateUserWithEmailAndPassword = (email, password) => (
   createUserWithEmailAndPassword(auth, email, password));
 
 // Inicia sesión el método de autenticación anterior
-export const ourSignInWithEmailAndPassword = (email, password) => {
-  const credenciales = signInWithEmailAndPassword(auth, email, password);
-  console.log(credenciales);
-  return credenciales;
-};
+export const ourSignInWithEmailAndPassword = (email, password) => (
+  signInWithEmailAndPassword(auth, email, password));
 
 // Inicia sesión en la aplicación utilizando la autenticación de Google.
 export const signInWithGoogle = () => {
