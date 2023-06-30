@@ -19,7 +19,7 @@ export const Login = (onNavigate) => {
   logo.setAttribute('class', 'logo');
 
   const image = document.createElement('img');
-  image.src = `${logoComunidad}`;
+  image.src = logoComunidad;
   image.setAttribute('class', 'image-logo');
 
   // --------------FORMULARIO---------------------------------

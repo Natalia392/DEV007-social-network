@@ -1,6 +1,6 @@
 // importamos la funcion que vamos a testear
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { ourSignInWithEmailAndPassword } from '../src/lib/index';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { ourSignInWithEmailAndPassword, ourCreateUserWithEmailAndPassword } from '../src/lib/index';
 
 jest.mock('firebase/auth');
 
@@ -31,3 +31,14 @@ describe('ourSignInWithEmailAndPassword', () => {
     expect(response.user.email).toBe('harry@potter.com');
   });
 });
+
+describe('ourCreateUserWithEmailAndPassword', () => {
+  it('debería ser una función', () => {
+    expect(typeof ourCreateUserWithEmailAndPassword).toBe('function');
+  });
+  it('debería llamar a la función createUserWithEmailAndPassword', async () => {
+    createUserWithEmailAndPassword.mockReturnValueOnce();
+    await ourCreateUserWithEmailAndPassword('juan@perez.com', 'contraseña');
+    expect(createUserWithEmailAndPassword()).toHaveBeenCalled();
+  });
+}); // ------------------que paso nos estamos saltando?
