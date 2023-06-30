@@ -81,7 +81,7 @@ export const Wall = (onNavigate) => {
   </div>
   <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
-      <button id="post-button" class="post-button">Publica tu post</button>
+      <button id="post-button" class="post-button">Publicar</button>
     </div>
     <div class="pink-container">
       <h2 class="title-posts">Todas las publicaciones</h2>
@@ -135,7 +135,7 @@ export const Wall = (onNavigate) => {
             <p class="user-name">${post.emailOfUser}</p>
             <img class="delete-icon" src="${deleteIcon}" data-id="${documentSnapshot.id}">
             <img class="edit-icon" src="${editIcon}" data-id="${documentSnapshot.id}">
-            <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
           <div class="date-container">
@@ -149,7 +149,7 @@ export const Wall = (onNavigate) => {
         <div>
           <div class="like-div">
             <p class="user-name">${post.emailOfUser}</p>
-            <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
           <div class="date-container">

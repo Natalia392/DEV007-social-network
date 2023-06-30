@@ -18,8 +18,6 @@ import { auth } from '../src/app/firebase';
 
 jest.mock('firebase/auth');
 
-jest.mock('firebase/auth');
-
 jest.mock('firebase/firestore', () => ({
   collection: jest.fn(),
   addDoc: jest.fn(),
