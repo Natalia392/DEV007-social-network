@@ -10,8 +10,8 @@ import {
 } from '../lib';
 import { showMessage, showDeleteMessage, showEditModal } from './modal';
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
-import afterLike from '../assets/images/after-like.png';
-import beforeLike from '../assets/images/before-like.png';
+// import afterLike from '../assets/images/after-like.png';
+// import beforeLike from '../assets/images/before-like.png';
 import books from '../assets/images/books2.png';
 import deleteIcon from '../assets/images/delete-icon.png';
 import editIcon from '../assets/images/edit-icon.png';
@@ -34,7 +34,7 @@ export const Wall = (onNavigate) => {
 
   const imgLogo = document.createElement('img');
   imgLogo.className = 'logo-wall';
-  imgLogo.src = `${logoComunidad}`;
+  imgLogo.src = logoComunidad;
 
   // Crea el titulo de la comunidad
   const appName = document.createElement('p');
@@ -77,11 +77,11 @@ export const Wall = (onNavigate) => {
   wallMain.className = 'posts-main';
   wallMain.innerHTML = `
   <div class="books">
-  <img class="books" src=${books}>
+  <img class="books" src="${books}">
   </div>
   <div class="new-post-container" id="new-post-container">
       <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
-      <button id="post-button" class="post-button">Publica tu post</button>
+      <button id="post-button" class="post-button">Publicar</button>
     </div>
     <div class="pink-container">
       <h2 class="title-posts">Todas las publicaciones</h2>
@@ -123,15 +123,19 @@ export const Wall = (onNavigate) => {
       const likes = post.likes.length || 0;
       const likedByUser = post.likes.includes(currentUser.email);
       // aquí validamos si el usuario ya le dio like
-      const likeButtonImg = likedByUser ? `${afterLike}` : `${beforeLike}`; // aquí bindeamos cuál se deberá colocar, si el corazón likeado o vacío.
+      let likeButtonImg = 'https://firebasestorage.googleapis.com/v0/b/la-comunidad-del-libro.appspot.com/o/before-like.png?alt=media&token=d08feeef-ed66-445a-b1f2-3c78757e600b';
+      if (likedByUser) {
+        likeButtonImg = 'https://firebasestorage.googleapis.com/v0/b/la-comunidad-del-libro.appspot.com/o/after-like.png?alt=media&token=cf96cdc1-0e76-40ab-8dd1-160583978b56';
+      }
+      // aquí bindeamos cuál se deberá colocar, si el corazón likeado o vacío.
       if (currentUser.email === post.emailOfUser) {
         postHtml += `
         <div>
           <div class="like-div">
             <p class="user-name">${post.emailOfUser}</p>
-            <img class="delete-icon" src=${deleteIcon} data-id="${documentSnapshot.id}">
-            <img class="edit-icon" src=${editIcon} data-id="${documentSnapshot.id}">
-            <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
+            <img class="delete-icon" src="${deleteIcon}" data-id="${documentSnapshot.id}">
+            <img class="edit-icon" src="${editIcon}" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
           <div class="date-container">
@@ -145,7 +149,7 @@ export const Wall = (onNavigate) => {
         <div>
           <div class="like-div">
             <p class="user-name">${post.emailOfUser}</p>
-            <img class="like-button" src="/assets/images/${likeButtonImg}" data-id="${documentSnapshot.id}">
+            <img class="like-button" src="${likeButtonImg}" data-id="${documentSnapshot.id}">
           </div>
           <div class="post-div" data-id="${documentSnapshot.id}">${post.content}</div>
           <div class="date-container">
@@ -204,11 +208,11 @@ export const Wall = (onNavigate) => {
         if (postData.likes && postData.likes.includes(currentUser.email)) {
           await removeLike(postId, currentUser.email);
           postData.likes = postData.likes.filter((like) => like !== currentUser.email);
-          likePostButton.src = `${beforeLike}`;
+          likePostButton.src = 'https://firebasestorage.googleapis.com/v0/b/la-comunidad-del-libro.appspot.com/o/before-like.png?alt=media&token=d08feeef-ed66-445a-b1f2-3c78757e600b';
         } else {
           await likePost(postId, currentUser.email);
           postData.likes.push(currentUser.email);
-          likePostButton.src = `${afterLike}`;
+          likePostButton.src = 'https://firebasestorage.googleapis.com/v0/b/la-comunidad-del-libro.appspot.com/o/after-like.png?alt=media&token=cf96cdc1-0e76-40ab-8dd1-160583978b56';
         }
 
         const likesCountElement = likePostButton.parentNode.parentNode.querySelector('.p-likes');

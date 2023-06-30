@@ -18,11 +18,11 @@ import { auth } from '../src/app/firebase';
 
 jest.mock('firebase/auth');
 
-jest.mock('firebase/auth');
-
 jest.mock('firebase/firestore', () => ({
   collection: jest.fn(),
   addDoc: jest.fn(),
+  getFirestore: jest.fn(),
+
 }));
 
 jest.mock('firebase/auth', () => ({
@@ -31,6 +31,8 @@ jest.mock('firebase/auth', () => ({
       email: 'email@example.com',
     },
   },
+  getAuth: jest.fn(),
+
 }));
 
 describe('ourCreateUserWithEmailAndPassword', () => {
