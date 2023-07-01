@@ -7,6 +7,8 @@ import {
 
 import {
   addDoc,
+  getDoc,
+  // collection,
 } from 'firebase/firestore';
 
 import {
@@ -34,6 +36,7 @@ jest.mock('../src/app/firebase.js', () => ({
   db: {
     collection: jest.fn(),
     addDoc: jest.fn(),
+    getDoc: jest.fn(),
   },
 }));
 
@@ -95,7 +98,14 @@ describe('createPost', () => {
   it('debería llamar a addDoc', async () => {
     const addDocMock = jest.fn().mockResolvedValue();
     addDoc.mockImplementationOnce(addDocMock);
-    await createPost('my post content');
+    const getDocMock = jest.fn(() => Promise.resolve({
+      data: () => ({
+        content: 'post content',
+      }),
+    }));
+    const callback = jest.fn();
+    getDoc.mockImplementationOnce(getDocMock);
+    await createPost('post content', callback);
     expect(addDocMock).toHaveBeenCalled();
   });
 });
