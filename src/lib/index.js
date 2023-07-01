@@ -13,6 +13,7 @@ import {
   orderBy,
   onSnapshot,
   query,
+  getDoc,
   doc,
   deleteDoc,
   updateDoc,
@@ -40,15 +41,19 @@ export const signInWithGoogle = () => {
 export const getCurrentUser = () => auth.currentUser;
 
 // Función para la creación de posts
-export const createPost = async (text) => {
+export const createPost = async (text, callback) => {
   try {
-    await addDoc(collection(db, 'posts'), {
+    const docRef = await addDoc(collection(db, 'posts'), {
       content: text,
       postDate: new Date(),
       userWhoPosted: auth.currentUser.displayName,
       emailOfUser: auth.currentUser.email,
       likes: [],
     });
+    const docSnapshot = await getDoc(docRef);
+    const postData = docSnapshot.data();
+
+    callback(postData);
   } catch (error) {
     throw new Error(`Error al crear el post: ${error.message}`);
   }

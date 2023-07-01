@@ -96,9 +96,12 @@ export const Wall = (onNavigate) => {
       if (inputPost.value === '') {
         showMessage('Escribe algo para publicar');
       } else {
-        await createPost(inputPost.value); // Se pasa como argumento el texto del input a createPost
-        console.log(createPost(inputPost.value));
-        wallMain.querySelector('.new-post-text').value = '';
+        createPost(inputPost.value, (postData) => {
+          console.log(postData);
+          // Se pasa como argumento el texto del input a createPost
+          wallMain.querySelector('.new-post-text').value = '';
+          return postData;
+        });
       }
     } catch (error) {
       console.error(error);
