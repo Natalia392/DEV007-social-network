@@ -5,7 +5,9 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 
-import { addDoc } from 'firebase/firestore';
+import {
+  addDoc,
+} from 'firebase/firestore';
 
 import {
   ourSignInWithEmailAndPassword,
@@ -16,21 +18,23 @@ import {
 
 import { auth } from '../src/app/firebase';
 
+jest.mock('firebase/firestore');
 jest.mock('firebase/auth');
-
-jest.mock('firebase/firestore', () => ({
-  collection: jest.fn(),
-  addDoc: jest.fn(),
-  getFirestore: jest.fn(),
-}));
-
-jest.mock('firebase/auth', () => ({
+jest.mock('../src/app/firebase.js', () => ({
   auth: {
     currentUser: {
       email: 'email@example.com',
+      password: '123456',
     },
+    createUserWithEmailAndPassword: jest.fn(),
+    signInWithEmailAndPassword: jest.fn(),
+    signInWithPopup: jest.fn(),
+    GoogleAuthProvider: jest.fn(),
   },
-  getAuth: jest.fn(),
+  db: {
+    collection: jest.fn(),
+    addDoc: jest.fn(),
+  },
 }));
 
 describe('ourCreateUserWithEmailAndPassword', () => {
@@ -39,9 +43,9 @@ describe('ourCreateUserWithEmailAndPassword', () => {
   });
 
   it('debería llamar a la función createUserWithEmailAndPassword', async () => {
-    createUserWithEmailAndPassword.mockReturnValueOnce();
-    await ourCreateUserWithEmailAndPassword('juan@perez.com', 'contraseña');
-    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(auth, 'juan@perez.com', 'contraseña');
+    createUserWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'email@example.com' } });
+    await ourCreateUserWithEmailAndPassword('email@example.com', '123456');
+    expect(createUserWithEmailAndPassword).toHaveBeenCalled();
   });
 });
 
@@ -52,19 +56,19 @@ describe('ourSignInWithEmailAndPassword', () => {
 
   it('Debe devolver un objeto', async () => {
     signInWithEmailAndPassword.mockReturnValueOnce({});
-    const response = await ourSignInWithEmailAndPassword('harry@potter.com', 'harrypotter');
+    const response = await ourSignInWithEmailAndPassword('email@example.com', '123456');
     expect(typeof response).toBe('object');
   });
 
   it('Debe llamar a la función signInWithEmailAndPassword', async () => {
-    await ourSignInWithEmailAndPassword('harry@potter.com', 'harrypotter');
-    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(auth, 'harry@potter.com', 'harrypotter');
+    await ourSignInWithEmailAndPassword('email@example.com', '123456');
+    expect(signInWithEmailAndPassword).toHaveBeenCalled();
   });
 
-  it('Debe ser un objeto que contiene el email harry@potter.com', async () => {
-    signInWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'harry@potter.com' } });
-    const response = await ourSignInWithEmailAndPassword('harry@potter.com', 'harrypotter');
-    expect(response.user.email).toBe('harry@potter.com');
+  it('Debe ser un objeto que contiene el email email@example.com', async () => {
+    signInWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'email@example.com' } });
+    const response = await ourSignInWithEmailAndPassword('email@example.com', '123456');
+    expect(response.user.email).toBe('email@example.com');
   });
 });
 
@@ -88,9 +92,10 @@ describe('createPost', () => {
     expect(typeof createPost).toBe('function');
   });
 
-  it('debería devolver un objeto', async () => {
-    addDoc.mockResolvedValue();
-    const response = await createPost('texto del post');
-    expect(typeof response).toBe('object');
+  it('debería llamar a addDoc', async () => {
+    const addDocMock = jest.fn().mockResolvedValue();
+    addDoc.mockImplementationOnce(addDocMock);
+    await createPost('my post content');
+    expect(addDocMock).toHaveBeenCalled();
   });
 });

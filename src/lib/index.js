@@ -24,8 +24,10 @@ import {
 import { auth, db } from '../app/firebase';
 
 // Crea un nuevo usuario con el método de autenticación de correo y contraseña de Firebase.
-export const ourCreateUserWithEmailAndPassword = (email, password) => (
-  createUserWithEmailAndPassword(auth, email, password));
+export const ourCreateUserWithEmailAndPassword = (email, password) => {
+  const result = createUserWithEmailAndPassword(auth, email, password);
+  console.log(result);
+};
 
 // Inicia sesión el método de autenticación anterior
 export const ourSignInWithEmailAndPassword = (email, password) => (
