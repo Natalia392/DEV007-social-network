@@ -41,6 +41,7 @@ describe('ourCreateUserWithEmailAndPassword', () => {
   it('debería ser una función', () => {
     expect(typeof ourCreateUserWithEmailAndPassword).toBe('function');
   });
+
   it('debería llamar a la función createUserWithEmailAndPassword', async () => {
     createUserWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'email@example.com' } });
     await ourCreateUserWithEmailAndPassword('email@example.com', '123456');
@@ -76,9 +77,13 @@ describe('signInWithGoogle', () => {
     expect(typeof signInWithGoogle).toBe('function');
   });
 
-  it('debería llamar a la función signInWithPopUp con el provider correcto', async () => {
+  it('debería llamar a la función signInWithPopup con el provider correcto', async () => {
+    const mockGoogleAuthProvider = new GoogleAuthProvider();
+    auth.GoogleAuthProvider.mockReturnValueOnce(mockGoogleAuthProvider);
+
     await signInWithGoogle();
-    expect(signInWithPopup).toHaveBeenCalledWith(auth, expect.any(GoogleAuthProvider));
+
+    expect(signInWithPopup).toHaveBeenCalledWith(auth, mockGoogleAuthProvider);
   });
 });
 
