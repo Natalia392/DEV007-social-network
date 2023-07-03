@@ -80,7 +80,7 @@ export const Wall = (onNavigate) => {
   <img class="books" src="${books}">
   </div>
   <div class="new-post-container" id="new-post-container">
-      <div class="new-post-text" contenteditable="true" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></div><br>
+      <textarea class="new-post-text" contenteditable="true" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></textarea><br>
       <button id="post-button" class="post-button">Publicar</button>
     </div>
     <div class="pink-container">
