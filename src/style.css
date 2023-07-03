@@ -155,7 +155,6 @@ a {
   .posts-main {
     background: #fffaf0;
     box-shadow: #006d77 0px 22px 70px 4px;
-    border-radius: 5px;
     height: fit-content;
     display: grid;
     flex-direction: column;
