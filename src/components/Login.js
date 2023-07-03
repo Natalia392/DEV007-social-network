@@ -76,20 +76,20 @@ export const Login = (onNavigate) => {
     e.preventDefault();
 
     const email = inputEmailLogin.value;
-    console.log(email);
+    // console.log(email);
     const password = inputPasswordLogin.value;
-    console.log(password);
+    // console.log(password);
 
     try {
       if (email === '' || password === '') {
         showMessage('Por favor, ingresa tu correo electrónico y contraseña');
       } else {
-        const userCredentials = await ourSignInWithEmailAndPassword(email, password);
-        console.log(userCredentials);
+        await ourSignInWithEmailAndPassword(email, password);
+        // console.log(userCredentials);
         onNavigate('/wall');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.code === 'auth/invalid-email') {
         showMessage('El correo electrónico proporcionado no es válido');
       } else if (error.code === 'auth/wrong-password') {
@@ -108,8 +108,8 @@ export const Login = (onNavigate) => {
     e.preventDefault();
 
     try {
-      const credentials = await signInWithGoogle();
-      console.log(credentials);
+      await signInWithGoogle();
+      // console.log(credentials);
       onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {

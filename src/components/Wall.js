@@ -6,7 +6,7 @@ import {
   editPost,
   likePost,
   removeLike,
-  // logOutOfApp,
+  userLogOut,
 } from '../lib';
 import { showMessage, showDeleteMessage, showEditModal } from './modal';
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
@@ -97,14 +97,15 @@ export const Wall = (onNavigate) => {
         showMessage('Escribe algo para publicar');
       } else {
         createPost(inputPost.value, (postData) => {
-          console.log(postData);
+          // console.log(postData);
           // Se pasa como argumento el texto del input a createPost
           wallMain.querySelector('.new-post-text').value = '';
           return postData;
         });
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      throw new Error(`Error al crear el post: ${error.message}`);
     }
   });
 
@@ -192,7 +193,7 @@ export const Wall = (onNavigate) => {
           showEditModal(postContent, async (newText) => {
             if (newText !== '') {
               await editPost(postId, newText);
-              console.log(newText);
+              // console.log(newText);
             } else {
               showMessage('No has introducido nada');
             }
@@ -224,13 +225,12 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  logoutButton.addEventListener('click', async () => {
-    onNavigate('/');
-    /* try {
-      await logOutOfApp();
-    } catch (error) {
-      console.log(error);
-    } */
+  logoutButton.addEventListener('click', () => {
+    userLogOut().then(() => {
+      console.log('saliendo de la web');
+      localStorage.clear();
+      onNavigate('/');
+    });
   });
 
   wallDiv.appendChild(wallMain);

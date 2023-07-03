@@ -105,12 +105,12 @@ export const Register = (onNavigate) => {
       if (email === '' || password === '' || userName === '') {
         showMessage('Por favor, completa todos los campos');
       } else {
-        const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
+        await ourCreateUserWithEmailAndPassword(email, password);
         onNavigate('/wall');
-        console.log(userCredentials);
+        // console.log(userCredentials);
       }
     } catch (error) {
-      console.log(error.code);
+      // console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         showMessage('Este correo ya está registrado');
       } else if (error.code === 'auth/invalid-email') {
@@ -130,8 +130,8 @@ export const Register = (onNavigate) => {
     e.preventDefault();
 
     try {
-      const credentials = await signInWithGoogle();
-      console.log(credentials);
+      await signInWithGoogle();
+      // console.log(credentials);
       onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
