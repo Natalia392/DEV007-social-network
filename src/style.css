@@ -473,6 +473,7 @@ input:focus {
   resize: none;
   width: -webkit-fill-available;
   font-size: 16px;
+  padding: 5%;
 }
 
 .new-post-text::placeholder {

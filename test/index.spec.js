@@ -8,7 +8,10 @@ import {
 import {
   addDoc,
   getDoc,
-  // collection,
+  collection,
+  orderBy,
+  query,
+  onSnapshot,
 } from 'firebase/firestore';
 
 import {
@@ -16,6 +19,7 @@ import {
   ourCreateUserWithEmailAndPassword,
   signInWithGoogle,
   createPost,
+  onGetPosts,
 } from '../src/lib/index';
 
 import { auth } from '../src/app/firebase';
@@ -25,8 +29,8 @@ jest.mock('firebase/auth');
 jest.mock('../src/app/firebase.js', () => ({
   auth: {
     currentUser: {
-      email: 'email@example.com',
-      password: '123456',
+      // email: 'email@example.com',
+      // password: '123456',
     },
     createUserWithEmailAndPassword: jest.fn(),
     signInWithEmailAndPassword: jest.fn(),
@@ -37,6 +41,9 @@ jest.mock('../src/app/firebase.js', () => ({
     collection: jest.fn(),
     addDoc: jest.fn(),
     getDoc: jest.fn(),
+    query: jest.fn(),
+    orderBy: jest.fn(),
+    onSnapshot: jest.fn(),
   },
 }));
 
@@ -46,9 +53,13 @@ describe('ourCreateUserWithEmailAndPassword', () => {
   });
 
   it('debería llamar a la función createUserWithEmailAndPassword', async () => {
-    createUserWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'email@example.com' } });
     await ourCreateUserWithEmailAndPassword('email@example.com', '123456');
     expect(createUserWithEmailAndPassword).toHaveBeenCalled();
+  });
+  it('debería retornar un objeto con el email: email@example.com', async () => {
+    createUserWithEmailAndPassword.mockReturnValueOnce({ user: { email: 'email@example.com' } });
+    const response = await ourCreateUserWithEmailAndPassword('email@example.com', '123456');
+    expect(response.user.email).toBe('email@example.com');
   });
 });
 
@@ -107,5 +118,36 @@ describe('createPost', () => {
     getDoc.mockImplementationOnce(getDocMock);
     await createPost('post content', callback);
     expect(addDocMock).toHaveBeenCalled();
+    expect(getDocMock).toHaveBeenCalled();
+  });
+
+  it('Debería arrojar un error', async () => {
+    const addDocMock = jest.fn(() => Promise.reject(new Error('Some error')));
+    addDoc.mockImplementationOnce(addDocMock);
+    const callback = jest.fn();
+    await expect(createPost('post content', callback)).rejects.toThrow('Error al crear el post: Some error');
+  });
+});
+
+describe('onGetPosts', () => {
+  it('debería llamar a la función callback con el querySnapshot', () => {
+    const collectionMock = jest.fn();
+    collection.mockImplementationOnce(collectionMock);
+
+    const orderByMock = jest.fn();
+    orderBy.mockImplementationOnce(orderByMock);
+
+    const queryMock = jest.fn();
+    query.mockImplementationOnce(queryMock);
+
+    const onSnapshotMock = jest.fn();
+    onSnapshot.mockImplementationOnce(onSnapshotMock);
+
+    const callback = jest.fn();
+    onGetPosts(callback);
+    expect(collectionMock).toHaveBeenCalled();
+    expect(orderByMock).toBeCalled();
+    expect(queryMock).toHaveBeenCalled();
+    expect(onSnapshotMock).toHaveBeenCalled();
   });
 });
