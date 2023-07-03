@@ -3,6 +3,10 @@ import { showMessage } from './modal';
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
 
 export const Register = (onNavigate) => {
+  const userExist = localStorage.getItem('pepito'); // Pepito es el usuario
+  if (userExist) {
+    onNavigate('/wall');
+  }
   // ------------------IMÁGEN Y TÍTULO---------------------------------
   // Aquí se crea el div que contiene el título y la imagen
   const allDiv = document.createElement('div');
@@ -105,12 +109,13 @@ export const Register = (onNavigate) => {
       if (email === '' || password === '' || userName === '') {
         showMessage('Por favor, completa todos los campos');
       } else {
-        const userCredentials = await ourCreateUserWithEmailAndPassword(email, password);
+        const userLogin = await ourCreateUserWithEmailAndPassword(email, password);
+        localStorage.setItem('pepito', userLogin);
         onNavigate('/wall');
-        console.log(userCredentials);
+        // console.log(userCredentials);
       }
     } catch (error) {
-      console.log(error.code);
+      // console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         showMessage('Este correo ya está registrado');
       } else if (error.code === 'auth/invalid-email') {
@@ -130,8 +135,9 @@ export const Register = (onNavigate) => {
     e.preventDefault();
 
     try {
-      const credentials = await signInWithGoogle();
-      console.log(credentials);
+      const userLogin = await signInWithGoogle();
+      localStorage.setItem('pepito', userLogin);
+      // console.log(credentials);
       onNavigate('/wall');
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {

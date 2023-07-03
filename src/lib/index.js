@@ -3,7 +3,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-  // signOut,
+  signOut,
   // onAuthStateChanged,
 } from 'firebase/auth';
 
@@ -26,7 +26,7 @@ import { auth, db } from '../app/firebase';
 // Crea un nuevo usuario con el método de autenticación de correo y contraseña de Firebase.
 export const ourCreateUserWithEmailAndPassword = (email, password) => {
   const result = createUserWithEmailAndPassword(auth, email, password);
-  console.log(result);
+  return result;
 };
 
 // Inicia sesión el método de autenticación anterior
@@ -80,12 +80,10 @@ export const likePost = async (docId, uidUser) => {
 };
 
 export const removeLike = async (docId, uidUser) => {
-  // pasamos por parámetro que post debe remover el like y el uid que debe remover.
+  // pasamos por parámetro qué post debe remover el like y el uid que debe remover.
   updateDoc(doc(db, 'posts', docId), {
     likes: arrayRemove(uidUser), // se remueve buscando el uid para evitar errores con el mail.
   });
 };
 
-/* export const logOutOfApp = async () => {
-  signOut();
-}; */
+export const userLogOut = () => (signOut(auth));
