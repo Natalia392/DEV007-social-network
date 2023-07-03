@@ -80,7 +80,7 @@ export const Wall = (onNavigate) => {
   <img class="books" src="${books}">
   </div>
   <div class="new-post-container" id="new-post-container">
-      <input class="new-post-text" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></input><br>
+      <textarea class="new-post-text" contenteditable="true" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></textarea><br>
       <button id="post-button" class="post-button">Publicar</button>
     </div>
     <div class="pink-container">
@@ -99,6 +99,7 @@ export const Wall = (onNavigate) => {
         createPost(inputPost.value, (postData) => {
           console.log(postData);
           // Se pasa como argumento el texto del input a createPost
+          console.log(postData);
           wallMain.querySelector('.new-post-text').value = '';
           return postData;
         });

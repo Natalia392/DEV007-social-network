@@ -459,14 +459,19 @@ input:focus {
   text-shadow: 5px 3px 5px #006d77, -2px -2px 4px #83C5BE;
 }
 
+
 .new-post-text { /*Input del mensaje*/
-  height: 120px;
   background-color: #FFFFFF;
   color: #292828;
   border: 20px solid #83C5BE;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 0px #83C5BE inset, 0px 0px 10px 0px #006d77;
   margin-bottom: 20px;
+  max-width: 80%;
+  max-height: 200px;
+  min-height: 200px;
+  resize: none;
+  width: -webkit-fill-available;
 }
 
 .new-post-text::placeholder {
@@ -573,6 +578,17 @@ input:focus {
   height: 20px;
   width: 20px;
   cursor: pointer;
+}
+
+.edit-post-text{
+  height: fit-content;
+  width: 250px;
+  background-color: #FFFFFF;
+  color: #292828;
+  border: 20px solid #83C5BE;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px #83C5BE inset, 0px 0px 10px 0px #006d77;
+  margin-bottom: 20px
 }
 
 /* .go-home{
