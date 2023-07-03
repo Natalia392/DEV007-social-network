@@ -141,9 +141,9 @@ export function showEditModal(originalText, onSave) {
   editPostMessage.textContent = 'Edita tu post';
   editPostMessage.className = 'p-modal';
 
-  // Crea el campo de entrada de texto
-  const inputText = document.createElement('input');
-  inputText.type = 'text';
+  // Crea el campo de entrada de texto editable
+  const inputText = document.createElement('div');
+  inputText.contentEditable = 'true';
   inputText.className = 'edit-post-text';
 
   // Crea el elemento <span> para cerrar
@@ -184,7 +184,7 @@ export function showEditModal(originalText, onSave) {
   function showModal() {
     overlay.style.display = 'flex';
     modalContainer.style.display = 'flex';
-    inputText.value = originalText; // Establecer el valor original en el campo de entrada
+    inputText.innerText = originalText; // Establecer el valor original en el campo de entrada
   }
 
   // Función para ocultar la ventana modal
@@ -198,7 +198,7 @@ export function showEditModal(originalText, onSave) {
 
   // Eventlistener para aceptar editar el post
   acceptButton.addEventListener('click', async () => {
-    const newText = inputText.value;
+    const newText = inputText.innerText;
     if (newText !== '') {
       await onSave(newText); // Llamada a la función onSave con el nuevo texto
       hideModal();
