@@ -3,6 +3,10 @@ import { showMessage } from './modal';
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
 
 export const Register = (onNavigate) => {
+  const userExist = localStorage.getItem('pepito'); // Pepito es el usuario
+  if (userExist) {
+    onNavigate('/wall');
+  }
   // ------------------IMÁGEN Y TÍTULO---------------------------------
   // Aquí se crea el div que contiene el título y la imagen
   const allDiv = document.createElement('div');
@@ -105,7 +109,8 @@ export const Register = (onNavigate) => {
       if (email === '' || password === '' || userName === '') {
         showMessage('Por favor, completa todos los campos');
       } else {
-        await ourCreateUserWithEmailAndPassword(email, password);
+        const userLogin = await ourCreateUserWithEmailAndPassword(email, password);
+        localStorage.setItem('pepito', userLogin);
         onNavigate('/wall');
         // console.log(userCredentials);
       }
@@ -130,7 +135,8 @@ export const Register = (onNavigate) => {
     e.preventDefault();
 
     try {
-      await signInWithGoogle();
+      const userLogin = await signInWithGoogle();
+      localStorage.setItem('pepito', userLogin);
       // console.log(credentials);
       onNavigate('/wall');
     } catch (error) {

@@ -17,6 +17,10 @@ import deleteIcon from '../assets/images/delete-icon.png';
 import editIcon from '../assets/images/edit-icon.png';
 
 export const Wall = (onNavigate) => {
+  const userExist = localStorage.getItem('pepito');
+  if (!userExist) {
+    onNavigate('/');
+  }
   // Creación del div que contiene tanto header como main y footer
 
   const wallDiv = document.createElement('div');

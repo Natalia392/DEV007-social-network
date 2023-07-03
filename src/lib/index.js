@@ -80,7 +80,7 @@ export const likePost = async (docId, uidUser) => {
 };
 
 export const removeLike = async (docId, uidUser) => {
-  // pasamos por parámetro que post debe remover el like y el uid que debe remover.
+  // pasamos por parámetro qué post debe remover el like y el uid que debe remover.
   updateDoc(doc(db, 'posts', docId), {
     likes: arrayRemove(uidUser), // se remueve buscando el uid para evitar errores con el mail.
   });
