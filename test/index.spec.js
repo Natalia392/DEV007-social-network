@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from 'firebase/auth';
 
 import {
@@ -12,6 +13,10 @@ import {
   orderBy,
   query,
   onSnapshot,
+  updateDoc,
+  doc,
+  arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore';
 
 import {
@@ -20,6 +25,11 @@ import {
   signInWithGoogle,
   createPost,
   onGetPosts,
+  deletePost,
+  editPost,
+  likePost,
+  removeLike,
+  userLogOut,
 } from '../src/lib/index';
 
 import { auth } from '../src/app/firebase';
@@ -149,5 +159,82 @@ describe('onGetPosts', () => {
     expect(orderByMock).toBeCalled();
     expect(queryMock).toHaveBeenCalled();
     expect(onSnapshotMock).toHaveBeenCalled();
+  });
+});
+
+describe('deletePost', () => {
+  it('debería ser una función', () => {
+    expect(typeof deletePost).toBe('function');
+  });
+});
+
+describe('editPost', () => {
+  it('debería ser una función', () => {
+    expect(typeof editPost).toBe('function');
+  });
+
+  it('debería llamar a updateDoc', async () => {
+    const updateDocMock = jest.fn();
+    updateDoc.mockImplementationOnce(updateDocMock);
+    await editPost();
+    expect(updateDocMock).toHaveBeenCalled();
+  });
+});
+
+describe('likePost', () => {
+  it('debería ser una función', () => {
+    expect(typeof likePost).toBe('function');
+  });
+  it('debería llamar a updateDoc', async () => {
+    const updateDocMock = jest.fn();
+    updateDoc.mockImplementationOnce(updateDocMock);
+    await likePost();
+    expect(updateDocMock).toHaveBeenCalled();
+  });
+  it('debería llamar a arrayUnion', async () => {
+    const arrayUnionMock = jest.fn();
+    arrayUnion.mockImplementationOnce(arrayUnionMock);
+    await likePost();
+    expect(arrayUnionMock).toHaveBeenCalled();
+  });
+});
+
+describe('removeLike', () => {
+  it('debería ser una función', () => {
+    expect(typeof removeLike).toBe('function');
+  });
+
+  it('debería llamar a updateDoc', async () => {
+    const updateDocMock = jest.fn();
+    updateDoc.mockImplementationOnce(updateDocMock);
+    await likePost();
+    expect(updateDocMock).toHaveBeenCalled();
+  });
+
+  it('debería llamar a doc', async () => {
+    const docMock = jest.fn();
+    doc.mockImplementationOnce(docMock);
+    await likePost();
+    expect(docMock).toHaveBeenCalled();
+  });
+
+  it('debería llamar a arrayRemove', async () => {
+    const arrayRemoveMock = jest.fn();
+    arrayRemove.mockImplementationOnce(arrayRemoveMock);
+    await removeLike();
+    expect(arrayRemoveMock).toHaveBeenCalled();
+  });
+});
+
+describe('userLogOut', () => {
+  it('debería ser una función', () => {
+    expect(typeof userLogOut).toBe('function');
+  });
+
+  it('debería llamar a signOut', async () => {
+    const signOutMock = jest.fn();
+    signOut.mockImplementationOnce(signOutMock);
+    await userLogOut();
+    expect(signOutMock).toHaveBeenCalled();
   });
 });
