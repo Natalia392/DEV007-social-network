@@ -45,6 +45,7 @@ export function showMessage(message) {
 }
 
 // función para preguntar si se quiere eliminar el post -------
+// Se pasa en el parámetro, dentro del objeto options, la función deletePostCallback
 export function showDeleteMessage({ deletePostCallBack }) {
   // Crea el contenedor de la ventana modal
   const modalContainer = document.createElement('div');

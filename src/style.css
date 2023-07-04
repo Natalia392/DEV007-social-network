@@ -459,7 +459,7 @@ input:focus {
 }
 
 
-.new-post-text { /*Input del mensaje*/
+.new-post-text { /*Textarea del mensaje*/
   background-color: #FFFFFF;
   color: #292828;
   border: 20px solid #83C5BE;
@@ -473,6 +473,7 @@ input:focus {
   width: -webkit-fill-available;
   font-size: 16px;
   padding: 5%;
+  white-space: pre-wrap; /* VER ESTO --------------------------------*/
 }
 
 .new-post-text::placeholder {
@@ -528,7 +529,9 @@ input:focus {
 .post-div { /*Cada post individual*/
   background-color:#fffaf0;
   box-shadow: 1px 1px 10px 1px #e29578;
-  padding: 30px; 
+  padding: 30px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .title-posts { /*titulo de: todas las publicaciones*/

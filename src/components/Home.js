@@ -2,7 +2,7 @@
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
 
 export const Home = (onNavigate) => {
-  // ------------------IMÁGEN Y TÍTULO-------------------------------
+  // ------------------IMAGEN Y TÍTULO-------------------------------
   // Div en el que se engloban todos los elementos de home
   const allDiv = document.createElement('div');
   allDiv.setAttribute('class', 'all-div');
