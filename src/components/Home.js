@@ -2,6 +2,10 @@
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
 
 export const Home = (onNavigate) => {
+  const userExist = localStorage.getItem('pepito');
+  if (userExist) {
+    onNavigate('/wall');
+  }
   // ------------------IMAGEN Y TÍTULO-------------------------------
   // Div en el que se engloban todos los elementos de home
   const allDiv = document.createElement('div');
