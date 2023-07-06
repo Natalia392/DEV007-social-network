@@ -17,12 +17,13 @@ import deleteIcon from '../assets/images/delete-icon.png';
 import editIcon from '../assets/images/edit-icon.png';
 
 export const Wall = (onNavigate) => {
+  // se revisa si hay un usuario en el localStorage. (se guardó cómo pepito)
   const userExist = localStorage.getItem('pepito');
+  // Si no hay usuario, manda a home.
   if (!userExist) {
     onNavigate('/');
   }
   // Creación del div que contiene tanto header como main y footer
-
   const wallDiv = document.createElement('div');
   wallDiv.className = 'wall-div';
 
@@ -85,7 +86,7 @@ export const Wall = (onNavigate) => {
   </div>
   <div class="new-post-container" id="new-post-container">
       <textarea class="new-post-text" contenteditable="true" placeholder="Escribe aquí lo que quieras compartir sobre libros que hayas leído recientemente"></textarea><br>
-      <button id="post-button" class="post-button">Publicar</button>
+      <button id="post-btn" class="post-button">Publicar</button>
     </div>
     <div class="pink-container">
       <h2 class="title-posts">Todas las publicaciones</h2>
@@ -94,29 +95,25 @@ export const Wall = (onNavigate) => {
     `;
   // Luego se llama al botón de postear para que al darle click genere un nuevo post
   // Esto se hace usando el método de firebase, que incluimos en nuestra función createPost
-  wallMain.querySelector('#post-button').addEventListener('click', async () => {
+  wallMain.querySelector('#post-btn').addEventListener('click', async () => {
     const inputPost = wallMain.querySelector('.new-post-text');
     try {
       if (inputPost.value === '') {
         showMessage('Escribe algo para publicar');
       } else {
         createPost(inputPost.value, (postData) => {
-          // console.log(postData);
           // Se pasa como argumento el texto del input a createPost
-          console.log(postData);
           wallMain.querySelector('.new-post-text').value = '';
           return postData;
         });
       }
     } catch (error) {
-      // console.error(error);
       throw new Error(`Error al crear el post: ${error.message}`);
     }
   });
 
   // ----POSTS PUBLICADOS-2--Luego se declara la constante que contendrá todos los posts publicados
   const allPostsDiv = wallMain.querySelector('.all-posts');
-  // obetenemos el usuario actual
 
   // El querySnapshot es un objeto que resulta de una consulta (query) a firestore
   // onGetPosts nos trae todos los posts de la colección posts
@@ -173,19 +170,20 @@ export const Wall = (onNavigate) => {
     allPostsDiv.innerHTML = postHtml;
 
     // ------INICIALIZACIÓN FUNCIONALIDAD ÍCONOS BORRAR, LIKE, EDITAR -----------------
-    const deletePostButtons = document.querySelectorAll('.delete-icon'); // ojito aquí
-    const editPostButtons = document.querySelectorAll('.edit-icon'); // ojito aquí x2
-    const likePostButtons = allPostsDiv.querySelectorAll('.like-button'); // estos se toman ALL, ojo aquí debemos referenciar al contenedor padre
+    const deletePostButtons = document.querySelectorAll('.delete-icon');
+    const editPostButtons = document.querySelectorAll('.edit-icon');
+    const likePostButtons = allPostsDiv.querySelectorAll('.like-button');
 
     // Inicialización botón delete
     if (deletePostButtons) {
       deletePostButtons.forEach((deletePostButton) => {
         deletePostButton.addEventListener('click', async () => {
           const postId = deletePostButton.dataset.id;
+          // Se declara un callback para pasar a la modal, que tiene la función deletePost
           const deletePostCallBack = () => deletePost(postId);
           showDeleteMessage({ deletePostCallBack });
         });
-      }); // <- Agregar el cierre del paréntesis aquí
+      });
     }
 
     // Inicialización botón edit
@@ -232,7 +230,6 @@ export const Wall = (onNavigate) => {
 
   logoutButton.addEventListener('click', () => {
     userLogOut().then(() => {
-      console.log('saliendo de la web');
       localStorage.clear();
       onNavigate('/');
     });
