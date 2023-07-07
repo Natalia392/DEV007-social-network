@@ -3,10 +3,6 @@ import { showMessage } from './modal';
 import logoComunidad from '../assets/images/Logo-Comunidad.png';
 
 export const Login = (onNavigate) => {
-  const userExist = localStorage.getItem('pepito');
-  if (userExist) {
-    onNavigate('/wall');
-  }
   // ------------------IMÁGEN Y TÍTULO------------------
   const allDiv = document.createElement('div');
   allDiv.setAttribute('class', 'all-div');
@@ -88,10 +84,7 @@ export const Login = (onNavigate) => {
       if (email === '' || password === '') {
         showMessage('Por favor, ingresa tu correo electrónico y contraseña');
       } else {
-        const userLogin = await ourSignInWithEmailAndPassword(email, password);
-        localStorage.setItem('pepito', userLogin); // isAdmin: true/false
-        // console.log(userCredentials);
-        onNavigate('/wall');
+        await ourSignInWithEmailAndPassword(email, password);
       }
     } catch (error) {
       // console.log(error);
@@ -113,10 +106,7 @@ export const Login = (onNavigate) => {
     e.preventDefault();
 
     try {
-      const userLogin = await signInWithGoogle();
-      localStorage.setItem('pepito', userLogin);
-      // console.log(credentials);
-      onNavigate('/wall');
+      await signInWithGoogle();
     } catch (error) {
       if (error.code === 'auth/popup-closed-by-user') {
         showMessage('El usuario cerró la ventana emergente de inicio de sesión de Google antes de completar el proceso');
