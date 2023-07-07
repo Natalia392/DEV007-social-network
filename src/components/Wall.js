@@ -16,13 +16,7 @@ import books from '../assets/images/books2.png';
 import deleteIcon from '../assets/images/delete-icon.png';
 import editIcon from '../assets/images/edit-icon.png';
 
-export const Wall = (onNavigate) => {
-  // se revisa si hay un usuario en el localStorage. (se guardó cómo pepito)
-  const userExist = localStorage.getItem('pepito');
-  // Si no hay usuario, manda a home.
-  if (!userExist) {
-    onNavigate('/');
-  }
+export const Wall = () => {
   // Creación del div que contiene tanto header como main y footer
   const wallDiv = document.createElement('div');
   wallDiv.className = 'wall-div';
@@ -230,8 +224,6 @@ export const Wall = (onNavigate) => {
 
   logoutButton.addEventListener('click', () => {
     userLogOut().then(() => {
-      localStorage.clear();
-      onNavigate('/');
     });
   });
 
