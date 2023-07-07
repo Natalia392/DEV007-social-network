@@ -1,7 +1,11 @@
+import { onAuthStateChanged } from 'firebase/auth';
+
 import { Home } from './components/Home.js';
 import { Register } from './components/Register.js';
 import { Login } from './components/Login.js';
 import { Wall } from './components/Wall.js';
+
+import { auth } from './app/firebase.js';
 
 // Se crea la constante del root (raíz) de todo
 const rootDiv = document.getElementById('root');
@@ -43,11 +47,13 @@ const handlePopstate = () => {
 // evento popstate gatilla la función handlePopstate
 window.onpopstate = handlePopstate;
 
-// Guarda el path actual
-const currentPath = window.location.pathname;
-
-// guarda la ruta para cada componente, según su path actual
-const component = routes[currentPath];
-
 // Apenda el componente al root, pasándole la función onNavigate como argumento
-rootDiv.appendChild(component(onNavigate)); // Pasa onNavigate al componente
+// Pasa onNavigate al componente
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    onNavigate('/wall');
+  } else {
+    onNavigate('/');
+  }
+});
